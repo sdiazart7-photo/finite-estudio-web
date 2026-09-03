@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finite Estudio · ¿Qué van a revivir de su boda?</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<!-- Meta Pixel -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version="2.0";
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,"script",
+"https://connect.facebook.net/en_US/fbevents.js");
+fbq("init", "2447959342366827");
+fbq("track", "PageView");
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
+/></noscript>
+<!-- Fin Meta Pixel -->
+<meta name="facebook-domain-verification" content="auvuffvpgju80mvvaxymv2gnwyjohu" />
+<style>
+  :root{
+    --cream:#EDEAE0;
+    --paper:#F7F5F0;
+    --ink:#1C1A17;
+    --ink-soft:#4A453D;
+    --gold:#B8916A;
+    --wine:#6B2737;
+    --line: rgba(28,26,23,0.14);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    font-family:'Jost',sans-serif;
+    color:var(--ink);
+    background:var(--cream);
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:36px 20px 60px;
+    overflow-x:hidden;
+  }
+  .serif{font-family:'Cormorant Garamond',serif;}
+
+  .topbar{
+    width:100%; max-width:800px;
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;
+    margin-bottom:28px;
+  }
+  @media(max-width:480px){
+    .topbar{ flex-direction:column; align-items:flex-start; gap:4px; margin-bottom:22px; }
+  }
+  .brandmark{ font-family:'Cormorant Garamond',serif; font-size:clamp(13px,3.6vw,16px); letter-spacing:.04em; color:var(--ink); }
+  .step-tag{ font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-soft); }
+
+  .progress-dots{ display:flex; gap:8px; width:100%; max-width:800px; margin-bottom:20px; }
+  .progress-dots .dot{ flex:1; height:2px; background:var(--line); border-radius:2px; overflow:hidden; }
+  .progress-dots .dot i{ display:block; height:100%; width:0%; background:var(--gold); transition:width .5s cubic-bezier(.65,0,.35,1); }
+  .progress-dots .dot.done i{ width:100%; }
+  .progress-dots .dot.current i{ width:50%; }
+
+  .couple-tag{
+    width:100%; max-width:800px; display:none; text-align:center;
+    font-family:'Cormorant Garamond',serif; font-weight:500; font-size:clamp(20px,6vw,32px);
+    color:var(--wine); margin-top:22px; margin-bottom:44px; letter-spacing:.01em; padding:0 8px;
+  }
+
+  .stage{ width:100%; max-width:800px; }
+  .step{ display:none; }
+  .step.visible{ display:block; animation:rise .5s cubic-bezier(.2,.7,.3,1); }
+  @keyframes rise{ from{opacity:0; transform:translateY(14px);} to{opacity:1; transform:translateY(0);} }
+
+  .eyebrow{ font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:var(--gold); margin-bottom:20px; display:block; }
+  h1{ font-family:'Cormorant Garamond',serif; font-weight:500; font-size:clamp(2.1rem,5vw,3.4rem); line-height:1.12; }
+  h2{ font-family:'Cormorant Garamond',serif; font-weight:500; font-size:clamp(1.7rem,3.6vw,2.4rem); line-height:1.18; }
+  p.lead{ font-size:1.02rem; color:var(--ink-soft); line-height:1.65; margin-top:20px; font-weight:300; max-width:60ch; }
+  .quote-mark{ font-family:'Cormorant Garamond',serif; font-size:3.6rem; color:var(--wine); line-height:1; opacity:.5; margin-bottom:-10px; }
+
+  .carousel-wrap{ overflow:hidden; width:100%; margin-top:36px; -webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent); mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent); }
+  .carousel-track{ display:flex; gap:18px; width:max-content; animation:marquee-left 46s linear infinite; }
+  .cslot{
+    flex:0 0 260px; aspect-ratio:4/5; border-radius:4px;
+    overflow:hidden; background:rgba(28,26,23,0.03);
+  }
+  .cslot img{ width:100%; height:100%; object-fit:cover; display:block; }
+  @keyframes marquee-left{ from{ transform:translateX(0%); } to{ transform:translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce){ .carousel-track{ animation:none; } }
+
+  .quiz-field{ margin-top:34px; text-align:left; }
+  .quiz-field label{ display:block; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:12px; }
+  .quiz-field input{
+    width:100%; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.5rem; color:var(--ink);
+    background:none; border:none; border-bottom:1px solid var(--ink); padding:8px 2px 12px; outline:none;
+  }
+  .quiz-field input:focus{ border-color:var(--gold); }
+  .quiz-field input::placeholder{ color:var(--ink-soft); opacity:.45; }
+  .req-hint{ margin-top:8px; font-size:.78rem; color:var(--wine); display:none; }
+  .quiz-field.error .req-hint{ display:block; }
+  .quiz-field.error input{ border-color:var(--wine); }
+  .field-note{ margin-top:14px; font-size:.85rem; color:var(--ink-soft); font-weight:300; }
+  @keyframes shake{ 0%,100%{transform:translateX(0);} 20%{transform:translateX(-6px);} 40%{transform:translateX(6px);} 60%{transform:translateX(-4px);} 80%{transform:translateX(4px);} }
+  input.shake{ animation:shake .35s ease; }
+
+  .choice-cards{ display:flex; flex-direction:column; gap:12px; margin-top:34px; }
+  .choice-card{
+    text-align:left; background:var(--paper); border:1px solid var(--line); border-radius:4px;
+    padding:20px 22px; cursor:pointer; font-family:'Jost',sans-serif; display:flex; flex-direction:column; gap:6px;
+    transition:border-color .2s ease, background .2s ease; width:100%;
+  }
+  .choice-card:hover{ border-color:var(--gold); }
+  .choice-card.selected{ border-color:var(--gold); border-width:2px; background:var(--cream); }
+  .choice-title{ font-family:'Cormorant Garamond',serif; font-size:1.25rem; }
+  .choice-desc{ font-size:.82rem; color:var(--ink-soft); line-height:1.5; font-weight:300; }
+
+  .btn{
+    display:inline-block; margin-top:10px; padding:15px 34px; border:1px solid var(--ink); border-radius:999px;
+    text-decoration:none; color:var(--ink); font-size:13px; letter-spacing:.1em; text-transform:uppercase;
+    transition:background .3s ease, color .3s ease; background:none; font-family:'Jost',sans-serif; cursor:pointer;
+  }
+  .btn:hover{ background:var(--ink); color:var(--cream); }
+  .btn.gold{ background:var(--gold); border-color:var(--gold); color:var(--ink); }
+  .btn.gold:hover{ background:var(--ink); border-color:var(--ink); color:var(--cream); }
+  .btn:disabled{ opacity:.35; cursor:not-allowed; }
+  .btn:disabled:hover{ background:var(--gold); color:var(--ink); }
+  .btn.ghost{ background:none; border-color:var(--line); }
+  .btn.ghost:hover{ background:var(--ink); border-color:var(--ink); color:var(--cream); }
+
+  .nav-row{ display:flex; justify-content:space-between; align-items:center; margin-top:40px; }
+  .back-link{ font-size:13px; color:var(--ink-soft); cursor:pointer; text-decoration:underline; text-underline-offset:3px; }
+
+  .steps{ display:grid; grid-template-columns:repeat(4,1fr); gap:22px; margin-top:36px; text-align:left; }
+  @media(max-width:860px){ .steps{ grid-template-columns:1fr 1fr; } }
+  @media(max-width:480px){ .steps{ grid-template-columns:1fr; } }
+  .stepbox{ border-top:1px solid var(--line); padding-top:14px; }
+  .stepbox .step-num{ font-family:'Cormorant Garamond',serif; font-size:1.4rem; color:var(--gold); display:block; margin-bottom:6px; }
+  .stepbox h3{ font-weight:500; font-size:.88rem; margin-bottom:6px; }
+  .stepbox p{ font-size:.8rem; color:var(--ink-soft); line-height:1.5; font-weight:300; }
+
+  .test-block{ margin-top:56px; border-top:1px solid var(--line); padding-top:40px; }
+  .test-eyebrow{ font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:var(--gold); margin-bottom:22px; display:block; text-align:center; }
+  .test-track{ position:relative; min-height:150px; text-align:center; }
+  .test{ display:none; }
+  .test.active{ display:block; animation:rise .5s cubic-bezier(.2,.7,.3,1); }
+  .test blockquote{ font-family:'Cormorant Garamond',serif; font-style:italic; font-size:clamp(1.2rem,2.4vw,1.5rem); line-height:1.5; max-width:56ch; margin:0 auto; }
+  .test cite{ display:block; margin-top:18px; font-style:normal; font-size:.78rem; letter-spacing:.1em; text-transform:uppercase; color:var(--gold); }
+  .test-dots{ display:flex; gap:10px; justify-content:center; margin-top:26px; }
+  .test-dots button{ width:7px; height:7px; border-radius:50%; border:1px solid var(--ink); background:transparent; cursor:pointer; padding:0; }
+  .test-dots button.active{ background:var(--gold); border-color:var(--gold); }
+
+  .pkg-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:36px; text-align:left; }
+  .pkg-grid.four{ grid-template-columns:repeat(2,1fr); }
+  @media(max-width:860px){ .pkg-grid{ grid-template-columns:1fr; } .pkg-grid.four{ grid-template-columns:1fr; } }
+  .pkg{ background:var(--cream); border:1px solid var(--line); border-radius:4px; padding:28px 22px; position:relative; }
+  .pkg.featured{ border-color:var(--gold); border-width:2px; }
+  .pkg .tag{ position:absolute; top:-13px; left:22px; background:var(--gold); color:var(--ink); font-size:10px; letter-spacing:.14em; text-transform:uppercase; padding:4px 12px; border-radius:999px; }
+  .pkg h3{ font-family:'Cormorant Garamond',serif; font-size:1.5rem; font-weight:500; margin-bottom:4px; }
+  .pkg .hrs{ font-size:.75rem; color:var(--ink-soft); letter-spacing:.05em; text-transform:uppercase; margin-bottom:16px; display:block; }
+  .pkg .price{ font-family:'Cormorant Garamond',serif; font-size:1.9rem; margin-bottom:16px; }
+  .pkg .price span{ font-family:'Jost',sans-serif; font-size:.68rem; color:var(--ink-soft); }
+  .pkg ul{ list-style:none; margin:0 0 6px; }
+  .pkg li{ font-size:.8rem; color:var(--ink-soft); padding:6px 0; border-top:1px solid var(--line); font-weight:300; }
+  .pkg li:first-child{ border-top:none; }
+  .pkg-note{ margin-top:24px; text-align:center; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.05rem; color:var(--wine); font-weight:500; }
+  .decision-block{
+    margin-top:32px; padding:28px 26px; border-radius:8px;
+    border:1px solid var(--gold); background:rgba(184,145,106,0.1);
+    text-align:center;
+  }
+  .decision-note{ font-size:1rem; color:var(--ink); line-height:1.6; font-weight:400; max-width:62ch; margin:0 auto; }
+  .decision-note strong{ color:var(--wine); font-weight:600; }
+  .cta-links{ margin-top:22px; display:flex; gap:16px; flex-wrap:wrap; justify-content:center; }
+  .cta-links .btn{ padding:18px 40px; font-size:14px; font-weight:500; box-shadow:0 4px 14px rgba(28,26,23,0.08); }
+  .cta-links .btn.gold{ box-shadow:0 6px 18px rgba(184,145,106,0.45); }
+  .cta-links .btn:hover{ transform:translateY(-1px); }
+  @media(max-width:480px){
+    .decision-block{ padding:22px 18px; }
+    .cta-links{ flex-direction:column; }
+    .cta-links .btn{ width:100%; text-align:center; padding:16px 20px; }
+  }
+  .restart{ margin-top:26px; font-size:.8rem; color:var(--ink-soft); cursor:pointer; text-decoration:underline; text-underline-offset:3px; display:inline-block; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span class="brandmark">Finite Estudio · Fotografía de bodas</span>
+  <span class="step-tag" id="stepTag">Antes de empezar</span>
+</div>
+
+<div class="progress-dots" id="progressDots"></div>
+
+<div class="couple-tag" id="coupleTag"></div>
+
+<div class="stage">
+
+  <div class="step visible" data-step="0">
+    <h1>Revivirás tu boda cada vez que abras estas fotos.</h1>
+    <p class="lead">Fotografía de bodas para parejas que quieren llegar al altar sin preocuparse por una sola foto y volver a revivir su boda una y otra vez.</p>
+    <div style="margin-top:32px;">
+      <button class="btn gold" onclick="goTo(1)">Empezar</button>
+    </div>
+    <div class="carousel-wrap" data-carousel="hero"></div>
+  </div>
+
+  <div class="step" data-step="1">
+    <span class="eyebrow">Pregunta 1 de 3</span>
+    <h2>¿Cómo se llaman?</h2>
+    <p class="lead">Con sus nombres, todo lo que viene después se siente hecho para ustedes y no para "el próximo cliente".</p>
+    <div class="quiz-field" id="names-field">
+      <label for="couple-names">Nombres de la pareja</label>
+      <input type="text" id="couple-names" placeholder="Ej. Andrea &amp; Luis" autocomplete="off">
+      <span class="req-hint">Necesito sus nombres para continuar.</span>
+    </div>
+    <div class="nav-row">
+      <span class="back-link" onclick="goTo(0)">Atrás</span>
+      <button class="btn gold" onclick="attemptGoTo(2,'couple-names','names-field')">Siguiente</button>
+    </div>
+    <div class="carousel-wrap" data-carousel="prep"></div>
+  </div>
+
+  <div class="step" data-step="2">
+    <span class="eyebrow">Pregunta 2 de 3</span>
+    <h2>¿Para cuándo es su boda?</h2>
+    <p class="lead">Se acompañan solo a 25 parejas al año. Es importante conocer la fecha de su gran día para confirmar disponibilidad.</p>
+    <div class="quiz-field" id="date-field">
+      <label for="wedding-date">Fecha de la boda</label>
+      <input type="date" id="wedding-date">
+      <span class="req-hint">Necesito su fecha para continuar.</span>
+    </div>
+    <div class="nav-row">
+      <span class="back-link" onclick="goTo(1)">Atrás</span>
+      <button class="btn gold" onclick="attemptGoTo(3,'wedding-date','date-field')">Siguiente</button>
+    </div>
+    <div class="carousel-wrap" data-carousel="ceremonia"></div>
+  </div>
+
+  <div class="step" data-step="3">
+    <span class="quote-mark serif">&ldquo;</span>
+    <h2>A los seis meses el miedo real es olvidar cómo se sintió ese día.</h2>
+    <p class="lead">Olvidar la cara de su papá cuando la vio entrar. El brindis que hizo llorar a su tía. Documentar una boda es un oficio no solo tener una cámara buena.</p>
+    <p class="lead" style="margin-top:6px;">Ustedes llegan tranquilos con la certeza de que van a poder revivir su boda cuantas veces quieran.</p>
+    <div class="nav-row">
+      <span class="back-link" onclick="goTo(2)">Atrás</span>
+      <button class="btn gold" onclick="goTo(4)">Seguir</button>
+    </div>
+    <div class="carousel-wrap" data-carousel="momentos"></div>
+  </div>
+
+  <div class="step" data-step="4">
+    <span class="eyebrow">Pregunta 3 de 3</span>
+    <h2>¿Qué les gustaría revivir de su boda?</h2>
+    <p class="lead">Elijan una opción y les mostramos justo la información que necesitan.</p>
+    <div class="quiz-field" id="cobertura-field" style="margin-top:20px;">
+      <div class="choice-cards">
+        <button class="choice-card" data-choice="todo">
+          <span class="choice-title">Todo el día de la boda</span>
+          <span class="choice-desc">Desde los preparativos hasta que se apaguen las luces.</span>
+        </button>
+        <button class="choice-card" data-choice="fiesta">
+          <span class="choice-title">Desde la ceremonia hasta la fiesta</span>
+          <span class="choice-desc">El momento del sí, la sesión de novios y la pista de baile.</span>
+        </button>
+        <button class="choice-card" data-choice="ceremonia">
+          <span class="choice-title">Solo ceremonia y sesión de novios</span>
+          <span class="choice-desc">El momento del sí y una sesión de retratos, sin fiesta.</span>
+        </button>
+      </div>
+      <span class="req-hint">Selecciona una opción para continuar.</span>
+    </div>
+    <div class="nav-row">
+      <span class="back-link" onclick="goTo(3)">Atrás</span>
+      <span></span>
+    </div>
+    <div class="carousel-wrap" data-carousel="fiesta"></div>
+  </div>
+
+  <div class="step" data-step="5">
+    <span class="eyebrow">Antes de ver su propuesta</span>
+    <h2>Así es el proceso, sin importar qué paquete elijan</h2>
+    <p class="lead">Del primer mensaje a la galería final, esto es exactamente lo que va a pasar, para que sepan qué esperar en cada momento.</p>
+    <div class="steps">
+      <div class="stepbox">
+        <span class="step-num serif">01</span>
+        <h3>Contacto</h3>
+        <p>Su fecha se revisa contra la agenda real, sin compromiso alguno de su parte.</p>
+      </div>
+      <div class="stepbox">
+        <span class="step-num serif">02</span>
+        <h3>Cita y contrato</h3>
+        <p>Se agenda una cita para conocerse y platicar de su boda. Si todo hace sentido, firman contrato y su fecha queda bloqueada.</p>
+      </div>
+      <div class="stepbox">
+        <span class="step-num serif">03</span>
+        <h3>Sesión y boda</h3>
+        <p>Una semana antes hay una reunión de planeación. El día de la boda, ustedes lo viven; cada momento importante queda documentado.</p>
+      </div>
+      <div class="stepbox">
+        <span class="step-num serif">04</span>
+        <h3>Entrega</h3>
+        <p>Entre 30 y 35 días hábiles después, su material está listo para que lo revivan cuantas veces quieran.</p>
+      </div>
+    </div>
+    <div class="test-block">
+      <span class="test-eyebrow">Lo que dicen quienes ya vivieron el proceso</span>
+      <div class="test-track">
+        <div class="test active">
+          <blockquote class="serif">&ldquo;Vimos las fotos tres meses después y volvimos a llorar como ese día. Eso no lo esperábamos.&rdquo;</blockquote>
+          <cite>Andrea &amp; Luis · Boda en Valle de Guadalupe</cite>
+        </div>
+        <div class="test">
+          <blockquote class="serif">&ldquo;No sentimos la cámara en ningún momento, y aun así quedó todo, hasta cosas que ni vimos pasar.&rdquo;</blockquote>
+          <cite>Karla &amp; Diego · Boda en Tijuana</cite>
+        </div>
+        <div class="test">
+          <blockquote class="serif">&ldquo;La galería llegó ordenada como si volviéramos a vivir el día completo, no solo a ver fotos sueltas.&rdquo;</blockquote>
+          <cite>Fernanda &amp; Iván · Boda en Rosarito</cite>
+        </div>
+      </div>
+      <div class="test-dots">
+        <button class="active" data-t="0" aria-label="Testimonio 1"></button>
+        <button data-t="1" aria-label="Testimonio 2"></button>
+        <button data-t="2" aria-label="Testimonio 3"></button>
+      </div>
+    </div>
+
+    <div class="nav-row">
+      <span class="back-link" onclick="goTo(4)">Atrás</span>
+      <button class="btn gold" onclick="showResult()">Ver mi propuesta</button>
+    </div>
+  </div>
+
+  <div class="step" data-step="6">
+
+    <div id="resultado-full">
+      <span class="eyebrow">Su propuesta</span>
+      <h2>Paquetes ideales para revivir su boda una y otra vez</h2>
+      <div class="pkg-grid four">
+        <div class="pkg">
+          <span class="tag">Foto + video</span>
+          <h3 class="serif">Premier</h3>
+          <span class="hrs">12 horas de cobertura</span>
+          <div class="price">$44,650 <span>MXN</span></div>
+          <ul>
+            <li>Un fotógrafo especialista en bodas</li>
+            <li>Un videógrafo especialista en bodas</li>
+            <li>Sesión Save the Date (foto)</li>
+            <li>500 a 600 fotografías digitales editadas</li>
+            <li>The saga collection</li>
+            <li>Short video de 2 minutos</li>
+            <li>Full video de 50 a 60 minutos</li>
+            <li>The vlog experience</li>
+            <li>Galería online</li>
+            <li>Sneak Peek (25 fotos, 3 días después de la boda)</li>
+            <li>Asesoría y reuniones previas a la boda</li>
+            <li>De regalo: invitación digital</li>
+          </ul>
+        </div>
+        <div class="pkg featured">
+          <span class="tag">La opción más elegida</span>
+          <h3 class="serif">Trilogía</h3>
+          <span class="hrs">10 horas de cobertura</span>
+          <div class="price">$26,500 <span>MXN</span></div>
+          <ul>
+            <li>Un fotógrafo especialista en bodas</li>
+            <li>Sesión Save the Date</li>
+            <li>500 a 600 fotografías digitales editadas</li>
+            <li>The saga collection</li>
+            <li>Galería online</li>
+            <li>Sneak Peek (25 fotos, 3 días después de la boda)</li>
+            <li>Asesoría y reuniones previas a la boda</li>
+            <li>De regalo: invitación digital</li>
+          </ul>
+        </div>
+        <div class="pkg">
+          <h3 class="serif">Secuela</h3>
+          <span class="hrs">6 horas de cobertura</span>
+          <div class="price">$20,000 <span>MXN</span></div>
+          <ul>
+            <li>Un fotógrafo especialista en bodas</li>
+            <li>Sesión Save the Date</li>
+            <li>350 a 400 fotografías digitales editadas</li>
+            <li>The saga collection</li>
+            <li>Galería online</li>
+            <li>Sneak Peek (25 fotos, 3 días después de la boda)</li>
+            <li>Asesoría y reuniones previas a la boda</li>
+            <li>De regalo: invitación digital</li>
+          </ul>
+        </div>
+        <div class="pkg">
+          <h3 class="serif">Piloto</h3>
+          <span class="hrs">6 horas de cobertura</span>
+          <div class="price">$17,500 <span>MXN</span></div>
+          <ul>
+            <li>Un fotógrafo especialista en bodas</li>
+            <li>350 a 400 fotografías digitales editadas</li>
+            <li>Galería online</li>
+            <li>Asesoría y reuniones previas a la boda</li>
+          </ul>
+        </div>
+      </div>
+      <p class="pkg-note">Precios válidos en Tijuana y Rosarito. Se acompañan solo a 25 parejas al año.</p>
+      <div class="decision-block">
+        <p class="decision-note">Si alguno de estos paquetes <strong>les hace sentido</strong> y están de acuerdo con el proceso para contratar el servicio, <strong>agenden su cita directamente en el calendario</strong>. Si aún tienen dudas o consultas, escríbanme por WhatsApp.</p>
+        <div class="cta-links">
+          <a href="https://cal.com/tu-usuario" class="btn gold" target="_blank" rel="noopener">Agendar videollamada o cafecito</a>
+          <a id="wa-full" href="#" class="btn ghost" target="_blank" rel="noopener">Tengo dudas, escríbeme por WhatsApp</a>
+        </div>
+      </div>
+    </div>
+
+    <div id="resultado-short" style="display:none;">
+      <span class="eyebrow">Su propuesta</span>
+      <h2>Paquetes ideales para revivir su ceremonia y sesión de novios</h2>
+      <div class="pkg-grid">
+        <div class="pkg featured">
+          <span class="tag">Cobertura más amplia</span>
+          <h3 class="serif">Paquete III</h3>
+          <span class="hrs">Hasta 4 horas de cobertura</span>
+          <div class="price">$9,800 <span>MXN</span></div>
+          <ul>
+            <li>1 fotógrafo especialista</li>
+            <li>Hasta 4 horas de cobertura</li>
+            <li>Mín. 150 a 180 fotos editadas</li>
+            <li>Sneak peek en 48 hrs (10 a 15 fotos)</li>
+            <li>Colección de 25 fotos impresas</li>
+            <li>Galería online</li>
+          </ul>
+        </div>
+        <div class="pkg">
+          <h3 class="serif">Paquete II</h3>
+          <span class="hrs">Hasta 2 horas de cobertura</span>
+          <div class="price">$3,900 <span>MXN</span></div>
+          <ul>
+            <li>1 fotógrafo especialista</li>
+            <li>Hasta 2 horas de cobertura</li>
+            <li>Mín. 80 a 100 fotos editadas</li>
+            <li>Sneak peek en 48 hrs (10 a 15 fotos)</li>
+            <li>Galería online</li>
+          </ul>
+        </div>
+        <div class="pkg">
+          <h3 class="serif">Paquete I</h3>
+          <span class="hrs">Hasta 1 hora de cobertura</span>
+          <div class="price">$3,400 <span>MXN</span></div>
+          <ul>
+            <li>1 fotógrafo especialista</li>
+            <li>Hasta 1 hora de cobertura</li>
+            <li>Mín. 40 a 50 fotos editadas</li>
+            <li>Sneak peek en 48 hrs (10 a 15 fotos)</li>
+            <li>Galería online</li>
+          </ul>
+        </div>
+      </div>
+      <p class="pkg-note">Precios válidos en Tijuana y Rosarito. Se acompañan solo a 25 parejas al año.</p>
+      <div class="decision-block">
+        <p class="decision-note">Si este paquete <strong>les hace sentido</strong> y están de acuerdo con el proceso para contratar el servicio, <strong>agenden su cita directamente en el calendario</strong>. Si aún tienen dudas o consultas, escríbanme por WhatsApp.</p>
+        <div class="cta-links">
+          <a href="https://cal.com/tu-usuario" class="btn gold" target="_blank" rel="noopener">Agendar videollamada o cafecito</a>
+          <a id="wa-short" href="#" class="btn ghost" target="_blank" rel="noopener">Tengo dudas, escríbeme por WhatsApp</a>
+        </div>
+      </div>
+    </div>
+
+    <span class="restart" onclick="restart()">Volver a empezar</span>
+  </div>
+
+</div>
+
+<script>
+  const steps = Array.from(document.querySelectorAll('.step'));
+  const stepTag = document.getElementById('stepTag');
+  const coupleTag = document.getElementById('coupleTag');
+  const dotsWrap = document.getElementById('progressDots');
+  const stepLabels = {0:'Antes de empezar',1:'Pregunta 1 de 3',2:'Pregunta 2 de 3',3:'Antes de seguir',4:'Pregunta 3 de 3',5:'Antes de ver su propuesta',6:'Su propuesta'};
+  const dotSteps = [1,2,3,4,5];
+  let current = 0;
+  let choice = null;
+
+  const cld = 'https://res.cloudinary.com/drrhn6t1c/image/upload/';
+  const carouselSets = {
+    hero: [
+      {url: cld+'v1764016366/boda-y_o-7_ot3jgj.jpg', alt:'Llegada al lugar'},
+      {url: cld+'v1764016369/boda-y_o-86_vnwekf.jpg', alt:'Detalles del vestido'},
+      {url: cld+'v1764016376/boda-y_o-199_ebzfqd.jpg', alt:'Anillos'},
+      {url: cld+'v1764016382/boda-y_o-307_e0fsm4.jpg', alt:'Luz de la tarde'},
+      {url: cld+'v1764016400/boda-y_o-369_xsasah.jpg', alt:'Complicidad antes de la ceremonia'}
+    ],
+    prep: [
+      {url: cld+'v1764016359/boda-s_b-33_f0lehp.jpg', alt:'Preparativos de ella'},
+      {url: cld+'v1764016360/boda-s_b-49_eueznz.jpg', alt:'Preparativos de él'},
+      {url: cld+'v1764016362/boda-s_b-71_wbolfo.jpg', alt:'Primer vistazo'},
+      {url: cld+'v1764016362/boda-s_b-83_va5bt3.jpg', alt:'Risas con la familia'},
+      {url: cld+'v1764016363/boda-s_b-100_fshi1k.jpg', alt:'Últimos retoques'}
+    ],
+    ceremonia: [
+      {url: cld+'v1764016310/boda-l_e-34_rb4lsl.jpg', alt:'Entrada de la novia'},
+      {url: cld+'v1764016312/boda-l_e-71_cztszy.jpg', alt:'Intercambio de votos'},
+      {url: cld+'v1764016325/boda-l_e-84_agcigb.jpg', alt:'El sí'},
+      {url: cld+'v1764016356/boda-l_e-92_g3ntau.jpg', alt:'Anillos en el altar'},
+      {url: cld+'v1764016359/boda-l_e-112_uqx22l.jpg', alt:'El beso'}
+    ],
+    momentos: [
+      {url: cld+'v1764016305/boda-e_a-138_vgkuic.jpg', alt:'Lágrimas del papá'},
+      {url: cld+'v1764016305/boda-e_a-143_sgom0z.jpg', alt:'Abrazo con la mamá'},
+      {url: cld+'v1764016306/boda-e_a-144_kasaur.jpg', alt:'Mirada cómplice'},
+      {url: cld+'v1764016306/boda-e_a-151_wecnsa.jpg', alt:'Brindis emotivo'},
+      {url: cld+'v1764016309/boda-e_a-167_vzfegp.jpg', alt:'Manos entrelazadas'}
+    ],
+    fiesta: [
+      {url: cld+'v1764016258/boda-a_a-324_aky3tz.jpg', alt:'Entrada a la recepción'},
+      {url: cld+'v1764016259/boda-a_a-327_camil7.jpg', alt:'Primer baile'},
+      {url: cld+'v1764016259/boda-a_a-339_qqwjpx.jpg', alt:'Brindis y discursos'},
+      {url: cld+'v1764016260/boda-a_a-371_be2yvy.jpg', alt:'Pista de baile'},
+      {url: cld+'v1764016263/boda-a_a-383_hyczdt.jpg', alt:'Última foto de la noche'}
+    ]
+  };
+  function carouselMarkup(items){
+    const single = items.map(it => `
+      <div class="cslot">
+        <img src="${it.url}" alt="${it.alt}" loading="lazy">
+      </div>`).join('');
+    return single + single;
+  }
+  document.querySelectorAll('[data-carousel]').forEach(wrap => {
+    const setKey = wrap.dataset.carousel;
+    const items = carouselSets[setKey] || [];
+    const track = document.createElement('div');
+    track.className = 'carousel-track';
+    track.innerHTML = carouselMarkup(items);
+    wrap.appendChild(track);
+  });
+
+  dotSteps.forEach(s=>{
+    const d = document.createElement('div');
+    d.className = 'dot';
+    d.dataset.step = s;
+    d.innerHTML = '<i></i>';
+    dotsWrap.appendChild(d);
+  });
+
+  function renderDots(){
+    document.querySelectorAll('.progress-dots .dot').forEach(d=>{
+      const s = parseInt(d.dataset.step,10);
+      d.classList.remove('done','current');
+      if(current > s) d.classList.add('done');
+      else if(current === s) d.classList.add('current');
+    });
+  }
+
+  function updateCoupleTag(){
+    const names = document.getElementById('couple-names').value.trim();
+    if(current >= 2 && names){
+      coupleTag.style.display = 'block';
+      coupleTag.textContent = `Boda - ${names}`;
+    } else {
+      coupleTag.style.display = 'none';
+    }
+  }
+
+  function goTo(step){
+    steps.forEach(s => s.classList.remove('visible'));
+    document.querySelector(`.step[data-step="${step}"]`).classList.add('visible');
+    current = step;
+    stepTag.textContent = stepLabels[step] || '';
+    renderDots();
+    updateCoupleTag();
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  function attemptGoTo(target, inputId, fieldId){
+    const el = document.getElementById(inputId);
+    const field = document.getElementById(fieldId);
+    if(!el.value.trim()){
+      field.classList.add('error');
+      el.classList.add('shake');
+      el.focus();
+      setTimeout(()=> el.classList.remove('shake'), 350);
+      return;
+    }
+    field.classList.remove('error');
+    goTo(target);
+  }
+
+  ['couple-names','wedding-date'].forEach(id=>{
+    document.getElementById(id).addEventListener('input', function(){
+      if(this.value.trim()) this.closest('.quiz-field').classList.remove('error');
+    });
+  });
+
+  function formatDate(value){
+    const [y,m,d] = value.split('-').map(Number);
+    return new Date(y, m-1, d).toLocaleDateString('es-MX', { day:'numeric', month:'long', year:'numeric' });
+  }
+
+  const coberturaLabels = {
+    todo: 'todo el día de la boda',
+    fiesta: 'desde la ceremonia hasta la fiesta',
+    ceremonia: 'solo ceremonia y sesión de novios'
+  };
+
+  document.querySelectorAll('.choice-card').forEach(card=>{
+    card.addEventListener('click', ()=>{
+      document.querySelectorAll('.choice-card').forEach(c=>c.classList.remove('selected'));
+      card.classList.add('selected');
+      choice = card.dataset.choice;
+      document.getElementById('cobertura-field').classList.remove('error');
+      setTimeout(()=> goTo(5), 300);
+    });
+  });
+
+  function showResult(){
+    const namesVal = document.getElementById('couple-names').value.trim();
+    const dateVal = document.getElementById('wedding-date').value;
+    const niceDate = dateVal ? formatDate(dateVal) : 'por confirmar';
+    const somos = namesVal ? `Somos ${namesVal}. ` : '';
+    const msg = `Hola! ${somos}Nuestra boda es el ${niceDate} y nos gustaría cubrir ${coberturaLabels[choice] || 'nuestra boda'}. ¿Nos pasas más información?`;
+    const waUrl = `https://wa.me/526640000000?text=${encodeURIComponent(msg)}`;
+
+    const resultadoFull = document.getElementById('resultado-full');
+    const resultadoShort = document.getElementById('resultado-short');
+
+    if(choice === 'ceremonia'){
+      resultadoFull.style.display = 'none';
+      resultadoShort.style.display = 'block';
+      document.getElementById('wa-short').href = waUrl;
+    } else {
+      resultadoFull.style.display = 'block';
+      resultadoShort.style.display = 'none';
+      document.getElementById('wa-full').href = waUrl;
+    }
+    if (typeof fbq === 'function') { fbq('track', 'Lead'); }
+    goTo(6);
+  }
+
+  function restart(){
+    choice = null;
+    document.getElementById('couple-names').value = '';
+    document.getElementById('wedding-date').value = '';
+    document.querySelectorAll('.choice-card').forEach(c=>c.classList.remove('selected'));
+    goTo(0);
+  }
+
+  const tests = document.querySelectorAll('.test');
+  const tdots = document.querySelectorAll('.test-dots button');
+  let ti = 0;
+  function showTest(i){
+    tests.forEach((t,idx)=>t.classList.toggle('active', idx===i));
+    tdots.forEach((d,idx)=>d.classList.toggle('active', idx===i));
+    ti = i;
+  }
+  tdots.forEach(d=> d.addEventListener('click', ()=> showTest(parseInt(d.dataset.t,10))));
+  setInterval(()=>{ showTest((ti+1)%tests.length); }, 6000);
+
+  renderDots();
+  updateCoupleTag();
+</script>
+
+</body>
+</html>
