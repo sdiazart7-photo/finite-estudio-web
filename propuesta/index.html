@@ -483,42 +483,42 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
   let current = 0;
   let choice = null;
 
-  const cld = 'https://res.cloudinary.com/drrhn6t1c/image/upload/';
+  const cld = 'https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_600/finite-estudio-web/';
   const carouselSets = {
     hero: [
-      {url: cld+'v1764016366/boda-y_o-7_ot3jgj.jpg', alt:'Llegada al lugar'},
-      {url: cld+'v1764016369/boda-y_o-86_vnwekf.jpg', alt:'Detalles del vestido'},
-      {url: cld+'v1764016376/boda-y_o-199_ebzfqd.jpg', alt:'Anillos'},
-      {url: cld+'v1764016382/boda-y_o-307_e0fsm4.jpg', alt:'Luz de la tarde'},
-      {url: cld+'v1764016400/boda-y_o-369_xsasah.jpg', alt:'Complicidad antes de la ceremonia'}
+      {url: cld+'inicio/beso-velo.jpg', alt:'Novios besándose con velo'},
+      {url: cld+'portafolio/portafolio-20.jpg', alt:'Novios al atardecer'},
+      {url: cld+'portafolio/portafolio-25.jpg', alt:'Fotografía editorial con luz natural'},
+      {url: cld+'inicio/retrato-editorial-bn.jpg', alt:'Retrato editorial en blanco y negro'},
+      {url: cld+'portafolio/portafolio-12.jpg', alt:'Retrato editorial de novia'}
     ],
     prep: [
-      {url: cld+'v1764016359/boda-s_b-33_f0lehp.jpg', alt:'Preparativos de ella'},
-      {url: cld+'v1764016360/boda-s_b-49_eueznz.jpg', alt:'Preparativos de él'},
-      {url: cld+'v1764016362/boda-s_b-71_wbolfo.jpg', alt:'Primer vistazo'},
-      {url: cld+'v1764016362/boda-s_b-83_va5bt3.jpg', alt:'Risas con la familia'},
-      {url: cld+'v1764016363/boda-s_b-100_fshi1k.jpg', alt:'Últimos retoques'}
+      {url: cld+'inicio/tacones-novia.jpg', alt:'Tacones de novia'},
+      {url: cld+'inicio/accesorios-novia.jpg', alt:'Accesorios de novia'},
+      {url: cld+'inicio/ramo-novia.jpg', alt:'Ramo de novia'},
+      {url: cld+'inicio/zapatos-novia-jardin.jpg', alt:'Zapatos de novia en jardín'},
+      {url: cld+'inicio/detalle-01.jpg', alt:'Detalle de preparativos'}
     ],
     ceremonia: [
-      {url: cld+'v1764016310/boda-l_e-34_rb4lsl.jpg', alt:'Entrada de la novia'},
-      {url: cld+'v1764016312/boda-l_e-71_cztszy.jpg', alt:'Intercambio de votos'},
-      {url: cld+'v1764016325/boda-l_e-84_agcigb.jpg', alt:'El sí'},
-      {url: cld+'v1764016356/boda-l_e-92_g3ntau.jpg', alt:'Anillos en el altar'},
-      {url: cld+'v1764016359/boda-l_e-112_uqx22l.jpg', alt:'El beso'}
+      {url: cld+'portafolio/portafolio-09.jpg', alt:'Novios besándose el día de su boda'},
+      {url: cld+'portafolio/portafolio-21.jpg', alt:'Lectura de votos'},
+      {url: cld+'portafolio/portafolio-36.jpg', alt:'Salida de la ceremonia'},
+      {url: cld+'portafolio/portafolio-05.jpg', alt:'Fotografía estilo documental'},
+      {url: cld+'inicio/documental-atardecer.jpg', alt:'Ceremonia al atardecer'}
     ],
     momentos: [
-      {url: cld+'v1764016305/boda-e_a-138_vgkuic.jpg', alt:'Lágrimas del papá'},
-      {url: cld+'v1764016305/boda-e_a-143_sgom0z.jpg', alt:'Abrazo con la mamá'},
-      {url: cld+'v1764016306/boda-e_a-144_kasaur.jpg', alt:'Mirada cómplice'},
-      {url: cld+'v1764016306/boda-e_a-151_wecnsa.jpg', alt:'Brindis emotivo'},
-      {url: cld+'v1764016309/boda-e_a-167_vzfegp.jpg', alt:'Manos entrelazadas'}
+      {url: cld+'inicio/novia-damas-diversion.jpg', alt:'Novia con sus damas'},
+      {url: cld+'portafolio/portafolio-22.jpg', alt:'Invitada festejando'},
+      {url: cld+'portafolio/portafolio-27.jpg', alt:'Reacción de los novios'},
+      {url: cld+'portafolio/portafolio-45.jpg', alt:'Momento espontáneo'},
+      {url: cld+'portafolio/portafolio-40.jpg', alt:'Invitada bailando'}
     ],
     fiesta: [
-      {url: cld+'v1764016258/boda-a_a-324_aky3tz.jpg', alt:'Entrada a la recepción'},
-      {url: cld+'v1764016259/boda-a_a-327_camil7.jpg', alt:'Primer baile'},
-      {url: cld+'v1764016259/boda-a_a-339_qqwjpx.jpg', alt:'Brindis y discursos'},
-      {url: cld+'v1764016260/boda-a_a-371_be2yvy.jpg', alt:'Pista de baile'},
-      {url: cld+'v1764016263/boda-a_a-383_hyczdt.jpg', alt:'Última foto de la noche'}
+      {url: cld+'portafolio/portafolio-46.jpg', alt:'Novia celebrando su boda'},
+      {url: cld+'portafolio/portafolio-50.jpg', alt:'Fiesta de bodas'},
+      {url: cld+'portafolio/portafolio-39.jpg', alt:'Lanzamiento del ramo'},
+      {url: cld+'portafolio/portafolio-35.jpg', alt:'Pista de baile'},
+      {url: cld+'inicio/sesion-novios-parque.jpg', alt:'Sesión de novios'}
     ]
   };
   function carouselMarkup(items){
