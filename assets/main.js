@@ -73,4 +73,28 @@ document.addEventListener('DOMContentLoaded', function () {
       else if (e.key === 'Escape') closeLightbox();
     });
   }
+
+  // Animación de aparición al hacer scroll
+  var revealSelector = [
+    'section .eyebrow', 'section h1', 'section h2',
+    '.center-copy p', '.two-col > *', '.pkg-card', '.proceso-step',
+    '.blog-card', '.faq-item', '.stepbox', '.flanked-grid > img', '.flanked-copy',
+    '.mood-duo img', '.bg-fixed-content', '.article-cover-grid img',
+    '.article-body h2', '.article-body p', '.article-body blockquote', '.cta-row'
+  ].join(', ');
+  var revealTargets = Array.from(document.querySelectorAll(revealSelector));
+  revealTargets.forEach(function (el) { el.classList.add('reveal'); });
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    revealTargets.forEach(function (el) { io.observe(el); });
+  } else {
+    revealTargets.forEach(function (el) { el.classList.add('in-view'); });
+  }
 });
