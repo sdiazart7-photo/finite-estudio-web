@@ -312,10 +312,10 @@ section { padding: 90px 0; }
   width: auto;
   max-width: 260px;
   object-fit: contain;
-  background: #fff;
   border-radius: var(--radius);
   box-shadow: 0 10px 24px rgba(0,0,0,0.18);
   flex: 0 0 auto;
+  cursor: pointer;
 }
 @keyframes marquee-left { from{ transform: translateX(0%); } to{ transform: translateX(-50%); } }
 @media (prefers-reduced-motion: reduce) { .testi-track { animation: none; } }
