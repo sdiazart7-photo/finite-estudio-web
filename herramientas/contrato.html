@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Firma tu contrato · Finite Estudio</title>
+<meta name="description" content="Lee y firma tu contrato de fotografía de bodas. Recibe tu copia en PDF al instante." />
+<meta name="robots" content="noindex,nofollow" />
+<meta name="theme-color" content="#1C1A18" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&family=Playfair+Display:ital,wght@1,700&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --dark: #1C1A18; --gold: #C9A15A; --gold-soft: rgba(201,161,90,0.20); --off-white: #FAF8F5;
+    --cream: #F3EEE6; --gray-text: #726B60; --ok: #1F9D55; --err: #B23A2E;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--dark);
+    -webkit-font-smoothing: antialiased;
+  }
+  .cursive { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 700; }
+
+  nav {
+    position: sticky; top: 0; z-index: 50; background: rgba(250,248,245,0.88); backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(28,26,24,0.08); padding: 18px 24px;
+  }
+  nav .inner { max-width: 900px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+  nav .brand { font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: 22px; letter-spacing: 0.04em; color: var(--dark); text-decoration: none; }
+  nav a.back { font-size: 13px; color: var(--gray-text); text-decoration: none; }
+  nav a.back:hover { color: var(--dark); }
+
+  .wrap { max-width: 900px; margin: 0 auto; padding: 0 24px 100px; }
+
+  .header { text-align: center; max-width: 720px; margin: 0 auto; padding: 48px 0 8px; }
+  .tag {
+    display: inline-block; background: var(--gold-soft); color: #8A6A2C;
+    font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+    padding: 6px 14px; border-radius: 9999px; margin-bottom: 18px; border: 1px solid rgba(201,161,90,0.35);
+  }
+  h1 {
+    font-family: 'Cormorant Garamond', serif; font-weight: 700; letter-spacing: -0.01em;
+    font-size: clamp(2.1rem, 4.4vw, 3.1rem); line-height: 1.08; margin-bottom: 14px;
+  }
+  .h1-accent { position: relative; display: inline-block; z-index: 0; }
+  .h1-accent::after { content: ''; position: absolute; bottom: 0.08em; left: 0; right: 0; height: 0.16em; background: var(--gold-soft); z-index: -1; }
+  .sub { font-size: 15.5px; color: var(--gray-text); max-width: 560px; margin: 0 auto; line-height: 1.65; }
+
+  /* ── Cards ── */
+  .card {
+    background: #fff; border-radius: 22px; padding: 32px; box-shadow: 0 20px 60px rgba(28,26,24,0.08);
+    border: 1px solid rgba(28,26,24,0.06); margin-bottom: 20px; margin-top: 32px;
+  }
+  .card-label {
+    font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--gray-text); margin-bottom: 18px;
+  }
+
+  /* ── Formulario ── */
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .field { display: flex; flex-direction: column; }
+  .field.full { grid-column: 1 / -1; }
+  .field label { font-size: 12.5px; font-weight: 600; margin-bottom: 6px; color: var(--dark); }
+  .field .hint { font-size: 11px; color: var(--gray-text); font-weight: 400; }
+  .field input {
+    font-family: 'DM Sans', sans-serif; font-size: 16px; padding: 13px 15px; border-radius: 13px;
+    border: 1.5px solid rgba(28,26,24,0.14); background: #fff; color: var(--dark); transition: border-color 0.2s;
+  }
+  .field input:focus { outline: none; border-color: var(--dark); }
+  .field input.invalid { border-color: var(--err); }
+  .whatsapp-row { display: flex; gap: 8px; }
+  .whatsapp-row select {
+    font-family: 'DM Sans', sans-serif; font-size: 16px; padding: 13px 8px; border-radius: 13px;
+    border: 1.5px solid rgba(28,26,24,0.14); background: #fff; color: var(--dark); width: 96px; flex-shrink: 0;
+  }
+  .whatsapp-row select:focus { outline: none; border-color: var(--dark); }
+  .whatsapp-row input { flex: 1; min-width: 0; }
+  .field-error { font-size: 11.5px; color: var(--err); margin-top: 5px; display: none; }
+  .field.show-error .field-error { display: block; }
+
+  /* ── Contrato ── */
+  .contrato-box {
+    background: var(--off-white); border: 1px solid rgba(28,26,24,0.10); border-radius: 16px;
+    padding: 24px; max-height: 380px; overflow-y: auto; font-size: 13.5px; line-height: 1.75;
+    color: #2b2b2b; scroll-behavior: smooth;
+  }
+  .contrato-box h3 {
+    font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 13.5px; letter-spacing: 0.02em;
+    margin: 22px 0 8px; color: var(--dark);
+  }
+  .contrato-box h3:first-child { margin-top: 0; }
+  .contrato-box p { margin-bottom: 10px; }
+  .contrato-box .dato { background: var(--gold-soft); padding: 1px 6px; border-radius: 6px; font-weight: 600; }
+  .contrato-box .pendiente { background: rgba(178,58,46,0.12); color: var(--err); padding: 1px 6px; border-radius: 6px; font-weight: 600; }
+  .scroll-hint {
+    text-align: center; font-size: 11.5px; color: var(--gray-text); margin-top: 10px; font-style: italic;
+    transition: opacity 0.3s;
+  }
+  .scroll-hint.hidden { opacity: 0; }
+
+  /* ── Checkbox ── */
+  .accept-row {
+    display: flex; align-items: flex-start; gap: 12px; padding: 16px 18px; border-radius: 15px;
+    border: 1.5px dashed rgba(28,26,24,0.22); cursor: pointer; margin-top: 20px; transition: all 0.2s;
+  }
+  .accept-row.active { border-style: solid; border-color: var(--dark); background: var(--gold-soft); }
+  .check-square {
+    width: 20px; height: 20px; min-width: 20px; border-radius: 6px; border: 1.5px solid rgba(28,26,24,0.30);
+    display: flex; align-items: center; justify-content: center; color: var(--gold); font-size: 12px; font-weight: 700;
+    margin-top: 1px; transition: all 0.2s;
+  }
+  .check-square.active { background: var(--dark); border-color: var(--dark); }
+  .accept-row span.txt { font-size: 13.5px; line-height: 1.55; }
+
+  /* ── Firma ── */
+  .sig-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; flex-wrap: wrap; gap: 8px; }
+  .sig-title { font-size: 13px; font-weight: 600; }
+  .sig-clear {
+    font-family: 'DM Sans', sans-serif; font-size: 12px; color: var(--gray-text); background: none; border: none;
+    cursor: pointer; text-decoration: underline; padding: 4px;
+  }
+  .sig-clear:hover { color: var(--dark); }
+  .sig-pad {
+    position: relative; border: 2px dashed rgba(28,26,24,0.22); border-radius: 16px; background: #fff;
+    overflow: hidden; transition: border-color 0.2s;
+  }
+  .sig-pad.has-sig { border-style: solid; border-color: var(--dark); }
+  #sigCanvas { display: block; width: 100%; height: 180px; touch-action: none; cursor: crosshair; }
+  .sig-placeholder {
+    position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 6px; pointer-events: none; color: rgba(28,26,24,0.30); transition: opacity 0.2s;
+  }
+  .sig-placeholder.hidden { opacity: 0; }
+  .sig-placeholder .big { font-size: 26px; }
+  .sig-placeholder .txt { font-size: 12.5px; }
+  .sig-baseline { position: absolute; left: 10%; right: 10%; bottom: 38px; height: 1px; background: rgba(28,26,24,0.14); pointer-events: none; }
+
+  /* ── Botones ── */
+  .btn-primary {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 15px; padding: 17px 24px;
+    border-radius: 9999px; background: var(--dark); color: var(--off-white); border: none; cursor: pointer;
+    width: 100%; transition: all 0.28s; margin-top: 22px;
+  }
+  .btn-primary:hover:not(:disabled) { background: #000; transform: translateY(-2px); }
+  .btn-primary:disabled { opacity: 0.45; cursor: not-allowed; }
+  .btn-gold {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 15px; padding: 17px 24px;
+    border-radius: 9999px; background: var(--gold); color: #2A1F0E; border: none; cursor: pointer;
+    width: 100%; text-decoration: none; transition: all 0.28s;
+  }
+  .btn-gold:hover { filter: brightness(0.96); transform: translateY(-2px); }
+  .btn-ghost {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    font-family: 'DM Sans', sans-serif; font-weight: 500; font-size: 13.5px; padding: 13px 20px;
+    border-radius: 9999px; background: transparent; color: var(--gray-text); border: 1.5px solid rgba(28,26,24,0.14);
+    cursor: pointer; width: 100%; text-decoration: none; transition: all 0.24s;
+  }
+  .btn-ghost:hover { border-color: var(--dark); color: var(--dark); }
+  .btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
+
+  /* ── Estado post-firma ── */
+  #firmado { display: none; }
+  .ok-card { text-align: center; }
+  .ok-icon {
+    width: 64px; height: 64px; margin: 0 auto 18px; border-radius: 50%; background: var(--dark); color: var(--gold);
+    display: flex; align-items: center; justify-content: center; font-size: 28px;
+  }
+  .ok-title { font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: 1.8rem; margin-bottom: 10px; }
+  .ok-sub { font-size: 14.5px; color: var(--gray-text); line-height: 1.6; max-width: 460px; margin: 0 auto 24px; }
+  .mail-status { font-size: 12.5px; margin-top: 14px; color: var(--gray-text); min-height: 18px; }
+  .mail-status.ok { color: var(--ok); }
+  .mail-status.warn { color: var(--err); }
+
+  .alert {
+    display: flex; gap: 12px; align-items: flex-start; background: var(--gold-soft);
+    border: 1px solid rgba(28,26,24,0.10); border-radius: 15px; padding: 15px 18px; font-size: 13px;
+    line-height: 1.55; margin-bottom: 20px;
+  }
+  .alert b { font-weight: 700; }
+
+  .back-link { display: block; text-align: center; margin-top: 26px; font-size: 13px; color: var(--gray-text); text-decoration: none; }
+  .back-link:hover { color: var(--dark); }
+
+  @media (max-width: 720px) {
+    .card { padding: 22px; border-radius: 18px; }
+    .grid2 { grid-template-columns: 1fr; }
+    .btn-row { grid-template-columns: 1fr; }
+  }
+
+  nav a.back:focus-visible,
+  .back-link:focus-visible,
+  .sig-clear:focus-visible {
+    outline: 2.5px solid var(--dark); outline-offset: 3px; border-radius: 4px;
+  }
+  .accept-row:focus-visible {
+    outline: 2.5px solid var(--dark); outline-offset: 2px;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="inner">
+    <a class="brand" href="#">Finite Estudio</a>
+    <a class="back" href="#">← Volver</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <div class="header">
+    <span class="tag">Contrato de bodas</span>
+    <h1>Lee y <span class="h1-accent cursive">firma</span> tu contrato.</h1>
+    <p class="sub">Completa los datos de tu boda, revisa el contrato con tu información ya cargada y fírmalo con el dedo o el mouse. Recibes tu copia en PDF al instante.</p>
+  </div>
+
+  <!-- ══════ FORMULARIO + CONTRATO ══════ -->
+  <div id="firmando">
+
+    <!-- Datos de la pareja / boda -->
+    <div class="card">
+      <p class="card-label">Datos de la boda</p>
+      <div class="grid2">
+        <div class="field" id="f-nombre">
+          <label for="nombre">Nombre de los novios</label>
+          <input type="text" id="nombre" autocomplete="name" placeholder="Ej. Ana &amp; Diego" />
+          <span class="field-error">Necesitamos el nombre de los novios.</span>
+        </div>
+        <div class="field" id="f-email">
+          <label for="email">Correo <span class="hint">— ahí te llega el PDF</span></label>
+          <input type="email" id="email" autocomplete="email" placeholder="tu@correo.com" />
+          <span class="field-error">Escribe un correo válido para enviarte tu copia.</span>
+        </div>
+        <div class="field" id="f-celular">
+          <label for="celular">Número de celular</label>
+          <div class="whatsapp-row">
+            <select id="celularPais" aria-label="País">
+              <option value="+52" selected>🇲🇽 +52</option>
+              <option value="+1">🇺🇸 +1</option>
+              <option value="+591">🇧🇴 +591</option>
+              <option value="+54">🇦🇷 +54</option>
+              <option value="+57">🇨🇴 +57</option>
+              <option value="+34">🇪🇸 +34</option>
+            </select>
+            <input type="tel" id="celular" autocomplete="tel" placeholder="6641234567" inputmode="numeric" />
+          </div>
+          <span class="field-error">Necesitamos tu número de celular.</span>
+        </div>
+        <div class="field" id="f-fecha">
+          <label for="fecha">Fecha de la boda</label>
+          <input type="date" id="fecha" />
+          <span class="field-error">Elige la fecha acordada de la boda.</span>
+        </div>
+        <div class="field" id="f-salon">
+          <label for="salon">Dirección del salón</label>
+          <input type="text" id="salon" placeholder="Ej. Salón Jardín Las Palomas, Tijuana" />
+          <span class="field-error">Necesitamos la dirección del salón.</span>
+        </div>
+        <div class="field" id="f-iglesia">
+          <label for="iglesia">Dirección de la iglesia</label>
+          <input type="text" id="iglesia" placeholder="Ej. Parroquia San José, Tijuana" />
+          <span class="field-error">Necesitamos la dirección de la iglesia.</span>
+        </div>
+        <div class="field" id="f-paquete">
+          <label for="paquete">Paquete a contratar</label>
+          <input type="text" id="paquete" placeholder="Ej. Paquete Full Day" />
+          <span class="field-error">Escribe el nombre del paquete contratado.</span>
+        </div>
+        <div class="field" id="f-precio">
+          <label for="precio">Precio del paquete <span class="hint">— en MXN</span></label>
+          <input type="number" id="precio" min="0" step="1" placeholder="Ej. 45000" />
+          <span class="field-error">Escribe el precio total del paquete.</span>
+        </div>
+        <div class="field full" id="f-anticipo">
+          <label for="anticipo">Anticipo para reservar la fecha <span class="hint">— en MXN</span></label>
+          <input type="number" id="anticipo" min="0" step="1" placeholder="Ej. 13000" />
+          <span class="field-error">Escribe el monto del anticipo (no puede ser mayor al precio del paquete).</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contrato -->
+    <div class="card">
+      <p class="card-label">Términos y condiciones</p>
+      <div class="alert">
+        <span>✍️</span>
+        <span>Tus datos se van escribiendo <b>en vivo</b> dentro del contrato mientras completas el formulario de arriba. Léelo completo antes de firmar.</span>
+      </div>
+      <div class="contrato-box" id="contratoBox"></div>
+      <p class="scroll-hint" id="scrollHint">Desplázate hasta el final para habilitar la firma ↓</p>
+
+      <div class="accept-row" id="acceptRow" role="checkbox" aria-checked="false" tabindex="0">
+        <span class="check-square" id="acceptCheck"></span>
+        <span class="txt">He leído y acepto los términos de este contrato. Entiendo que mi firma digital tiene la misma validez que una firma manuscrita.</span>
+      </div>
+    </div>
+
+    <!-- Firma -->
+    <div class="card">
+      <div class="sig-head">
+        <span class="sig-title">Tu firma</span>
+        <button class="sig-clear" id="sigClear" type="button">Borrar y volver a firmar</button>
+      </div>
+      <div class="sig-pad" id="sigPad">
+        <canvas id="sigCanvas"></canvas>
+        <div class="sig-baseline"></div>
+        <div class="sig-placeholder" id="sigPlaceholder">
+          <span class="big">✍️</span>
+          <span class="txt">Firma aquí con el dedo o el mouse</span>
+        </div>
+      </div>
+
+      <button class="btn-primary" id="btnFirmar" disabled>Firmar contrato y recibir mi PDF</button>
+      <p class="mail-status" id="preStatus"></p>
+    </div>
+
+  </div>
+
+  <!-- ══════ ESTADO FIRMADO ══════ -->
+  <div id="firmado">
+    <div class="card ok-card">
+      <div class="ok-icon">✓</div>
+      <div class="ok-title">Contrato firmado</div>
+      <p class="ok-sub" id="okSub">Te enviamos tu PDF por correo. Ahora falta cubrir tu anticipo para reservar la fecha.</p>
+
+      <a class="btn-gold" id="btnPagar" href="#">Continuar al pago →</a>
+
+      <div class="btn-row">
+        <button class="btn-ghost" id="btnDescargar" type="button">↓ Descargar PDF otra vez</button>
+        <a class="btn-ghost" id="btnWa" target="_blank" rel="noopener" href="#">Avisar por WhatsApp</a>
+      </div>
+      <p class="mail-status" id="mailStatus"></p>
+    </div>
+  </div>
+
+  <a class="back-link" href="#">← Volver al inicio</a>
+</div>
+
+<script>
+/* ══════════════════════════════════════════════════════════════════════
+   TEXTO DEL CONTRATO — el modelo de bodas de Finite Estudio (Saúl Arteaga
+   Díaz), agrupado por cláusulas temáticas para que se lea con claridad en
+   pantalla. Cada cláusula es un objeto { titulo, cuerpo }. Dentro del
+   cuerpo puedes usar estas variables, que se reemplazan solas:
+
+   Del cliente / la boda (vienen del formulario):
+     {{nombre}} {{celular}} {{email}} {{fecha}} {{salon}} {{iglesia}}
+     {{paquete}} {{precio}} {{anticipo}} {{hoy}}
+
+   Fijas del estudio (se editan una sola vez, en contratoConfig más abajo):
+     {{extraFoto}}
+   ══════════════════════════════════════════════════════════════════════ */
+const contratoClausulas = [
+  {
+    titulo: 'Partes',
+    cuerpo: 'Consta por el presente contrato de servicios firmado en fecha {{hoy}} entre <b>EL FOTÓGRAFO</b> (Saúl Arteaga Díaz, Finite Estudio) y <b>LOS CLIENTES</b> ({{nombre}}), para la cobertura fotográfica de su boda a realizarse el {{fecha}}. En adelante conjuntamente serán reconocidos como LAS PARTES, y se obligan mutuamente a cumplir el presente contrato conforme a los términos y condiciones siguientes.',
+  },
+  {
+    titulo: 'Objeto del contrato',
+    cuerpo: 'EL FOTÓGRAFO se compromete a proporcionar servicios de fotografía para la boda de LOS CLIENTES según lo acordado en este contrato, correspondientes al paquete {{paquete}}. LOS CLIENTES facilitarán AL FOTÓGRAFO, de manera oportuna, el acceso a toda la información y elementos necesarios para la correcta prestación del servicio, conforme a lo acordado en el presente contrato.',
+  },
+  {
+    titulo: 'Honorarios y forma de pago',
+    cuerpo: 'LOS CLIENTES pagarán AL FOTÓGRAFO la tarifa total acordada de <b>${{precio}} MXN</b> ({{paquete}}) de la siguiente manera: <b>${{anticipo}} MXN</b> para reservar la fecha de su boda al momento de firmar este contrato, y el saldo restante deberá ser cubierto una semana antes del evento. El pago podrá realizarse en efectivo, por transferencia bancaria, depósito o con tarjeta de crédito/débito a través de un enlace de pago seguro.',
+  },
+  {
+    titulo: 'Cancelación',
+    cuerpo: 'En caso de cancelación por parte de LOS CLIENTES, EL FOTÓGRAFO retendrá el pago inicial correspondiente al anticipo entregado para reservar la fecha. En caso de que LOS CLIENTES cancelen el evento una vez realizado el pago final, se reembolsará únicamente el 25% de dicho segundo abono por concepto de viáticos operativos no ejecutados. El porcentaje restante será retenido por EL FOTÓGRAFO en compensación por el trabajo de planeación previa y la imposibilidad de reasignar la fecha.',
+  },
+  {
+    titulo: 'Reprogramación de la fecha',
+    cuerpo: 'En caso de que LOS CLIENTES requieran modificar la fecha estipulada para el evento, deberán notificar a EL FOTÓGRAFO por escrito con un mínimo de 90 días naturales de anticipación. Dicha reprogramación quedará estrictamente sujeta a la disponibilidad de agenda de EL FOTÓGRAFO. Si EL FOTÓGRAFO cuenta con disponibilidad para la nueva fecha, el anticipo entregado originalmente será respetado y transferido en su totalidad para asegurar el nuevo día; sin embargo, si la nueva fecha corresponde a un año calendario posterior al original, el precio total del paquete contratado sufrirá un incremento del 10% por concepto de inflación y actualización de costos operativos, ajuste que se sumará al saldo pendiente de liquidar. Se emitirá un anexo al contrato con los nuevos montos y fechas para su firma. Si EL FOTÓGRAFO ya se encuentra reservado para la nueva fecha solicitada, este contrato se considerará rescindido por causas ajenas a EL FOTÓGRAFO; en este escenario, el anticipo inicial no será reembolsable, fungiendo como compensación por los daños, perjuicios y la pérdida de oportunidad de venta de la fecha bloqueada originalmente.',
+  },
+  {
+    titulo: 'Fuerza mayor y reemplazo',
+    cuerpo: 'Si EL FOTÓGRAFO no puede asistir el día del evento por causa fortuita o fuerza mayor, podrá ser reemplazado por otro fotógrafo y su equipo, sin costo adicional para LOS CLIENTES. El reemplazo contará con requisitos técnicos, artísticos y profesionales similares a los de EL FOTÓGRAFO. La elección del reemplazo quedará a criterio exclusivo de EL FOTÓGRAFO.',
+  },
+  {
+    titulo: 'Entrega del material final',
+    cuerpo: 'EL FOTÓGRAFO entregará la cantidad de fotos acordada en la más alta calidad, sin marcas de agua y con edición y retoque incluidos. No se entregarán fotografías sin el pago completo. Bajo ningún motivo se entregarán las fotografías en formato RAW (archivo original). El tiempo estimado de entrega del material final es de 30 a 35 días hábiles. EL FOTÓGRAFO declara que no puede garantizar que el trabajo final esté completamente libre de errores; LOS CLIENTES tienen derecho a solicitar una modificación o ajuste dentro de los 7 días posteriores a la entrega del material, y los cambios adicionales tendrán un costo extra.',
+  },
+  {
+    titulo: 'Fotos adicionales',
+    cuerpo: 'Si LOS CLIENTES solicitan fotos extra con edición y retoque, tendrán un costo adicional de ${{extraFoto}} MXN por imagen.',
+  },
+  {
+    titulo: 'Uso de las imágenes',
+    cuerpo: 'LOS CLIENTES otorgan permiso AL FOTÓGRAFO para usar el material con fines promocionales relacionados con su marca y trabajo. Esto incluye publicaciones en redes sociales, presentaciones a clientes potenciales, participación en concursos de fotografía, libros, revistas o decoración del estudio fotográfico, siempre que no afecte negativamente la imagen o identidad de LOS CLIENTES.',
+  },
+  {
+    titulo: 'Ejecución y participantes',
+    cuerpo: 'LOS CLIENTES autorizan AL FOTÓGRAFO a tomar imágenes de todos los asistentes al evento invitados por LOS CLIENTES. Las imágenes pueden incluir tomas directas o editadas según el criterio profesional de EL FOTÓGRAFO. LOS CLIENTES reconocen y aceptan que el único responsable de la toma de fotografías será EL FOTÓGRAFO, y se comprometen a evitar que personas externas interfieran en su labor, ya sea utilizando cámaras, celulares u otros dispositivos. EL FOTÓGRAFO no se hará responsable si, por imprudencia de terceros, no puede capturar alguna imagen específica.',
+  },
+  {
+    titulo: 'Reconocimientos de LOS CLIENTES',
+    cuerpo: 'LOS CLIENTES reconocen que EL FOTÓGRAFO cuenta con la capacidad técnica y el equipo necesarios para cumplir con lo estipulado en este contrato, y que han revisado previamente el trabajo de EL FOTÓGRAFO, reconociendo su competencia y habilidades técnicas.',
+  },
+  {
+    titulo: 'Obligaciones de LOS CLIENTES',
+    cuerpo: 'LOS CLIENTES se comprometen a: aceptar el monto retenido por EL FOTÓGRAFO en caso de cancelación; facilitar AL FOTÓGRAFO el acceso a toda la información y elementos necesarios para prestar el servicio; no alterar ni modificar el material entregado (ni con filtros, ediciones, recortes, eliminación de fondos, etc.) de forma que perjudique el prestigio o reputación profesional de EL FOTÓGRAFO; e informar al DJ o equipo de iluminación que queda estrictamente prohibido el uso de luces láser que apunten directamente a las cámaras o al área donde EL FOTÓGRAFO esté trabajando. En caso de detectarse luces láser que puedan poner en riesgo el equipo fotográfico, EL FOTÓGRAFO dejará de tomar fotografías de manera inmediata hasta que dichas luces sean apagadas, con el fin de proteger el equipo de trabajo, ya que un láser puede dañar de forma permanente el sensor de la cámara.',
+  },
+  {
+    titulo: 'Obligaciones de EL FOTÓGRAFO',
+    cuerpo: 'EL FOTÓGRAFO se compromete a: contar con el equipo y conocimientos necesarios para cumplir con este contrato; presentarse el día del evento puntualmente y con todo lo necesario para trabajar; entregar el material final en el plazo establecido; y reembolsar el 100% del pago en caso de no poder cumplir por causas de fuerza mayor o caso fortuito.',
+  },
+  {
+    titulo: 'Servicios de video y proveedores externos',
+    cuerpo: 'LOS CLIENTES comprenden y aceptan que EL FOTÓGRAFO (Finite Estudio) es una marca especializada, dedicada única y exclusivamente a la cobertura de fotografía. En caso de que LOS CLIENTES decidan contratar servicios de videografía o cinematografía con un profesional recomendado o presentado por EL FOTÓGRAFO, dicho servicio constituirá un contrato y acuerdo comercial totalmente independiente entre LOS CLIENTES y el PROFESIONAL EN VIDEO. EL FOTÓGRAFO actuará en sinergia el día del evento para asegurar el mejor resultado visual en conjunto, pero no asume ninguna responsabilidad legal, financiera, operativa ni creativa sobre el servicio de video. Esto incluye, pero no se limita a: estilo de edición, duración, uso de drones, tiempos de entrega, pérdida de material o cumplimiento de expectativas. Toda gestión, pago, revisión y entrega de video deberá tratarse directamente con el PROFESIONAL EN VIDEO correspondiente.',
+  },
+  {
+    titulo: 'Aceptación',
+    cuerpo: 'LAS PARTES, de su libre y espontánea voluntad, declaran su conformidad y aceptación con todas y cada una de las cláusulas del presente contrato. En señal de aceptación se obligan a su fiel y estricto cumplimiento del mismo, firmando al pie en constancia. Documento firmado el {{hoy}}.',
+  },
+  {
+    titulo: 'Firma digital',
+    cuerpo: 'LAS PARTES acuerdan que la aceptación escrita y/o firma digital de este contrato (por correo electrónico, plataforma de firma digital u otro medio aprobado por las partes) es válida y produce los mismos efectos legales que la firma manuscrita tradicional.',
+  },
+];
+
+/* ══════════════════════════════════════════════════════════════════════
+   Datos fijos del estudio — se editan una sola vez acá. Los datos
+   bancarios ya NO viven en esta página: se muestran en pago.html,
+   adonde se redirige al cliente después de firmar.
+   ══════════════════════════════════════════════════════════════════════ */
+const contratoConfig = [
+  {
+    whatsapp: '+526643372791',
+    // Endpoint que manda el PDF por correo (función serverless propia).
+    // Si no está configurado, la página sigue funcionando: descarga el
+    // PDF y ofrece mandarlo por WhatsApp.
+    endpointCorreo: '/.netlify/functions/contrato',
+
+    // Página donde el cliente ve los datos bancarios y paga su anticipo
+    paginaPago: 'pago.html',
+
+    // Costo por foto extra con edición (cláusula "Fotos adicionales")
+    extraFoto: 150,
+  },
+];
+
+(function () {
+  'use strict';
+
+  var CFG = contratoConfig[0];
+  var LS_CONTRATO = 'finite_contrato_v1';   // borrador de datos del cliente
+  var LS_FIRMADOS = 'finite_contratos_firmados_v1';
+
+  // ── 1. Campos del formulario ───────────────────────────────────────
+  var campos = ['nombre', 'email', 'celular', 'fecha', 'salon', 'iglesia', 'paquete', 'precio', 'anticipo'];
+  var inputs = {};
+  campos.forEach(function (id) { inputs[id] = document.getElementById(id); });
+  var celularPais = document.getElementById('celularPais');
+
+  function celularCompleto() {
+    var numero = inputs.celular.value.trim();
+    if (!numero) return '';
+    return (celularPais.value + ' ' + numero).trim();
+  }
+
+  // Restaura el borrador si el cliente ya había empezado a llenar
+  try {
+    var borrador = JSON.parse(localStorage.getItem(LS_CONTRATO) || '{}');
+    campos.forEach(function (id) { if (borrador[id]) inputs[id].value = borrador[id]; });
+    if (borrador.celularPais) celularPais.value = borrador.celularPais;
+  } catch (e) {}
+
+  // Pre-llenado por URL — para que Saúl mande un link personalizado por
+  // boda (con precio y anticipo ya definidos, por ejemplo). Sobrescribe
+  // el borrador si el parámetro viene en la URL.
+  var qs = new URLSearchParams(location.search);
+  campos.forEach(function (id) { if (qs.has(id)) inputs[id].value = qs.get(id); });
+
+  // Fecha local (no UTC) para que "hoy" no se corra de día según la
+  // hora y zona horaria del navegador — se recalcula en cada carga.
+  function hoyISOLocal() {
+    var d = new Date();
+    var mes = String(d.getMonth() + 1).padStart(2, '0');
+    var dia = String(d.getDate()).padStart(2, '0');
+    return d.getFullYear() + '-' + mes + '-' + dia;
+  }
+  var hoyISO = hoyISOLocal();
+  inputs.fecha.min = hoyISO;
+
+  function guardarBorrador() {
+    var data = {};
+    campos.forEach(function (id) { data[id] = inputs[id].value.trim(); });
+    data.celularPais = celularPais.value;
+    try { localStorage.setItem(LS_CONTRATO, JSON.stringify(data)); } catch (e) {}
+  }
+
+  function fechaLarga(iso) {
+    if (!iso) return '';
+    var partes = iso.split('-');
+    var meses = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+    return parseInt(partes[2], 10) + ' de ' + meses[parseInt(partes[1], 10) - 1] + ' de ' + partes[0];
+  }
+
+  function numeroConComas(n) {
+    n = Math.round(Number(n) || 0);
+    return n.toLocaleString('es-MX');
+  }
+
+  // ── 2. Render del contrato con los datos en vivo ────────────────────
+  function valorOPendiente(v, etiqueta) {
+    if (v && v.trim()) return '<span class="dato">' + escapeHtml(v.trim()) + '</span>';
+    return '<span class="pendiente">' + etiqueta + '</span>';
+  }
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  function precioNumerico() {
+    return parseInt(inputs.precio.value, 10) || 0;
+  }
+
+  function anticipoNumerico() {
+    return parseInt(inputs.anticipo.value, 10) || 0;
+  }
+
+  function saldoNumerico() {
+    return Math.max(precioNumerico() - anticipoNumerico(), 0);
+  }
+
+  function variables(paraPdf) {
+    function v(valor, etiqueta) {
+      if (paraPdf) return (valor && valor.trim()) ? valor.trim() : ('[' + etiqueta + ']');
+      return valorOPendiente(valor, etiqueta);
+    }
+    var fechaVal = inputs.fecha.value ? fechaLarga(inputs.fecha.value) : '';
+    var precioVal = inputs.precio.value ? numeroConComas(precioNumerico()) : '';
+    var anticipoVal = inputs.anticipo.value ? numeroConComas(anticipoNumerico()) : '';
+    return {
+      nombre: v(inputs.nombre.value, 'nombre de los novios'),
+      celular: v(celularCompleto(), 'tu celular'),
+      email: v(inputs.email.value, 'tu correo'),
+      fecha: v(fechaVal, 'la fecha de la boda'),
+      salon: v(inputs.salon.value, 'la dirección del salón'),
+      iglesia: v(inputs.iglesia.value, 'la dirección de la iglesia'),
+      paquete: v(inputs.paquete.value, 'el paquete contratado'),
+      precio: v(precioVal, 'el precio del paquete'),
+      anticipo: v(anticipoVal, 'el anticipo acordado'),
+      extraFoto: numeroConComas(CFG.extraFoto),
+      hoy: fechaLarga(hoyISO),
+    };
+  }
+
+  function aplicarVariables(texto, vars) {
+    return texto.replace(/\{\{(\w+)\}\}/g, function (m, clave) {
+      return vars[clave] !== undefined ? vars[clave] : m;
+    });
+  }
+
+  var contratoBox = document.getElementById('contratoBox');
+
+  function renderContrato() {
+    var vars = variables(false);
+    contratoBox.innerHTML = contratoClausulas.map(function (c) {
+      return '<h3>' + escapeHtml(c.titulo) + '</h3><p>' + aplicarVariables(c.cuerpo, vars) + '</p>';
+    }).join('');
+  }
+
+  // Versión en texto plano, para el PDF
+  function contratoPlano() {
+    var vars = variables(true);
+    return contratoClausulas.map(function (c) {
+      var cuerpo = aplicarVariables(c.cuerpo, vars).replace(/<[^>]+>/g, '');
+      return c.titulo.toUpperCase() + '\n' + cuerpo;
+    }).join('\n\n');
+  }
+
+  campos.forEach(function (id) {
+    inputs[id].addEventListener('input', function () {
+      renderContrato();
+      guardarBorrador();
+      actualizarBoton();
+      document.getElementById('f-' + id).classList.remove('show-error');
+      inputs[id].classList.remove('invalid');
+    });
+  });
+  celularPais.addEventListener('change', function () {
+    renderContrato();
+    guardarBorrador();
+    actualizarBoton();
+  });
+  renderContrato();
+
+  // ── 3. Scroll del contrato: habilita el checkbox al llegar al final ──
+  var leyoTodo = false;
+  var scrollHint = document.getElementById('scrollHint');
+  function chequearScroll() {
+    if (leyoTodo) return;
+    var alcanzable = contratoBox.scrollHeight - contratoBox.clientHeight;
+    var listo = alcanzable <= 8 || contratoBox.scrollTop >= alcanzable * 0.88;
+    if (listo) {
+      leyoTodo = true;
+      scrollHint.classList.add('hidden');
+      actualizarBoton();
+    }
+  }
+  contratoBox.addEventListener('scroll', chequearScroll, { passive: true });
+  window.addEventListener('resize', chequearScroll);
+  setTimeout(chequearScroll, 300);
+
+  // ── 4. Checkbox de aceptación ───────────────────────────────────────
+  var acepta = false;
+  var acceptRow = document.getElementById('acceptRow');
+  var acceptCheck = document.getElementById('acceptCheck');
+  function toggleAceptar() {
+    if (!leyoTodo) {
+      contratoBox.scrollTo({ top: contratoBox.scrollHeight, behavior: 'smooth' });
+      document.getElementById('preStatus').textContent = 'Desplaza el contrato hasta el final para poder aceptarlo.';
+      return;
+    }
+    acepta = !acepta;
+    acceptRow.classList.toggle('active', acepta);
+    acceptRow.setAttribute('aria-checked', acepta ? 'true' : 'false');
+    acceptCheck.classList.toggle('active', acepta);
+    acceptCheck.textContent = acepta ? '✓' : '';
+    document.getElementById('preStatus').textContent = '';
+    actualizarBoton();
+  }
+  acceptRow.addEventListener('click', toggleAceptar);
+  acceptRow.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+      e.preventDefault();
+      toggleAceptar();
+    }
+  });
+
+  // ── 5. Firma: un solo manejador para dedo y mouse (Pointer Events) ──
+  var canvas = document.getElementById('sigCanvas');
+  var sigPad = document.getElementById('sigPad');
+  var sigPlaceholder = document.getElementById('sigPlaceholder');
+  var ctx = canvas.getContext('2d');
+  var hayFirma = false;
+  var dibujando = false;
+  var trazos = [];
+  var trazoActual = null;
+
+  function ajustarCanvas() {
+    var ratio = window.devicePixelRatio || 1;
+    var rect = canvas.getBoundingClientRect();
+    canvas.width = Math.round(rect.width * ratio);
+    canvas.height = Math.round(rect.height * ratio);
+    ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+    ctx.lineWidth = 2.4;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ctx.strokeStyle = '#1C1A18';
+    redibujar();
+  }
+
+  function redibujar() {
+    var rect = canvas.getBoundingClientRect();
+    ctx.clearRect(0, 0, rect.width, rect.height);
+    trazos.forEach(function (trazo) {
+      if (trazo.length < 2) {
+        if (trazo.length === 1) {
+          ctx.beginPath();
+          ctx.arc(trazo[0].x * rect.width, trazo[0].y * rect.height, ctx.lineWidth / 2, 0, Math.PI * 2);
+          ctx.fillStyle = ctx.strokeStyle;
+          ctx.fill();
+        }
+        return;
+      }
+      ctx.beginPath();
+      ctx.moveTo(trazo[0].x * rect.width, trazo[0].y * rect.height);
+      for (var i = 1; i < trazo.length; i++) {
+        ctx.lineTo(trazo[i].x * rect.width, trazo[i].y * rect.height);
+      }
+      ctx.stroke();
+    });
+  }
+
+  function posicion(e) {
+    var rect = canvas.getBoundingClientRect();
+    return { x: (e.clientX - rect.left) / rect.width, y: (e.clientY - rect.top) / rect.height };
+  }
+
+  canvas.addEventListener('pointerdown', function (e) {
+    e.preventDefault();
+    canvas.setPointerCapture(e.pointerId);
+    dibujando = true;
+    trazoActual = [posicion(e)];
+    trazos.push(trazoActual);
+  });
+
+  canvas.addEventListener('pointermove', function (e) {
+    if (!dibujando) return;
+    e.preventDefault();
+    trazoActual.push(posicion(e));
+    hayFirma = true;
+    sigPlaceholder.classList.add('hidden');
+    sigPad.classList.add('has-sig');
+    redibujar();
+    actualizarBoton();
+  });
+
+  function terminarTrazo(e) {
+    if (!dibujando) return;
+    dibujando = false;
+    try { canvas.releasePointerCapture(e.pointerId); } catch (err) {}
+    if (trazoActual && trazoActual.length >= 1) {
+      hayFirma = true;
+      sigPlaceholder.classList.add('hidden');
+      sigPad.classList.add('has-sig');
+      redibujar();
+      actualizarBoton();
+    }
+  }
+  canvas.addEventListener('pointerup', terminarTrazo);
+  canvas.addEventListener('pointercancel', terminarTrazo);
+  canvas.addEventListener('pointerleave', terminarTrazo);
+
+  document.getElementById('sigClear').addEventListener('click', function () {
+    trazos = [];
+    hayFirma = false;
+    redibujar();
+    sigPlaceholder.classList.remove('hidden');
+    sigPad.classList.remove('has-sig');
+    actualizarBoton();
+  });
+
+  window.addEventListener('resize', ajustarCanvas);
+  ajustarCanvas();
+
+  // ── 6. Validación y habilitado del botón ────────────────────────────
+  var btnFirmar = document.getElementById('btnFirmar');
+
+  function camposCompletos() {
+    return campos.every(function (id) {
+      var v = inputs[id].value.trim();
+      if (!v) return false;
+      if (id === 'email') return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+      if (id === 'precio') return precioNumerico() > 0;
+      if (id === 'anticipo') return anticipoNumerico() > 0 && anticipoNumerico() <= precioNumerico();
+      return true;
+    });
+  }
+
+  function actualizarBoton() {
+    btnFirmar.disabled = !(camposCompletos() && leyoTodo && acepta && hayFirma);
+  }
+
+  function marcarFaltantes() {
+    var primerFalta = null;
+    campos.forEach(function (id) {
+      var v = inputs[id].value.trim();
+      var malo = !v || (id === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) || (id === 'precio' && precioNumerico() <= 0) || (id === 'anticipo' && (anticipoNumerico() <= 0 || anticipoNumerico() > precioNumerico()));
+      document.getElementById('f-' + id).classList.toggle('show-error', malo);
+      inputs[id].classList.toggle('invalid', malo);
+      if (malo && !primerFalta) primerFalta = inputs[id];
+    });
+    if (primerFalta) primerFalta.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  actualizarBoton();
+
+  // ── 7. Generar el PDF ───────────────────────────────────────────────
+  var pdfDataUri = null;
+  var nombreArchivo = 'Contrato.pdf';
+
+  function generarPdf() {
+    var jsPDFCtor = (window.jspdf && window.jspdf.jsPDF) || window.jsPDF;
+    if (!jsPDFCtor) throw new Error('jsPDF no cargó');
+
+    var doc = new jsPDFCtor({ unit: 'pt', format: 'a4' });
+    var MX = 56, ANCHO = 483, LH = 14;
+    var y = 62;
+
+    function saltoSiHaceFalta(alto) {
+      if (y + alto > 780) { doc.addPage(); y = 62; }
+    }
+
+    // Encabezado
+    doc.setFillColor(28, 26, 24);
+    doc.rect(0, 0, 595, 34, 'F');
+    doc.setTextColor(201, 161, 90);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(11);
+    doc.text('FINITE ESTUDIO', MX, 22);
+    doc.setTextColor(250, 248, 245);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8.5);
+    doc.text('Fotografia de bodas', 595 - MX, 22, { align: 'right' });
+
+    doc.setTextColor(28, 26, 24);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(15);
+    doc.text('Contrato de prestacion de servicios de fotografia de bodas', MX, y, { maxWidth: ANCHO });
+    y += 34;
+
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(9);
+    doc.setTextColor(114, 107, 96);
+    doc.text('Documento generado y firmado digitalmente el ' + new Date().toLocaleString('es-MX'), MX, y);
+    y += 24;
+
+    // Cuadro resumen
+    doc.setDrawColor(230, 224, 212);
+    doc.setFillColor(250, 248, 245);
+    doc.roundedRect(MX, y - 12, ANCHO, 74, 8, 8, 'FD');
+    doc.setTextColor(28, 26, 24);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(9.5);
+    doc.text((inputs.paquete.value.trim() || 'Paquete a contratar'), MX + 14, y + 6);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(9);
+    doc.setTextColor(114, 107, 96);
+    doc.text('Boda: ' + (inputs.nombre.value.trim() || '—') + ' · ' + (inputs.fecha.value ? fechaLarga(inputs.fecha.value) : '—'), MX + 14, y + 22);
+    doc.setTextColor(28, 26, 24);
+    doc.setFont('helvetica', 'bold');
+    doc.text('Total: $' + numeroConComas(precioNumerico()) + ' MXN    Anticipo: $' + numeroConComas(anticipoNumerico()) + ' MXN    Saldo: $' + numeroConComas(saldoNumerico()) + ' MXN', MX + 14, y + 50);
+    y += 86;
+
+    // Cuerpo del contrato
+    var vars = variables(true);
+    contratoClausulas.forEach(function (c) {
+      var cuerpo = aplicarVariables(c.cuerpo, vars).replace(/<[^>]+>/g, '');
+      var lineas = doc.splitTextToSize(cuerpo, ANCHO);
+      saltoSiHaceFalta(24 + lineas.length * LH);
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(10);
+      doc.setTextColor(28, 26, 24);
+      doc.text(c.titulo, MX, y);
+      y += 15;
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(9.5);
+      doc.setTextColor(43, 43, 43);
+      doc.text(lineas, MX, y);
+      y += lineas.length * LH + 12;
+    });
+
+    // Firmas
+    saltoSiHaceFalta(150);
+    y += 16;
+    doc.setDrawColor(200, 194, 182);
+    doc.line(MX, y, MX + 200, y);
+    doc.line(MX + 263, y, MX + 463, y);
+
+    var firmaImg = canvas.toDataURL('image/png');
+    try { doc.addImage(firmaImg, 'PNG', MX, y - 62, 190, 58); } catch (e) {}
+
+    y += 14;
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(9);
+    doc.setTextColor(28, 26, 24);
+    doc.text(inputs.nombre.value.trim() || 'LOS CLIENTES', MX, y);
+    doc.text('Saúl Arteaga Díaz', MX + 263, y);
+    y += 12;
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8);
+    doc.setTextColor(114, 107, 96);
+    doc.text(inputs.email.value.trim() || '—', MX, y);
+    doc.text('Finite Estudio', MX + 263, y);
+    y += 11;
+    doc.text(celularCompleto() || '—', MX, y);
+
+    // Pie
+    doc.setFontSize(7.5);
+    doc.setTextColor(150, 143, 130);
+    doc.text('Firmado digitalmente — la firma digital tiene la misma validez que la manuscrita.', MX, 812);
+
+    nombreArchivo = 'Contrato_FiniteEstudio_' +
+      (inputs.nombre.value.trim() || 'cliente').replace(/[^\wáéíóúÁÉÍÓÚñÑ]+/g, '_') + '.pdf';
+    pdfDataUri = doc.output('datauristring');
+    return pdfDataUri;
+  }
+
+  // ── 8. Guardar copia local ──────────────────────────────────────────
+  function guardarLocal() {
+    try {
+      var lista = JSON.parse(localStorage.getItem(LS_FIRMADOS) || '[]');
+      lista.push({
+        archivo: nombreArchivo,
+        nombre: inputs.nombre.value.trim(),
+        email: inputs.email.value.trim(),
+        celular: celularCompleto(),
+        fecha: inputs.fecha.value,
+        salon: inputs.salon.value.trim(),
+        iglesia: inputs.iglesia.value.trim(),
+        paquete: inputs.paquete.value.trim(),
+        precio: precioNumerico(),
+        anticipo: anticipoNumerico(),
+        firmadoEl: new Date().toISOString(),
+        pdf: pdfDataUri,
+      });
+      localStorage.setItem(LS_FIRMADOS, JSON.stringify(lista.slice(-20)));
+    } catch (e) { /* si no hay espacio, el PDF ya se descargó igual */ }
+  }
+
+  // ── 9. Enviar por correo (función serverless propia) ────────────────
+  function enviarPorCorreo() {
+    var statusEl = document.getElementById('mailStatus');
+    statusEl.className = 'mail-status';
+    statusEl.textContent = 'Enviando tu copia por correo…';
+
+    return fetch(CFG.endpointCorreo, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        nombre: inputs.nombre.value.trim(),
+        email: inputs.email.value.trim(),
+        celular: celularCompleto(),
+        fecha: inputs.fecha.value,
+        salon: inputs.salon.value.trim(),
+        iglesia: inputs.iglesia.value.trim(),
+        paquete: inputs.paquete.value.trim(),
+        precio: precioNumerico(),
+        anticipo: anticipoNumerico(),
+        saldo: saldoNumerico(),
+        contratoTexto: contratoPlano(),
+        archivo: nombreArchivo,
+        pdfBase64: (pdfDataUri || '').split(',')[1] || '',
+      }),
+    })
+      .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, body: j }; }); })
+      .then(function (res) {
+        if (res.ok && res.body && res.body.enviado) {
+          statusEl.className = 'mail-status ok';
+          statusEl.textContent = '✓ Copia enviada a ' + inputs.email.value.trim() + ' y a Finite Estudio.';
+        } else {
+          statusEl.className = 'mail-status warn';
+          statusEl.textContent = 'El PDF quedó descargado en tu dispositivo. El envío automático por correo todavía no está activo, mándanos el archivo por WhatsApp.';
+        }
+      })
+      .catch(function () {
+        statusEl.className = 'mail-status warn';
+        statusEl.textContent = 'El PDF quedó descargado en tu dispositivo. No pudimos enviarlo por correo, mándanoslo por WhatsApp.';
+      });
+  }
+
+  // ── 10. Firmar ──────────────────────────────────────────────────────
+  btnFirmar.addEventListener('click', function () {
+    if (!camposCompletos()) { marcarFaltantes(); return; }
+    if (!leyoTodo || !acepta || !hayFirma) return;
+
+    btnFirmar.disabled = true;
+    document.getElementById('preStatus').textContent = 'Generando tu PDF…';
+
+    try {
+      generarPdf();
+    } catch (e) {
+      document.getElementById('preStatus').textContent = 'No pudimos generar el PDF en este navegador. Escríbenos por WhatsApp y te lo mandamos nosotros.';
+      btnFirmar.disabled = false;
+      return;
+    }
+
+    guardarLocal();
+    guardarBorrador();
+
+    try {
+      localStorage.setItem('finite_contrato_firmado', JSON.stringify({
+        firmadoEl: new Date().toISOString(),
+        nombre: inputs.nombre.value.trim(),
+        fecha: inputs.fecha.value,
+      }));
+    } catch (e) {}
+
+    // WhatsApp de aviso
+    var textoWA = 'Hola, Saúl! Somos ' + inputs.nombre.value.trim() +
+      '. Ya firmamos nuestro contrato de boda (' + (inputs.paquete.value.trim() || 'paquete acordado') + ') para el ' +
+      fechaLarga(inputs.fecha.value) + '. Te adjuntamos el PDF 📄';
+    document.getElementById('btnWa').href = 'https://api.whatsapp.com/send?phone=' + CFG.whatsapp.replace('+', '') + '&text=' + encodeURIComponent(textoWA);
+
+    // Botón "Continuar al pago" — lleva al cliente a la página con los
+    // datos bancarios y el monto exacto de su anticipo.
+    var qsPago = new URLSearchParams({
+      nombre: inputs.nombre.value.trim(),
+      fecha: inputs.fecha.value,
+      paquete: inputs.paquete.value.trim(),
+      anticipo: anticipoNumerico(),
+      precio: precioNumerico(),
+    }).toString();
+    document.getElementById('btnPagar').href = CFG.paginaPago + '?' + qsPago;
+
+    document.getElementById('firmando').style.display = 'none';
+    document.getElementById('firmado').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    enviarPorCorreo();
+  });
+
+  document.getElementById('btnDescargar').addEventListener('click', function () {
+    if (!pdfDataUri) return;
+    var nueva = window.open('', '_blank');
+    if (nueva) {
+      nueva.location.href = pdfDataUri;
+    } else {
+      window.location.href = pdfDataUri;
+    }
+  });
+})();
+</script>
+</body>
+</html>
