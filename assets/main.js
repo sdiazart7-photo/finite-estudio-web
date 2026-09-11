@@ -13,7 +13,29 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Carrusel automático de testimonios (.testi-strip)
+  // Carrusel automático de testimonios (.testi-strip), con clic para ampliar
+  var testiLightbox = null;
+  function ensureTestiLightbox() {
+    if (testiLightbox) return testiLightbox;
+    testiLightbox = document.createElement('div');
+    testiLightbox.className = 'lightbox testi-lightbox';
+    testiLightbox.innerHTML = '<button class="close" aria-label="Cerrar">&times;</button><img src="" alt="Testimonio ampliado">';
+    document.body.appendChild(testiLightbox);
+    var img = testiLightbox.querySelector('img');
+    function closeTesti() {
+      testiLightbox.classList.remove('open');
+      img.src = '';
+    }
+    testiLightbox.addEventListener('click', function (e) {
+      if (e.target === testiLightbox) closeTesti();
+    });
+    testiLightbox.querySelector('.close').addEventListener('click', closeTesti);
+    document.addEventListener('keydown', function (e) {
+      if (testiLightbox.classList.contains('open') && e.key === 'Escape') closeTesti();
+    });
+    return testiLightbox;
+  }
+
   document.querySelectorAll('.testi-strip').forEach(function (strip) {
     var imgs = Array.from(strip.children);
     if (!imgs.length) return;
@@ -23,6 +45,14 @@ document.addEventListener('DOMContentLoaded', function () {
     imgs.forEach(function (img) { track.appendChild(img.cloneNode(true)); });
     strip.innerHTML = '';
     strip.appendChild(track);
+
+    track.querySelectorAll('img').forEach(function (img) {
+      img.addEventListener('click', function () {
+        var lb = ensureTestiLightbox();
+        lb.querySelector('img').src = img.src;
+        lb.classList.add('open');
+      });
+    });
   });
 
   // Lightbox para grids de fotos (.photo-grid / .photo-grid-full img), con flechas y teclado
