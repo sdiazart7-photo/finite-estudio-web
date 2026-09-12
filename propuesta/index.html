@@ -185,16 +185,50 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
     .cta-links .btn{ width:100%; text-align:center; padding:16px 20px; }
   }
   .restart{ margin-top:26px; font-size:.8rem; color:var(--ink-soft); cursor:pointer; text-decoration:underline; text-underline-offset:3px; display:inline-block; }
+
+    /* --- Nuevo tracker de pasos --- */
+    .tracker{ display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:0; width:100%; max-width:800px; margin-bottom:30px; }
+    .tstep{ display:flex; flex-direction:column; align-items:center; gap:8px; background:none; border:none; font-family:'Jost',sans-serif; padding:0 4px; color:var(--ink); cursor:default; }
+    .tstep .tdot{ width:10px; height:10px; border-radius:50%; background:var(--paper); border:1.5px solid var(--line); transition:background .35s ease, border-color .35s ease, transform .35s ease; }
+    .tstep .tlabel{ font-size:10.5px; letter-spacing:.02em; color:var(--ink-soft); opacity:.55; white-space:nowrap; }
+    .tstep.done .tdot{ background:var(--gold); border-color:var(--gold); }
+    .tstep.done .tlabel{ opacity:1; }
+    .tstep.current .tdot{ background:var(--wine); border-color:var(--wine); transform:scale(1.35); }
+    .tstep.current .tlabel{ opacity:1; color:var(--wine); font-weight:500; }
+    .tstep.done{ cursor:pointer; }
+    .tstep.done:hover .tlabel{ color:var(--gold); opacity:1; }
+    .tline{ width:30px; height:1px; background:var(--line); margin-top:4px; position:relative; top:-14px; transition:background .4s ease; flex-shrink:0; }
+    .tline.filled{ background:var(--gold); }
+    @media(max-width:600px){ .tline{ width:14px; } .tstep .tlabel{ font-size:9px; } }
+
+    /* --- Tarjetas de elección en grid --- */
+    .choice-cards{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+    @media(max-width:720px){ .choice-cards{ grid-template-columns:1fr; } }
+    .choice-card{ padding:24px 20px; }
+    .choice-card:hover{ transform:translateY(-2px); box-shadow:0 12px 26px rgba(28,26,23,.06); }
+
+    /* --- Paquetes: misma altura y resaltes --- */
+    .pkg-grid{ align-items:stretch; }
+    .pkg{ display:flex; flex-direction:column; height:100%; }
+    .pkg ul{ flex-grow:1; }
+    .pkg.complete{ background:var(--ink); color:var(--cream); border-color:var(--ink); }
+    .pkg.complete .tag{ background:var(--gold); color:var(--ink); }
+    .pkg.complete .hrs, .pkg.complete .price span{ color:#cfc9bd; }
+    .pkg.complete li{ color:#d9d4c9; border-top-color:rgba(247,245,240,0.14); }
+    .pkg .tag.ideal-tag{ background:var(--wine); color:var(--cream); }
+
+    /* --- Más aire en el bloque de decisión --- */
+    .decision-block{ margin-top:48px; padding:34px 32px; }
+    .pkg-note{ margin-top:30px; }
 </style>
 </head>
 <body>
 
 <div class="topbar">
-  <span class="brandmark">Finite Estudio · Fotografía de bodas</span>
-  <span class="step-tag" id="stepTag">Antes de empezar</span>
+    <span class="brandmark">Finite Estudio · Fotografía de bodas</span>
 </div>
 
-<div class="progress-dots" id="progressDots"></div>
+  <div class="tracker" id="tracker"></div>
 
 <div class="couple-tag" id="coupleTag"></div>
 
@@ -274,9 +308,6 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
       </div>
       <span class="req-hint">Selecciona una opción para continuar.</span>
     </div>
-    <div class="nav-row">
-      <span class="back-link" onclick="goTo(3)">Atrás</span>
-      <span></span>
     </div>
     <div class="carousel-wrap" data-carousel="fiesta"></div>
   </div>
@@ -342,8 +373,8 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
       <span class="eyebrow">Su propuesta</span>
       <h2>Paquetes ideales para revivir su boda una y otra vez</h2>
       <div class="pkg-grid four">
-        <div class="pkg">
-          <span class="tag">Foto + video</span>
+                <div class="pkg complete" data-pkg="premier">
+                    <span class="tag">El paquete más completo</span>
           <h3 class="serif">Premier</h3>
           <span class="hrs">12 horas de cobertura</span>
           <div class="price">$44,650 <span>MXN</span></div>
@@ -357,13 +388,12 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
             <li>Full video de 50 a 60 minutos</li>
             <li>The vlog experience</li>
             <li>Galería online</li>
-            <li>Sneak Peek (25 fotos, 3 días después de la boda)</li>
+                        <li>Sneak Peek (20 fotos, 3 días después de la boda)</li>
             <li>Asesoría y reuniones previas a la boda</li>
             <li>De regalo: invitación digital</li>
           </ul>
         </div>
-        <div class="pkg featured">
-          <span class="tag">La opción más elegida</span>
+                <div class="pkg" data-pkg="trilogia">
           <h3 class="serif">Trilogía</h3>
           <span class="hrs">10 horas de cobertura</span>
           <div class="price">$26,500 <span>MXN</span></div>
@@ -373,12 +403,12 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
             <li>500 a 600 fotografías digitales editadas</li>
             <li>The saga collection</li>
             <li>Galería online</li>
-            <li>Sneak Peek (25 fotos, 3 días después de la boda)</li>
+                        <li>Sneak Peek (20 fotos, 3 días después de la boda)</li>
             <li>Asesoría y reuniones previas a la boda</li>
             <li>De regalo: invitación digital</li>
           </ul>
         </div>
-        <div class="pkg">
+                <div class="pkg" data-pkg="secuela">
           <h3 class="serif">Secuela</h3>
           <span class="hrs">6 horas de cobertura</span>
           <div class="price">$20,000 <span>MXN</span></div>
@@ -388,7 +418,7 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
             <li>350 a 400 fotografías digitales editadas</li>
             <li>The saga collection</li>
             <li>Galería online</li>
-            <li>Sneak Peek (25 fotos, 3 días después de la boda)</li>
+                      <li>Sneak Peek (20 fotos, 3 días después de la boda)</li>
             <li>Asesoría y reuniones previas a la boda</li>
             <li>De regalo: invitación digital</li>
           </ul>
@@ -537,22 +567,26 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
     wrap.appendChild(track);
   });
 
-  dotSteps.forEach(s=>{
-    const d = document.createElement('div');
-    d.className = 'dot';
-    d.dataset.step = s;
-    d.innerHTML = '<i></i>';
-    dotsWrap.appendChild(d);
-  });
+const trackerLabels = {1:'Nombres',2:'Fecha',3:'Historia',4:'Qué revivir',5:'Proceso',6:'Paquetes'};
+      const trackerSteps = Object.keys(trackerLabels).map(Number);
+      let maxReached = 0;
 
-  function renderDots(){
-    document.querySelectorAll('.progress-dots .dot').forEach(d=>{
-      const s = parseInt(d.dataset.step,10);
-      d.classList.remove('done','current');
-      if(current > s) d.classList.add('done');
-      else if(current === s) d.classList.add('current');
-    });
-  }
+      function renderTracker(){
+              dotsWrap.innerHTML = '';
+              trackerSteps.forEach((s, idx) => {
+                        const state = current > s ? 'done' : (current === s ? 'current' : '');
+                        const btn = document.createElement('button');
+                        btn.className = 'tstep ' + state;
+                        btn.innerHTML = '<span class="tdot"></span><span class="tlabel">' + trackerLabels[s] + '</span>';
+                        if (s <= maxReached && s !== current) btn.addEventListener('click', () => goTo(s));
+                        dotsWrap.appendChild(btn);
+                        if (idx < trackerSteps.length - 1) {
+                                    const line = document.createElement('div');
+                                    line.className = 'tline' + (current > s ? ' filled' : '');
+                                    dotsWrap.appendChild(line);
+                        }
+              });
+      }
 
   function updateCoupleTag(){
     const names = document.getElementById('couple-names').value.trim();
@@ -564,15 +598,15 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
     }
   }
 
-  function goTo(step){
-    steps.forEach(s => s.classList.remove('visible'));
-    document.querySelector(`.step[data-step="${step}"]`).classList.add('visible');
-    current = step;
-    stepTag.textContent = stepLabels[step] || '';
-    renderDots();
-    updateCoupleTag();
-    window.scrollTo({top:0, behavior:'smooth'});
-  }
+function goTo(step){
+        steps.forEach(s => s.classList.remove('visible'));
+        document.querySelector(`.step[data-step="${step}"]`).classList.add('visible');
+        current = step;
+        if (step > maxReached) maxReached = step;
+        renderTracker();
+        updateCoupleTag();
+        window.scrollTo({top:0, behavior:'smooth'});
+}
 
   function attemptGoTo(target, inputId, fieldId){
     const el = document.getElementById(inputId);
@@ -635,6 +669,23 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
       resultadoShort.style.display = 'none';
       document.getElementById('wa-full').href = waUrl;
     }
+
+          if (choice !== 'ceremonia') {
+                    resultadoFull.querySelectorAll('.pkg[data-pkg]').forEach(function(p){
+                                p.classList.remove('featured');
+                                var oldTag = p.querySelector('.tag.ideal-tag');
+                                if (oldTag) oldTag.remove();
+                    });
+                    var idealKey = choice === 'fiesta' ? 'secuela' : 'trilogia';
+                    var idealCard = resultadoFull.querySelector('.pkg[data-pkg="' + idealKey + '"]');
+                    if (idealCard) {
+                                idealCard.classList.add('featured');
+                                var tag = document.createElement('span');
+                                tag.className = 'tag ideal-tag';
+                                tag.textContent = 'La opción ideal para ustedes';
+                                idealCard.insertBefore(tag, idealCard.firstChild);
+                    }
+          }
     if (typeof fbq === 'function') { fbq('track', 'Lead'); }
     goTo(6);
   }
@@ -658,7 +709,7 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
   tdots.forEach(d=> d.addEventListener('click', ()=> showTest(parseInt(d.dataset.t,10))));
   setInterval(()=>{ showTest((ti+1)%tests.length); }, 6000);
 
-  renderDots();
+  renderTracker();
   updateCoupleTag();
 </script>
 
