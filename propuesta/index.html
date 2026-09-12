@@ -409,7 +409,7 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
       <div class="decision-block">
         <p class="decision-note">Si alguno de estos paquetes <strong>les hace sentido</strong> y están de acuerdo con el proceso para contratar el servicio, <strong>agenden su cita directamente en el calendario</strong>. Si aún tienen dudas o consultas, escríbanme por WhatsApp.</p>
         <div class="cta-links">
-          <a href="https://cal.com/sauldiazph/cita-para-boda" class="btn gold" target="_blank" rel="noopener">Agendar videollamada o cafecito</a>
+          <a href="https://cal.com/sauldiazph/cita-para-boda" class="btn gold" data-cal-namespace="cita-para-boda" data-cal-link="sauldiazph/cita-para-boda" data-cal-config='{"layout":"month_view"}'>Agendar videollamada o cafecito</a>
           <a id="wa-full" href="#" class="btn ghost" target="_blank" rel="noopener">Tengo dudas, escríbeme por WhatsApp</a>
         </div>
       </div>
@@ -462,7 +462,7 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
       <div class="decision-block">
         <p class="decision-note">Si este paquete <strong>les hace sentido</strong> y están de acuerdo con el proceso para contratar el servicio, <strong>agenden su cita directamente en el calendario</strong>. Si aún tienen dudas o consultas, escríbanme por WhatsApp.</p>
         <div class="cta-links">
-          <a href="https://cal.com/sauldiazph/cita-para-boda" class="btn gold" target="_blank" rel="noopener">Agendar videollamada o cafecito</a>
+          <a href="https://cal.com/sauldiazph/cita-para-boda" class="btn gold" data-cal-namespace="cita-para-boda" data-cal-link="sauldiazph/cita-para-boda" data-cal-config='{"layout":"month_view"}'>Agendar videollamada o cafecito</a>
           <a id="wa-short" href="#" class="btn ghost" target="_blank" rel="noopener">Tengo dudas, escríbeme por WhatsApp</a>
         </div>
       </div>
@@ -661,6 +661,13 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
   renderDots();
   updateCoupleTag();
 </script>
+
+  <!-- Cal.com embed -->
+  <script type="text/javascript">
+      (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement('script')).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if (typeof namespace === 'string') { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, ['initNamespace', namespace]); } else p(cal, ar); return; } p(cal, ar); }; })(window, 'https://app.cal.com/embed/embed.js', 'init');
+      Cal('init', 'cita-para-boda', {origin: 'https://cal.com'});
+      Cal.ns['cita-para-boda']('ui', {'styles': {'branding': {'brandColor': '#000000'}}, 'hideEventTypeDetails': false, 'layout': 'month_view'});
+  </script>
 
 </body>
 </html>
