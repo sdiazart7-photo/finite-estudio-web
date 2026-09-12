@@ -120,13 +120,30 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
     "portafolio/portafolio-46","portafolio/portafolio-47","portafolio/portafolio-48","inicio/accesorios-novia",
     "portafolio/portafolio-49","portafolio/portafolio-50"
   ];
+    var alts = [
+          "Pareja de recién casados caminando por la playa al atardecer en Tijuana","Pareja de novios besándose frente a la fachada de su lugar de bodas","Novios abrazados en un jardín con arcos de piedra","Invitados bailando en la recepción de la boda",
+          "Retrato de la novia frente a los ventanales del salón","Manos entrelazadas de los novios durante los votos","Novios besándose frente a un muro de ladrillo","Pareja de novios abrazados al atardecer en el jardín",
+          "Novios abrazados en una escalera, retrato en blanco y negro","Novio esperando a la novia frente al altar","Padre acompañando a la novia mientras camina hacia el altar","Detalle del ramo de novia con flores blancas",
+          "Pareja de novios sentados en las escaleras con lentes de sol","Novios abrazados al aire libre, retrato en blanco y negro","Detalle del vestido de novia y el ramo de flores","Novios caminando tomados de la mano por el jardín",
+          "Detalle de las mangas de encaje del vestido de novia","Novio ajustándose el saco antes de la ceremonia","Novia sonriendo durante la sesión de fotos","Pareja de novios frente a una puerta de madera antigua",
+          "Novios abrazados bajo un árbol","Novios besándose bajo el velo el día de su boda","Novia y damas de honor celebrando con el ramo en alto","Retrato editorial en blanco y negro de los novios",
+          "Invitada bailando y celebrando en la fiesta de la boda","Novios riendo sentados en un sillón","Novios caminando de la mano por el pasillo de la iglesia","Detalle del velo de la novia sobre su brazo",
+          "Pareja de novios en un jardín iluminado por el atardecer","Novios abrazados junto al mar en Rosarito","Retrato de los novios en un jardín con vegetación exuberante","Invitados celebrando y bailando durante la recepción",
+          "Retrato de la novia junto a la ventana con luz natural","Detalle de las manos de los novios durante la ceremonia","Beso de los novios frente a un muro de piedra","Pareja de novios abrazada al atardecer",
+          "Retrato en blanco y negro de los novios en una escalera","El novio esperando nervioso en la iglesia","La novia caminando del brazo de su padre hacia el altar","Novios sentados y relajados con lentes de sol",
+          "Sesión de novios en un parque en Tijuana","Retrato en blanco y negro de la pareja al aire libre","Novios caminando de la mano, retrato en blanco y negro","Detalle del ramo de novia y el vestido",
+          "Los novios caminando de la mano por el jardín","Detalle del encaje del vestido de novia","El novio arreglándose antes de la ceremonia","La novia sonriendo en plena sesión de fotos",
+          "Los novios frente a una puerta antigua de madera","Pareja de novios bajo la sombra de un árbol","Detalle de los tacones de la novia","La novia lanzando el ramo entre las damas de honor",
+          "Invitados disfrutando la pista de baile","Los novios riendo sentados juntos","Los novios tomados de la mano en el pasillo de la iglesia","Detalle de los accesorios y joyería de la novia",
+          "Detalle del velo sobre el brazo de la novia","Pareja de novios iluminada por la luz del atardecer"
+        ];
   var grid = document.getElementById('grid');
-  ids.forEach(function (id) {
+    ids.forEach(function (id, i) {
     var img = document.createElement('img');
     img.loading = 'lazy';
     img.src = CLOUD + "/f_auto,q_auto,w_700/finite-estudio-web/" + id + ".jpg";
     img.dataset.full = CLOUD + "/f_auto,q_auto,w_1800/finite-estudio-web/" + id + ".jpg";
-    img.alt = "Fotografía de boda por Finite Estudio, Tijuana";
+        img.alt = alts[i] || "Fotografía de boda por Finite Estudio, Tijuana";
     grid.appendChild(img);
   });
 </script>
