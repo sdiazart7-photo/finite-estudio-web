@@ -466,12 +466,11 @@ const contratoConfig = [
     return (celularPais.value + ' ' + numero).trim();
   }
 
-  // Restaura el borrador si el cliente ya había empezado a llenar
-  try {
-    var borrador = JSON.parse(localStorage.getItem(LS_CONTRATO) || '{}');
-    campos.forEach(function (id) { if (borrador[id]) inputs[id].value = borrador[id]; });
-    if (borrador.celularPais) celularPais.value = borrador.celularPais;
-  } catch (e) {}
+  // A propósito NO se restaura ningún borrador guardado de una visita anterior:
+  // esta página la puede abrir una pareja distinta en el mismo dispositivo o
+  // navegador (link compartido, computadora del estudio, etc.), y ver los datos
+  // de otra boda sería un problema de privacidad. Cada visita arranca en blanco,
+  // salvo el pre-llenado explícito por URL de abajo.
 
   // Pre-llenado por URL — para que Saúl mande un link personalizado por
   // boda (con precio y anticipo ya definidos, por ejemplo). Sobrescribe
@@ -491,10 +490,8 @@ const contratoConfig = [
   inputs.fecha.min = hoyISO;
 
   function guardarBorrador() {
-    var data = {};
-    campos.forEach(function (id) { data[id] = inputs[id].value.trim(); });
-    data.celularPais = celularPais.value;
-    try { localStorage.setItem(LS_CONTRATO, JSON.stringify(data)); } catch (e) {}
+    // Ya no se guarda: ver nota en la carga de la página sobre por qué
+    // no persistimos datos de una boda entre visitas de distintas parejas.
   }
 
   function fechaLarga(iso) {
