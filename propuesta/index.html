@@ -557,6 +557,10 @@ const trackerLabels = {1:'Nombres',2:'Fecha',3:'Historia',4:'Qué revivir',5:'Pr
     }
   }
 
+  // Marca si ya se avisó que esta persona llegó al paso de Paquetes,
+  // para no mandar el evento otra vez si va y vuelve con el tracker.
+  let paquetesAvisado = false;
+
 function goTo(step){
         steps.forEach(s => s.classList.remove('visible'));
         document.querySelector(`.step[data-step="${step}"]`).classList.add('visible');
@@ -565,6 +569,12 @@ function goTo(step){
         renderTracker();
         updateCoupleTag();
         window.scrollTo({top:0, behavior:'smooth'});
+        // Llegó a Paquetes = pasó por todo el quiz. Sin esto no se puede
+        // distinguir a quien abandonó antes de a quien vio los paquetes y no agendó.
+        if (step === 6 && !paquetesAvisado && window.FiniteTrack) {
+          paquetesAvisado = true;
+          window.FiniteTrack('VerPaquetes');
+        }
 }
 
   function attemptGoTo(target, inputId, fieldId){

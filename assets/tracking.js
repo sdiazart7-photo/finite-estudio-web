@@ -92,8 +92,12 @@
     'lead': 'Lead',                     // "Interesado en reunión": Enviar (formulario de contacto) / Agendar videollamada o cafecito
     'contact': 'Contact',               // WhatsApp, Revisar/Reservar mi fecha, Cotizar ahora, Contacto
     'view-portfolio': 'VerPortafolio',  // Ver portafolio (evento personalizado)
+    'checkout': 'InitiateCheckout',     // Inicio de compra: Firmar contrato y recibir PDF (contrato.html) / Solicitar pago con tarjeta (pago.html)
     'purchase': 'Purchase',             // Envía comprobante de pago del anticipo
   };
+  // "VerPaquetes" (personalizado) NO está aquí a propósito: no es un clic,
+  // es llegar al paso "Paquetes" del quiz en /propuesta/. Se dispara directo
+  // con window.FiniteTrack desde el goTo() de esa página. Ver ese archivo.
   // "Cliente potencial" (Schedule) y "Programar" NO están aquí a propósito:
   // se confirman del lado del servidor cuando Cal.com avisa que la cita
   // quedó agendada de verdad (netlify/functions/cal-webhook.js), no con un
