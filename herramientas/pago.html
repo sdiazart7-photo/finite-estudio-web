@@ -7,6 +7,10 @@
 <meta name="description" content="Datos para cubrir tu anticipo y reservar la fecha de tu boda." />
 <meta name="robots" content="noindex,nofollow" />
 <meta name="theme-color" content="#1C1A18" />
+<script src="/assets/tracking.js"></script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
+/></noscript>
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -112,7 +116,7 @@
   }
 </style>
 </head>
-<body>
+<body data-page-type="checkout">
 
 <nav>
   <div class="inner">
@@ -163,14 +167,14 @@
       <span>💳</span>
       <span>También puedes pagar en <b>efectivo</b>. Una vez que hagas tu transferencia o depósito, envíanos el comprobante por WhatsApp para confirmar tu fecha.</span>
     </div>
-    <a class="btn-gold" id="btnWa" target="_blank" rel="noopener" href="#">Enviar comprobante por WhatsApp</a>
+    <a class="btn-gold" id="btnWa" data-track="purchase" data-currency="MXN" target="_blank" rel="noopener" href="#">Enviar comprobante por WhatsApp</a>
   </div>
 
   <!-- Pago con tarjeta -->
   <div class="card">
     <p class="card-label">¿Prefieres pagar con tarjeta?</p>
     <p class="monto-sub" style="text-align:left; margin-top:0;">También puedes pagar tu anticipo con tarjeta de crédito o débito. Solicítanos tu link de pago seguro y te lo enviamos por WhatsApp en minutos.</p>
-    <a class="btn-outline" id="btnTarjeta" target="_blank" rel="noopener" href="#">Solicitar pago con tarjeta</a>
+    <a class="btn-outline" id="btnTarjeta" data-track="contact" target="_blank" rel="noopener" href="#">Solicitar pago con tarjeta</a>
   </div>
 
   <a class="back-link" href="#">← Volver al inicio</a>
@@ -237,7 +241,9 @@
     (paquete ? ' — ' + paquete : '') +
     (fecha ? ' para el ' + fechaLarga(fecha) : '') +
     '. Te adjuntamos el comprobante de nuestro anticipo' + (anticipo > 0 ? ' de $' + numeroConComas(anticipo) + ' MXN' : '') + ' 💳';
-  document.getElementById('btnWa').href = 'https://api.whatsapp.com/send?phone=' + WHATSAPP.replace('+', '') + '&text=' + encodeURIComponent(texto);
+  var btnWaEl = document.getElementById('btnWa');
+  btnWaEl.href = 'https://api.whatsapp.com/send?phone=' + WHATSAPP.replace('+', '') + '&text=' + encodeURIComponent(texto);
+  if (anticipo > 0) { btnWaEl.dataset.value = anticipo; } // "Compra": el monto real del anticipo, para el evento Purchase
 
   // Solicitud de link de pago con tarjeta — como el monto de cada boda es
   // distinto, no hay un link de pago fijo: el cliente pide por WhatsApp y

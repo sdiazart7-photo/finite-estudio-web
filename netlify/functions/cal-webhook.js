@@ -1,17 +1,25 @@
 // cal-webhook.js — recibe el webhook "Booking created" de Cal.com
 // Flujo: Cal.com -> esta función -> Meta (evento CAPI + audiencia personalizada)
+//
+// Estos son eventos VERIFICADOS: solo se disparan cuando Cal.com confirma que la
+// cita quedó agendada de verdad, no cuando alguien nada más abre el calendario.
+// Por eso viven aquí y no en tracking.js (que solo ve clics del navegador).
+//
+// Mapeo de slugs -> evento de Meta:
+//   admi / cita-para-boda      -> "Schedule" (estándar)   = "Cliente potencial": agendó la LLAMADA/reunión
+//   minis-sesiones-oct / dic   -> "Programar" (personalizado) = agendó una SESIÓN de fotos
+// Se separan a propósito: una llamada es un lead calificado, una sesión ya es
+// un compromiso mucho más cercano a la venta, y conviene poder optimizar campañas
+// hacia cada una por separado en el Administrador de Eventos.
 
 const crypto = require('crypto');
 const { sendCapiEvent, findOrCreateAudience, addUsersToAudience } = require('./capi');
 
-// Slugs que queremos rastrear y a qué evento de Meta mapea cada uno.
-// Ajusta metaEvent si quieres separar "consulta" (admi) de "boda confirmada" (cita-para-boda)
-// con nombres de evento distintos en Meta.
 const TRACKED_SLUGS = {
   'admi': { metaEvent: 'Schedule', audience: true },
-  'cita-para-boda': { metaEvent: 'Lead', audience: true },
-  'minis-sesiones-oct': { metaEvent: 'Lead', audience: true },
-  'mini-sesiones-dic': { metaEvent: 'Lead', audience: true },
+  'cita-para-boda': { metaEvent: 'Schedule', audience: true },
+  'minis-sesiones-oct': { metaEvent: 'Programar', audience: true },
+  'mini-sesiones-dic': { metaEvent: 'Programar', audience: true },
 };
 
 const AUDIENCE_NAME = 'Agendaron llamada - Finite Estudio';
@@ -85,6 +93,7 @@ exports.handler = async (event) => {
       eventId,
       hashedEmail,
       hashedPhone,
+      actionSource: 'system_generated',
       eventSourceUrl: `https://cal.com/sauldiazph/${slug}`,
     });
 

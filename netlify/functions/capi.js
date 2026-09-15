@@ -1,5 +1,7 @@
-// capi.js — helper que habla con Meta (Graph API) desde el webhook de Cal.com
+// capi.js — helper que habla con Meta (Graph API) desde cualquier función de Netlify.
 // No contiene secretos: todos los valores sensibles vienen de variables de entorno de Netlify.
+// Lo usan tanto cal-webhook.js (eventos de agenda, verificados por Cal.com) como
+// capi-relay.js (eventos de clic que llegan desde tracking.js en el navegador).
 
 const PIXEL_ID = process.env.META_PIXEL_ID;
 const AD_ACCOUNT_ID = process.env.META_AD_ACCOUNT_ID;
@@ -9,23 +11,45 @@ const GRAPH_VERSION = 'v21.0';
 /**
  * Envía un evento server-side a Meta Conversions API.
  * event_id se usa para deduplicar contra el mismo evento si también llega por Pixel de navegador.
+ *
+ * actionSource: 'website' para eventos que ocurrieron en el sitio (clics, PageView),
+ *               'system_generated' para eventos que confirma un sistema externo (Cal.com).
  */
-async function sendCapiEvent({ eventName, eventId, hashedEmail, hashedPhone, eventSourceUrl }) {
+async function sendCapiEvent({
+  eventName,
+  eventId,
+  eventSourceUrl,
+  actionSource,
+  hashedEmail,
+  hashedPhone,
+  fbp,
+  fbc,
+  clientIpAddress,
+  clientUserAgent,
+  customData,
+}) {
   const userData = {};
   if (hashedEmail) userData.em = [hashedEmail];
   if (hashedPhone) userData.ph = [hashedPhone];
+  if (fbp) userData.fbp = fbp;
+  if (fbc) userData.fbc = fbc;
+  if (clientIpAddress) userData.client_ip_address = clientIpAddress;
+  if (clientUserAgent) userData.client_user_agent = clientUserAgent;
+
+  const event = {
+    event_name: eventName,
+    event_time: Math.floor(Date.now() / 1000),
+    event_id: eventId,
+    action_source: actionSource || 'website',
+    event_source_url: eventSourceUrl,
+    user_data: userData,
+  };
+  if (customData && Object.keys(customData).length) {
+    event.custom_data = customData;
+  }
 
   const body = {
-    data: [
-      {
-        event_name: eventName,
-        event_time: Math.floor(Date.now() / 1000),
-        event_id: eventId,
-        action_source: 'system_generated',
-        event_source_url: eventSourceUrl,
-        user_data: userData,
-      },
-    ],
+    data: [event],
     access_token: ACCESS_TOKEN,
   };
 

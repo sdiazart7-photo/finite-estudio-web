@@ -7,23 +7,11 @@
 <meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
-<!-- Meta Pixel -->
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version="2.0";
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,"script",
-"https://connect.facebook.net/en_US/fbevents.js");
-fbq("init", "2447959342366827");
-fbq("track", "PageView");
-</script>
+<!-- Finite Estudio — tracking compartido -->
+<script src="/assets/tracking.js"></script>
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
 /></noscript>
-<!-- Fin Meta Pixel -->
 <meta name="facebook-domain-verification" content="auvuffvpgju80mvvaxymv2gnwyjohu" />
 <style>
     :root{
@@ -410,8 +398,8 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
       <div class="decision-block">
         <p class="decision-note">Si alguno de estos paquetes <strong>les hace sentido</strong> y están de acuerdo con el proceso para contratar el servicio, <strong>agenden su cita directamente en el calendario</strong>. Si aún tienen dudas o consultas, escríbanme por WhatsApp.</p>
         <div class="cta-links">
-          <a href="#" class="btn gold" data-cal-namespace="cita-para-boda" data-cal-link="sauldiazph/cita-para-boda" data-cal-config='{"layout":"month_view"}'>Agendar videollamada o cafecito</a>
-          <a id="wa-full" href="#" class="btn ghost" target="_blank" rel="noopener">Tengo dudas, escríbeme por WhatsApp</a>
+          <a href="#" class="btn gold" data-track="lead" data-cal-namespace="cita-para-boda" data-cal-link="sauldiazph/cita-para-boda" data-cal-config='{"layout":"month_view"}'>Agendar videollamada o cafecito</a>
+          <a id="wa-full" href="#" class="btn ghost" data-track="contact" target="_blank" rel="noopener">Tengo dudas, escríbeme por WhatsApp</a>
         </div>
       </div>
     </div>
@@ -463,8 +451,8 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
       <div class="decision-block">
         <p class="decision-note">Si este paquete <strong>les hace sentido</strong> y están de acuerdo con el proceso para contratar el servicio, <strong>agenden su cita directamente en el calendario</strong>. Si aún tienen dudas o consultas, escríbanme por WhatsApp.</p>
         <div class="cta-links">
-          <a href="#" class="btn gold" data-cal-namespace="cita-para-boda" data-cal-link="sauldiazph/cita-para-boda" data-cal-config='{"layout":"month_view"}'>Agendar videollamada o cafecito</a>
-          <a id="wa-short" href="#" class="btn ghost" target="_blank" rel="noopener">Tengo dudas, escríbeme por WhatsApp</a>
+          <a href="#" class="btn gold" data-track="lead" data-cal-namespace="cita-para-boda" data-cal-link="sauldiazph/cita-para-boda" data-cal-config='{"layout":"month_view"}'>Agendar videollamada o cafecito</a>
+          <a id="wa-short" href="#" class="btn ghost" data-track="contact" target="_blank" rel="noopener">Tengo dudas, escríbeme por WhatsApp</a>
         </div>
       </div>
     </div>
@@ -657,7 +645,6 @@ function goTo(step){
                                 idealCard.insertBefore(tag, idealCard.firstChild);
                     }
           }
-    if (typeof fbq === 'function') { fbq('track', 'Lead'); }
     goTo(6);
   }
 
