@@ -221,8 +221,8 @@ section { padding: 90px 0; }
   gap: 24px;
 }
 .mood-duo img { border-radius: var(--radius); box-shadow: 0 20px 40px rgba(0,0,0,0.14); object-fit: cover; }
-.mood-duo .mood-a { width: 34%; max-width: 320px; aspect-ratio: 3/4; }
-.mood-duo .mood-b { width: 24%; max-width: 220px; aspect-ratio: 3/4; margin-bottom: 46px; }
+.mood-duo .mood-a { width: 34%; max-width: 320px; height: auto; aspect-ratio: 3/4; }
+.mood-duo .mood-b { width: 24%; max-width: 220px; height: auto; aspect-ratio: 3/4; margin-bottom: 46px; }
 @media (max-width: 700px) {
   .mood-duo { gap: 14px; }
   .mood-duo .mood-a { width: 55%; }
