@@ -1,20 +1,30 @@
 // contrato.js — recibe los datos + PDF del contrato ya firmado (desde
 // herramientas/contrato.html) y manda DOS correos con el PDF adjunto,
-// vía Resend (https://resend.com):
-//   1. Al cliente, al correo que escribió en el formulario.
+// usando el propio Gmail de Finite Estudio (sin servicios externos):
+//   1. A la pareja, al correo que escribió en el formulario.
 //   2. A Finite Estudio, como aviso interno de que se firmó un contrato.
 //
-// Variables de entorno necesarias en Netlify (Site settings → Environment variables):
-//   RESEND_API_KEY        — API key de Resend.
-//   CONTRATO_FROM_EMAIL   — remitente verificado en Resend, ej. "Finite Estudio <contrato@finiteestudio.com>".
-//                            Requiere que el dominio finiteestudio.com esté verificado en Resend
-//                            (Resend → Domains → Add Domain → agregar los registros DNS que pida).
-//                            Sin dominio verificado, Resend solo deja mandar a tu propio correo de prueba.
-//   CONTRATO_NOTIFY_EMAIL — a qué correo tuyo llega la copia interna. Si no se define, cae en finite.estudio@gmail.com.
+// ── Cómo activarlo (una sola vez) ──────────────────────────────────────
+// 1. En la cuenta de Gmail que va a mandar los correos (finite.estudio@gmail.com):
+//    - Activa la verificación en 2 pasos: myaccount.google.com/security
+//    - Genera una "Contraseña de aplicación": myaccount.google.com/apppasswords
+//      (elige app "Correo" / "Otra", nómbrala "Finite Estudio Web").
+//      Google te da 16 caracteres, sin espacios cópialos tal cual.
+//    NOTA: esto NO crea una cuenta nueva, es una llave especial para que
+//    este script mande correos desde tu Gmail sin usar tu contraseña normal.
+// 2. En Netlify (Site settings → Environment variables) agrega:
+//    GMAIL_USER            = finite.estudio@gmail.com
+//    GMAIL_APP_PASSWORD    = la contraseña de 16 caracteres de arriba
+//    CONTRATO_NOTIFY_EMAIL = (opcional) si quieres que el aviso interno
+//                            llegue a otro correo distinto al remitente.
+// 3. Sube este archivo + package.json (ya trae "nodemailer" como dependencia)
+//    para que Netlify lo instale solo en el próximo deploy.
 
-const RESEND_API_KEY = process.env.RESEND_API_KEY;
-const FROM_EMAIL = process.env.CONTRATO_FROM_EMAIL || 'Finite Estudio <onboarding@resend.dev>';
-const NOTIFY_EMAIL = process.env.CONTRATO_NOTIFY_EMAIL || 'finite.estudio@gmail.com';
+const nodemailer = require('nodemailer');
+
+const GMAIL_USER = process.env.GMAIL_USER;
+const GMAIL_APP_PASSWORD = process.env.GMAIL_APP_PASSWORD;
+const NOTIFY_EMAIL = process.env.CONTRATO_NOTIFY_EMAIL || GMAIL_USER;
 
 function money(n) {
   const num = Number(n) || 0;
@@ -34,29 +44,14 @@ function escapeHtml(str) {
   });
 }
 
-async function sendEmail({ to, subject, html }, attachment) {
-  const res = await fetch('https://api.resend.com/emails', {
-    method: 'POST',
-    headers: {
-      Authorization: 'Bearer ' + RESEND_API_KEY,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      from: FROM_EMAIL,
-      to: [to],
-      subject: subject,
-      html: html,
-      attachments: attachment
-        ? [{ filename: attachment.filename, content: attachment.contentBase64 }]
-        : undefined,
-    }),
+let cachedTransporter = null;
+function getTransporter() {
+  if (cachedTransporter) return cachedTransporter;
+  cachedTransporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: { user: GMAIL_USER, pass: GMAIL_APP_PASSWORD },
   });
-
-  const data = await res.json().catch(function () { return {}; });
-  if (!res.ok) {
-    throw new Error('Resend error: ' + JSON.stringify(data));
-  }
-  return data;
+  return cachedTransporter;
 }
 
 exports.handler = async (event) => {
@@ -64,11 +59,11 @@ exports.handler = async (event) => {
     return { statusCode: 405, body: 'Method Not Allowed' };
   }
 
-  if (!RESEND_API_KEY) {
-    // Sin API key configurada, avisamos claro en vez de fallar en silencio.
+  if (!GMAIL_USER || !GMAIL_APP_PASSWORD) {
+    // Sin credenciales configuradas, avisamos claro en vez de fallar en silencio.
     return {
       statusCode: 200,
-      body: JSON.stringify({ enviado: false, error: 'RESEND_API_KEY no está configurada en Netlify.' }),
+      body: JSON.stringify({ enviado: false, error: 'GMAIL_USER / GMAIL_APP_PASSWORD no están configuradas en Netlify.' }),
     };
   }
 
@@ -89,7 +84,11 @@ exports.handler = async (event) => {
     return { statusCode: 200, body: JSON.stringify({ enviado: false, error: 'Falta email o PDF.' }) };
   }
 
-  const attachment = { filename: archivo || 'Contrato.pdf', contentBase64: pdfBase64 };
+  const adjunto = {
+    filename: archivo || 'Contrato.pdf',
+    content: pdfBase64,
+    encoding: 'base64',
+  };
 
   const filaTabla = function (label, valor) {
     return '<tr><td style="padding:4px 12px 4px 0;color:#6b6459;">' + label + '</td>' +
@@ -124,19 +123,32 @@ exports.handler = async (event) => {
     resumenHtml +
     '</div>';
 
+  const transporter = getTransporter();
   let clienteOk = false;
   let negocioOk = false;
   const errores = [];
 
   try {
-    await sendEmail({ to: email, subject: 'Tu contrato de boda con Finite Estudio', html: htmlCliente }, attachment);
+    await transporter.sendMail({
+      from: 'Finite Estudio <' + GMAIL_USER + '>',
+      to: email,
+      subject: 'Tu contrato de boda con Finite Estudio',
+      html: htmlCliente,
+      attachments: [adjunto],
+    });
     clienteOk = true;
   } catch (err) {
     errores.push('cliente: ' + err.message);
   }
 
   try {
-    await sendEmail({ to: NOTIFY_EMAIL, subject: 'Nuevo contrato firmado: ' + (nombre || 'sin nombre'), html: htmlNegocio }, attachment);
+    await transporter.sendMail({
+      from: 'Finite Estudio <' + GMAIL_USER + '>',
+      to: NOTIFY_EMAIL,
+      subject: 'Nuevo contrato firmado: ' + (nombre || 'sin nombre'),
+      html: htmlNegocio,
+      attachments: [adjunto],
+    });
     negocioOk = true;
   } catch (err) {
     errores.push('negocio: ' + err.message);

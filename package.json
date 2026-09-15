@@ -1,0 +1,8 @@
+{
+  "name": "finite-estudio-web",
+  "private": true,
+  "description": "Dependencias de las funciones de Netlify (netlify/functions). El sitio en sí no usa build tool.",
+  "dependencies": {
+    "nodemailer": "^6.9.14"
+  }
+}
