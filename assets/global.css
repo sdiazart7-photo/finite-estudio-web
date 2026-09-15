@@ -445,3 +445,11 @@ section { padding: 90px 0; }
 
 /* ---------- Artículos recomendados (final de cada post) ---------- */
 .related-posts { border-top: 1px solid rgba(43,43,43,0.12); padding-top: 50px; margin-top: 20px; }
+
+/* Fix: fotos de .two-col (inicio) no deben estirarse dentro del grid */
+.two-col img {
+     width: 100%;
+     height: auto;
+     display: block;
+     border-radius: var(--radius);
+}
