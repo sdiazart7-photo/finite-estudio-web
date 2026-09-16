@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fotografía de bodas en Tijuana | Finite Estudio</title>
+<meta name="description" content="Cobertura de bodas de 6 a 12 horas en Tijuana, Rosarito y Valle de Guadalupe. Escríbeme por WhatsApp y platicamos de su fecha.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto/finite-estudio-web/marca/logo.png">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Fotografía de bodas en Tijuana | Finite Estudio">
+<meta property="og:description" content="Cobertura de bodas de 6 a 12 horas en Tijuana, Rosarito y Valle de Guadalupe.">
+<meta property="og:image" content="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1200,h_630,c_fill/finite-estudio-web/inicio/beso-velo.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+
+<!-- Finite Estudio — tracking compartido -->
+<script src="/assets/tracking.js"></script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
+/></noscript>
+<meta name="facebook-domain-verification" content="auvuffvpgju80mvvaxymv2gnwyjohu" />
+
+<style>
+  :root{
+    --cream:#f8f7f3;
+    --cream-deep:#efe9df;
+    --ink:#2b2b2b;
+    --taupe:#937b63;
+    --deep:#221f1a;
+    --line: rgba(43,43,43,0.16);
+    --line-light: rgba(248,247,243,0.28);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Jost', sans-serif;
+    font-size:17px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,blockquote{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:500;
+    line-height:1.15;
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+  p{margin:0;}
+  img{max-width:100%; height:auto; aspect-ratio:auto; display:block;}
+  a{color:inherit;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 32px;}
+  .eyebrow{
+    display:block;
+    font-family:'Jost', sans-serif;
+    font-size:12px;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:var(--taupe);
+    margin-bottom:18px;
+  }
+  .eyebrow.on-dark{color:#cbb9a3;}
+
+  /* Botón — único destino de toda la página: WhatsApp */
+  .cta-btn{
+    display:inline-block;
+    padding:16px 38px;
+    border:1px solid currentColor;
+    font-family:'Jost', sans-serif;
+    font-size:13px;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    text-decoration:none;
+    background:transparent;
+    transition:background .25s ease, color .25s ease;
+  }
+  .cta-btn.on-photo{color:var(--cream);}
+  .cta-btn.on-photo:hover{background:var(--cream); color:var(--ink);}
+  .cta-btn.on-light{color:var(--ink); border-color:var(--ink);}
+  .cta-btn.on-light:hover{background:var(--ink); color:var(--cream);}
+
+  /* Header — solo marca, sin menú: nada que distraiga del WhatsApp */
+  .site-header{
+    position:absolute; top:0; left:0; right:0; z-index:5;
+    padding:36px 0;
+  }
+  .site-header img{height:34px; margin:0 auto;}
+
+  /* Hero */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex;
+    align-items:flex-end;
+    background-size:cover;
+    background-position:center;
+  }
+  .hero::after{
+    content:"";
+    position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(34,31,26,0) 35%, rgba(34,31,26,.78) 100%);
+  }
+  .hero-inner{
+    position:relative; z-index:2;
+    padding-bottom:88px;
+    max-width:720px;
+  }
+  .hero h1{
+    color:var(--cream);
+    font-size:clamp(2.4rem, 5vw, 3.8rem);
+    margin-bottom:22px;
+  }
+  .hero p{
+    color:var(--cream);
+    opacity:.92;
+    font-size:1.05rem;
+    max-width:480px;
+    margin-bottom:34px;
+  }
+
+  /* Bienvenida — composición asimétrica de imágenes */
+  .welcome{padding:130px 0; background:var(--cream);}
+  .welcome-grid{
+    display:grid;
+    grid-template-columns:0.85fr 1fr;
+    gap:0 60px;
+    align-items:center;
+  }
+  .welcome-images{position:relative; padding-bottom:60px;}
+  .welcome-images .img-a{width:78%; aspect-ratio:4/5; object-fit:cover;}
+  .welcome-images .img-b{
+    position:absolute; right:0; bottom:0;
+    width:52%;
+    aspect-ratio:4/5;
+    object-fit:cover;
+    border:10px solid var(--cream);
+    box-shadow:0 18px 40px -18px rgba(43,43,43,.35);
+  }
+  .welcome-copy h2{font-size:clamp(1.9rem,3vw,2.6rem); margin-bottom:20px;}
+  .welcome-copy p{max-width:46ch;}
+
+  /* Cómo trabajamos — fondo oscuro, trío de fotos + lista numerada */
+  .process{background:var(--deep); color:var(--cream); padding:130px 0;}
+  .process-grid{
+    display:grid;
+    grid-template-columns:1.1fr 1fr;
+    gap:70px;
+    align-items:start;
+  }
+  .process h2{color:var(--cream); font-size:clamp(1.9rem,3vw,2.6rem); margin-bottom:44px; max-width:14ch;}
+  .process-photos{display:grid; grid-template-columns:1fr 1fr; gap:14px; align-items:start;}
+  .process-photos img{width:100%; height:200px; object-fit:cover;}
+  .process-photos img:first-child{grid-column:1 / -1; height:260px;}
+  .process-list{border-top:1px solid var(--line-light);}
+  .process-item{
+    display:flex; gap:24px;
+    padding:26px 0;
+    border-bottom:1px solid var(--line-light);
+  }
+  .process-item .num{
+    font-family:'Cormorant Garamond', serif;
+    font-size:1.6rem;
+    color:var(--taupe);
+    flex:none;
+    width:2.2ch;
+  }
+  .process-item p{opacity:.88; font-size:.98rem;}
+  .process-item h3{font-size:1.15rem; margin-bottom:6px; color:var(--cream);}
+
+  /* Inversión — bloque editorial angosto y centrado */
+  .invest{background:var(--cream-deep); padding:140px 0;}
+  .invest-inner{max-width:660px; margin:0 auto; text-align:center;}
+  .invest blockquote{
+    font-style:italic;
+    font-size:clamp(1.35rem,2.4vw,1.75rem);
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 40px;
+  }
+  .invest-card{
+    border:1px solid var(--line);
+    padding:44px 40px;
+    margin:0 auto 40px;
+    max-width:420px;
+  }
+  .invest-card h3{font-size:1.35rem; margin-bottom:10px;}
+  .invest-card p{opacity:.75; font-size:.95rem; margin-bottom:18px;}
+  .invest-card .price{
+    display:block;
+    font-family:'Cormorant Garamond', serif;
+    font-size:2.1rem;
+    color:var(--taupe);
+  }
+  .invest-closing{font-size:1.05rem; opacity:.85; max-width:48ch; margin:0 auto;}
+
+  /* Testimonios — cinta con scroll continuo sobre fondo oscuro */
+  .testi{background:var(--deep); padding:110px 0 120px; overflow:hidden;}
+  .testi .wrap{text-align:center; margin-bottom:56px;}
+  .testi h2{color:var(--cream); font-size:clamp(1.8rem,3vw,2.4rem);}
+  .testi-track-wrap{overflow:hidden;}
+  .testi-track{
+    display:flex;
+    gap:16px;
+    width:max-content;
+    animation:scrollTesti 110s linear infinite;
+  }
+  .testi-track img{height:200px; width:auto; flex:none;}
+  @keyframes scrollTesti{
+    from{transform:translateX(0);}
+    to{transform:translateX(-50%);}
+  }
+
+  /* Cierre */
+  .closing{
+    position:relative;
+    min-height:64vh;
+    display:flex; align-items:center; justify-content:center; text-align:center;
+    background-size:cover; background-position:center;
+  }
+  .closing::after{content:""; position:absolute; inset:0; background:rgba(34,31,26,.52);}
+  .closing-inner{position:relative; z-index:2; max-width:560px; padding:0 24px;}
+  .closing h2{color:var(--cream); font-size:clamp(2rem,4vw,2.8rem); margin-bottom:16px;}
+  .closing p{color:var(--cream); opacity:.9; margin-bottom:32px;}
+
+  /* Footer */
+  .site-footer{background:var(--cream); padding:56px 0 40px; text-align:center;}
+  .site-footer img{height:26px; margin:0 auto 14px;}
+  .site-footer p{font-size:.85rem; opacity:.6; margin-bottom:24px;}
+  .site-footer a{font-size:.85rem; text-decoration:underline; opacity:.7;}
+  .site-footer .copy{display:block; margin-top:20px; font-size:.78rem; opacity:.45; text-decoration:none;}
+
+  @media (max-width:860px){
+    .wrap{padding:0 22px;}
+    .welcome-grid, .process-grid{grid-template-columns:1fr; gap:50px;}
+    .welcome-images{padding-bottom:70px;}
+    .process-photos img:first-child{grid-column:auto;}
+    .welcome{padding:90px 0;}
+    .process{padding:90px 0;}
+    .invest{padding:100px 0;}
+    .testi{padding:80px 0 90px;}
+    .invest-card{padding:34px 26px;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .testi-track{animation:none;}
+    html{scroll-behavior:auto;}
+  }
+
+  /* Animaciones */
+  .hero{overflow:hidden;}
+  .hero-bg{
+    position:absolute; inset:0;
+    background-size:cover; background-position:center;
+    animation:kenburns 18s ease-out forwards;
+    z-index:0;
+  }
+  @keyframes kenburns{
+    from{transform:scale(1);}
+    to{transform:scale(1.09);}
+  }
+  .closing{overflow:hidden;}
+  .closing-bg{
+    position:absolute; inset:0;
+    background-size:cover; background-position:center;
+    animation:kenburns 22s ease-out forwards;
+  }
+
+  .hero-inner > *{
+    opacity:0;
+    transform:translateY(22px);
+    animation:heroIn .9s cubic-bezier(.22,.68,.35,1) forwards;
+  }
+  .hero-inner .eyebrow{animation-delay:.15s;}
+  .hero-inner h1{animation-delay:.35s;}
+  .hero-inner p{animation-delay:.6s;}
+  .hero-inner .cta-btn{animation-delay:.82s;}
+  @keyframes heroIn{
+    to{opacity:1; transform:translateY(0);}
+  }
+
+  .reveal{
+    opacity:0;
+    transform:translateY(28px);
+    transition:opacity .8s ease, transform .8s ease;
+  }
+  .reveal.in-view{opacity:1; transform:translateY(0);}
+  .reveal-stagger.in-view .process-item,
+  .reveal-stagger.in-view .testi-track img{transition-delay:var(--d,0s);}
+
+  @media (prefers-reduced-motion: reduce){
+    .hero-bg, .closing-bg{animation:none;}
+    .hero-inner > *{animation:none; opacity:1; transform:none;}
+    .reveal{opacity:1; transform:none; transition:none;}
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+<div class="wrap">
+<img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto/finite-estudio-web/marca/logo-blanco.png" onerror="this.src='https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto/finite-estudio-web/marca/logo.png'" alt="Finite Estudio">
+</div>
+</header>
+
+<section class="hero">
+<div class="hero-bg" style="background-image:url('https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1800/finite-estudio-web/inicio/hero.jpg')"></div>
+<div class="wrap hero-inner">
+<span class="eyebrow on-dark">Fotógrafo de bodas · Tijuana, Rosarito y Valle de Guadalupe</span>
+<h1>Después de la boda, lo que queda es poder volver a vivirla.</h1>
+<p>Dentro de un año, o de veinte, van a poder abrir estas fotos y sentir otra vez el día completo.</p>
+<a href="https://wa.me/526643372791?text=Hola%2C%20vi%20el%20anuncio%20y%20quiero%20platicar%20sobre%20mi%20boda" class="cta-btn on-photo" data-track="contact" target="_blank" rel="noopener">Escríbeme por WhatsApp</a>
+</div>
+</section>
+
+<section class="welcome">
+<div class="wrap welcome-grid">
+<div class="welcome-images reveal">
+<img class="img-a" src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_800/finite-estudio-web/inicio/zapatos-novia-jardin.jpg" alt="Zapatos de novia en jardín" width="800" height="1073" loading="lazy">
+<img class="img-b" src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_500/finite-estudio-web/inicio/retrato-editorial-bn.jpg" alt="Retrato editorial en blanco y negro de pareja" width="500" height="707" loading="lazy">
+</div>
+<div class="welcome-copy reveal">
+<span class="eyebrow">Un día que no se repite</span>
+<h2>Por eso importa cada detalle</h2>
+<p>La luz de esa tarde, cómo se acomodó el vestido, la cara de su papá cuando los vio entrar. Todo eso queda guardado, listo para que lo vuelvan a sentir cuando quieran.</p>
+</div>
+</div>
+</section>
+
+<section class="process">
+<div class="wrap process-grid">
+<div class="reveal">
+<span class="eyebrow on-dark">Cómo trabajamos</span>
+<h2>El camino, paso a paso</h2>
+<div class="process-photos">
+<img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_900/finite-estudio-web/inicio/novia-damas-diversion.jpg" alt="Novia con damas riendo" width="900" height="600" loading="lazy">
+<img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_500/finite-estudio-web/inicio/tacones-novia.jpg" alt="Tacones de novia" width="500" height="750" loading="lazy">
+<img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_500/finite-estudio-web/inicio/beso-velo.jpg" alt="Novios besándose con velo" width="500" height="759" loading="lazy">
+</div>
+</div>
+<div class="process-list reveal">
+<div class="process-item">
+<span class="num">01</span>
+<div><h3>Contacto</h3><p>Nos escriben por WhatsApp, platicamos su fecha y revisamos disponibilidad.</p></div>
+</div>
+<div class="process-item">
+<span class="num">02</span>
+<div><h3>Cita</h3><p>Una plática para conocerse y armar la propuesta que haga sentido para su boda.</p></div>
+</div>
+<div class="process-item">
+<span class="num">03</span>
+<div><h3>El día</h3><p>Ustedes lo viven. La cámara documenta cada momento sin interrumpir nada.</p></div>
+</div>
+<div class="process-item">
+<span class="num">04</span>
+<div><h3>Entrega</h3><p>Entre 30 y 35 días hábiles después, llegan los enlaces con todas sus fotos.</p></div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="invest" id="precio">
+<div class="wrap invest-inner reveal">
+<span class="eyebrow">Inversión</span>
+<blockquote>Cada propuesta se construye a partir de una conversación, entendiendo el tipo de boda, el ritmo del día y lo que es importante para ustedes.</blockquote>
+<div class="invest-card">
+<h3>Cobertura de bodas</h3>
+<p>De 6 a 12 horas de cobertura el día de tu boda.</p>
+<span class="price">Desde $20,000 MXN</span>
+</div>
+<p class="invest-closing">Si sienten que esta forma de trabajar encaja con lo que están buscando, el siguiente paso es conversar con calma.</p>
+</div>
+</section>
+
+<section class="testi">
+<div class="wrap reveal">
+<span class="eyebrow on-dark">Fotógrafo de bodas en Tijuana</span>
+<h2>Testimonios</h2>
+</div>
+<div class="testi-track-wrap">
+<div class="testi-track">
+<img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,h_680/finite-estudio-web/testimonios/testimonio-01.png" alt="Testimonio de cliente" loading="lazy">
+<img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,h_680/finite-estudio-web/testimonios/testimonio-02.png" alt="Testimonio de cliente" loading="lazy">
+<img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,h_680/finite-estudio-web/testimonios/testimonio-03.jpg" alt="Testimonio de cliente" loading="lazy">
+<img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,h_680/finite-estudio-web/testimonios/testimonio-04.jpg" alt="Testimonio de cliente" loading="lazy">
+<img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,h_680/finite-estudio-web/testimonios/testimonio-05.jpg" alt="Testimonio de cliente" loading="lazy">
+<img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,h_680/finite-estudio-web/testimonios/testimonio-06.jpg" alt="Testimonio de cliente" loading="lazy">
+<img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,h_680/finite-estudio-web/testimonios/testimonio-01.png" alt="Testimonio de cliente" loading="lazy">
+<img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,h_680/finite-estudio-web/testimonios/testimonio-02.png" alt="Testimonio de cliente" loading="lazy">
+<img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,h_680/finite-estudio-web/testimonios/testimonio-03.jpg" alt="Testimonio de cliente" loading="lazy">
+<img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,h_680/finite-estudio-web/testimonios/testimonio-04.jpg" alt="Testimonio de cliente" loading="lazy">
+<img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,h_680/finite-estudio-web/testimonios/testimonio-05.jpg" alt="Testimonio de cliente" loading="lazy">
+<img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,h_680/finite-estudio-web/testimonios/testimonio-06.jpg" alt="Testimonio de cliente" loading="lazy">
+</div>
+</div>
+</section>
+
+<section class="closing">
+<div class="closing-bg" style="background-image:url('https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1800/finite-estudio-web/inicio/novia-damas-diversion.jpg')"></div>
+<div class="closing-inner">
+<h2>¿Ya tienen fecha?</h2>
+<p>Empecemos por ahí.</p>
+<a href="https://wa.me/526643372791?text=Hola%2C%20vi%20el%20anuncio%20y%20quiero%20platicar%20sobre%20mi%20boda" class="cta-btn on-photo" data-track="contact" target="_blank" rel="noopener">Escríbeme por WhatsApp</a>
+</div>
+</section>
+
+<footer class="site-footer">
+<div class="wrap">
+<img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto/finite-estudio-web/marca/logo.png" alt="Finite Estudio">
+<p>Fotógrafo de bodas · Tijuana</p>
+<a href="/privacidad.html">Privacidad</a>
+<span class="copy">© 2026 Finite Estudio</span>
+</div>
+</footer>
+
+<script>
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+  } else {
+    document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('in-view'); });
+  }
+</script>
+
+</body>
+</html>
