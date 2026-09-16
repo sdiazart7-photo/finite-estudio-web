@@ -18,12 +18,22 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
 
-# El CSS y el JS compartidos casi no cambian de nombre; cachear agresivo
-# y purgar por versión si algún día hace falta invalidar antes de tiempo.
+# El CSS y las fuentes casi no cambian de nombre; cachear agresivo.
 [[headers]]
   for = "/assets/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
+
+# tracking.js SÍ cambia seguido (eventos de Meta Pixel) y es crítico para
+# campañas de ads: nunca debe quedarse "atascado" en caché del navegador.
+# Esta regla, al ser más específica que "/assets/*" de arriba, la sobreescribe
+# para este archivo. Aun así, seguimos bumpeando ?v=N en el <script src>
+# cada vez que se edite, para invalidar de inmediato a quien ya lo tenía
+# guardado de antes de que existiera esta regla.
+[[headers]]
+  for = "/assets/tracking.js"
+  [headers.values]
+    Cache-Control = "public, max-age=300, must-revalidate"
 
 [[headers]]
   for = "/netlify/functions/*"
