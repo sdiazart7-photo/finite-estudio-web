@@ -33,6 +33,13 @@
   s.parentNode.insertBefore(t,s)}(window, document,"script",
   "https://connect.facebook.net/en_US/fbevents.js");
   /* eslint-enable */
+  // Apaga la "Configuración automática" de Meta ANTES del init: sin esto,
+  // el Pixel adivina por su cuenta qué es cada botón (por su texto o
+  // ubicación) y dispara solo eventos como "SubscribeButtonClick",
+  // "Contact" o "Schedule" — duplicando lo que ya mandamos a propósito
+  // más abajo. Con autoConfig en false, el ÚNICO camino para que un
+  // evento salga es que este archivo lo mande explícitamente.
+  fbq('set', 'autoConfig', false, PIXEL_ID);
   fbq('init', PIXEL_ID);
 
   // ---------- 2. Utilidades ----------
@@ -89,10 +96,11 @@
   // Mapa cerrado a propósito: una clave que no está aquí no manda nada,
   // así ningún botón nuevo empieza a ensuciar el Administrador de Eventos por accidente.
   var EVENTOS = {
-    'lead': 'Lead',                     // "Interesado en reunión": Enviar (formulario de contacto) / Agendar videollamada o cafecito
+    'lead': 'InteresadoEnCita',         // (personalizado) Dio clic en "Agendar videollamada o cafecito" o envió el formulario de contacto — SOLO interés, todavía no agendó de verdad. El agendado real es "Schedule", ver más abajo.
     'contact': 'Contact',               // WhatsApp, Revisar/Reservar mi fecha, Cotizar ahora, Contacto
     'view-portfolio': 'VerPortafolio',  // Ver portafolio (evento personalizado)
-    'checkout': 'InitiateCheckout',     // Inicio de compra: Firmar contrato y recibir PDF (contrato.html) / Solicitar pago con tarjeta (pago.html)
+    'checkout': 'InitiateCheckout',     // Inicio de compra: Firmar contrato y recibir PDF (contrato.html). El InitiateCheckout de pago.html es automático al cargar la página, no por clic — ver sección 6.
+    'checkout-tarjeta': 'SolicitudTarjeta', // (personalizado) Clic en "Solicitar pago con tarjeta" en pago.html — evento aparte del InitiateCheckout automático de esa misma página, para no mezclar "llegó a pagar" con "pidió pagar con tarjeta".
     'purchase': 'Purchase',             // Envía comprobante de pago del anticipo
   };
   // "VerPaquetes" (personalizado) NO está aquí a propósito: no es un clic,
@@ -108,6 +116,11 @@
     if (!el) return;
     var eventName = EVENTOS[el.getAttribute('data-track')];
     if (!eventName) return;
+
+    // Seguro contra doble clic / doble disparo accidental: un mismo botón
+    // no vuelve a mandar su evento en lo que dure la visita.
+    if (el.dataset.finiteTracked) return;
+    el.dataset.finiteTracked = '1';
 
     var customData = {};
     if (el.dataset.value) customData.value = parseFloat(el.dataset.value);
