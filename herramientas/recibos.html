@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Recibos · Finite Estudio</title>
+<meta name="description" content="Generador interno de recibos de pago para clientes de Finite Estudio." />
+<meta name="robots" content="noindex,nofollow" />
+<meta name="theme-color" content="#1C1A18" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&family=Playfair+Display:ital,wght@1,700&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --dark: #1C1A18; --gold: #C9A15A; --gold-soft: rgba(201,161,90,0.20); --off-white: #FAF8F5;
+    --cream: #F3EEE6; --gray-text: #726B60; --ok: #1F9D55; --err: #B23A2E;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--dark);
+    -webkit-font-smoothing: antialiased;
+  }
+  .cursive { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 700; }
+
+  nav {
+    position: sticky; top: 0; z-index: 50; background: rgba(250,248,245,0.88); backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(28,26,24,0.08); padding: 18px 24px;
+  }
+  nav .inner { max-width: 760px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+  nav .brand { font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: 22px; letter-spacing: 0.04em; color: var(--dark); text-decoration: none; }
+  nav .panel-tag { font-size: 11px; color: var(--gray-text); letter-spacing: 0.1em; text-transform: uppercase; }
+
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 24px 100px; }
+
+  .header { text-align: center; max-width: 560px; margin: 0 auto; padding: 48px 0 8px; }
+  .tag {
+    display: inline-block; background: var(--gold-soft); color: #8A6A2C;
+    font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+    padding: 6px 14px; border-radius: 9999px; margin-bottom: 18px; border: 1px solid rgba(201,161,90,0.35);
+  }
+  h1 {
+    font-family: 'Cormorant Garamond', serif; font-weight: 700; letter-spacing: -0.01em;
+    font-size: clamp(2rem, 4.4vw, 2.9rem); line-height: 1.08; margin-bottom: 14px;
+  }
+  .sub { font-size: 15.5px; color: var(--gray-text); max-width: 480px; margin: 0 auto; line-height: 1.65; }
+
+  /* ── Tarjetas ── */
+  .card {
+    background: #fff; border-radius: 22px; padding: 28px; box-shadow: 0 20px 60px rgba(28,26,24,0.08);
+    border: 1px solid rgba(28,26,24,0.06); margin-bottom: 20px;
+  }
+  .card-label {
+    font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--gray-text); margin-bottom: 18px;
+  }
+
+  /* ── Campos ── */
+  .field { margin-bottom: 16px; }
+  .field:last-child { margin-bottom: 0; }
+  .field label { display: block; font-size: 12.5px; font-weight: 600; color: var(--dark); margin-bottom: 6px; }
+
+  .field input, .field select {
+    width: 100%; font-family: 'DM Sans', sans-serif; font-size: 16px; padding: 13px 15px;
+    border-radius: 13px; border: 1.5px solid rgba(28,26,24,0.14); background: #fff; color: var(--dark);
+    outline: none; transition: border-color 0.2s;
+  }
+  .field input:focus, .field select:focus { border-color: var(--dark); }
+
+  .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+  /* ── Pagos ── */
+  .pagos-head {
+    display: grid; grid-template-columns: 1fr 88px 118px auto auto; gap: 8px;
+    margin-bottom: 8px; padding: 0 2px;
+  }
+  .pagos-head span { font-size: 10px; color: var(--gray-text); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700; }
+
+  .pago-row {
+    display: grid; grid-template-columns: 1fr 88px 118px auto auto; gap: 8px;
+    align-items: center; margin-bottom: 10px;
+  }
+  .pago-row input {
+    font-family: 'DM Sans', sans-serif; font-size: 14px; padding: 10px 12px;
+    border-radius: 11px; border: 1.5px solid rgba(28,26,24,0.14); background: #fff; color: var(--dark);
+    outline: none; transition: border-color 0.2s; width: 100%;
+  }
+  .pago-row input:focus { border-color: var(--dark); }
+
+  .btn-remove {
+    width: 30px; height: 30px; border: none; background: none; color: var(--gray-text);
+    cursor: pointer; font-size: 17px; display: flex; align-items: center; justify-content: center;
+    border-radius: 9999px; flex-shrink: 0; transition: all 0.15s;
+  }
+  .btn-remove:hover { background: rgba(178,58,46,0.10); color: var(--err); }
+
+  .pago-estado {
+    font-size: 11px; padding: 5px 10px; border-radius: 9999px; font-weight: 700;
+    white-space: nowrap; flex-shrink: 0; cursor: pointer; user-select: none;
+    letter-spacing: 0.02em; text-align: center;
+  }
+  .estado-pagado { background: rgba(31,157,85,0.14); color: var(--ok); }
+  .estado-pendiente { background: var(--gold-soft); color: #8A6A2C; }
+
+  .btn-add {
+    font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; color: #8A6A2C;
+    background: none; border: 1.5px dashed rgba(201,161,90,0.55); padding: 10px 14px;
+    cursor: pointer; width: 100%; border-radius: 13px; margin-top: 4px; transition: background 0.15s;
+  }
+  .btn-add:hover { background: var(--gold-soft); }
+
+  .totales { border-top: 1px solid rgba(28,26,24,0.08); padding-top: 16px; margin-top: 18px; }
+  .total-row { display: flex; justify-content: space-between; font-size: 13.5px; margin-bottom: 6px; color: var(--gray-text); }
+  .total-row.principal {
+    font-size: 16px; font-weight: 700; color: var(--dark); margin-top: 10px; padding-top: 12px;
+    border-top: 1px solid rgba(28,26,24,0.08);
+  }
+  .total-row.pendiente { color: #8A6A2C; font-weight: 700; }
+
+  /* ── Incluidos ── */
+  .incluido-row { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; margin-bottom: 10px; }
+  .incluido-row input { margin-bottom: 0; padding: 10px 12px; font-size: 14px; }
+
+  .btn-gold {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 15px; padding: 17px 24px;
+    border-radius: 9999px; background: var(--gold); color: #2A1F0E; border: none; cursor: pointer;
+    width: 100%; transition: all 0.28s; margin-top: 8px;
+  }
+  .btn-gold:hover { filter: brightness(0.96); transform: translateY(-2px); }
+
+  .recibo { display: none; }
+
+  @media (max-width: 640px) {
+    .card { padding: 20px; border-radius: 18px; }
+    .row-2 { grid-template-columns: 1fr; }
+    .pagos-head { display: none; }
+    .pago-row {
+      grid-template-columns: 1fr auto; grid-template-areas: "concepto estado" "monto fecha" "monto x";
+      background: var(--off-white); border-radius: 13px; padding: 10px; gap: 8px; row-gap: 8px;
+    }
+    .pago-row input:nth-child(1) { grid-column: 1 / -1; }
+    .pago-row input:nth-child(2), .pago-row input:nth-child(3) { grid-column: span 1; }
+  }
+
+  /* ── PRINT ── */
+  @media print {
+    body { background: white; }
+    .editor-app { display: none !important; }
+    .recibo { display: block !important; }
+
+    @page { size: A4; margin: 0; }
+
+    .recibo-page {
+      width: 210mm; min-height: 297mm; padding: 14mm 16mm;
+      font-family: 'DM Sans', sans-serif; color: #1C1A18; position: relative; background: white;
+    }
+
+    .recibo-page::before {
+      content: ''; position: absolute; top: 0; left: 0; width: 8mm; height: 40mm;
+      background: repeating-linear-gradient(-45deg,#1C1A18 0,#1C1A18 1.5px,transparent 0,transparent 6px);
+    }
+
+    .rec-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10mm; padding-left: 10mm; }
+
+    .rec-invoice-num { font-family: 'Cormorant Garamond', serif; font-size: 26pt; font-weight: 700; letter-spacing: -0.5px; color: #1C1A18; line-height: 1; }
+    .rec-invoice-num strong { color: #C9A15A; font-weight: 700; }
+
+    .rec-tipo { font-size: 10pt; color: #726B60; margin-top: 2mm; text-transform: uppercase; letter-spacing: 0.1em; }
+
+    .rec-fecha-bloque { text-align: right; }
+
+    .rec-fecha-box { background: #1C1A18; color: white; padding: 8px 14px; font-size: 9pt; letter-spacing: 0.06em; text-transform: uppercase; }
+
+    .rec-logo-area {
+      width: 48px; height: 48px; background: #1C1A18; display: flex; align-items: center; justify-content: center;
+      margin-left: auto; margin-bottom: 4px;
+    }
+    .rec-logo-area span { color: #C9A15A; font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: 22pt; }
+
+    .rec-studio { font-size: 7.5pt; color: #726B60; text-align: right; letter-spacing: 0.08em; text-transform: uppercase; }
+
+    .rec-divider { border: none; border-top: 1px solid rgba(28,26,24,0.14); margin: 6mm 0; }
+
+    .rec-intro { padding-left: 10mm; margin-bottom: 8mm; }
+    .rec-saludo { font-size: 9pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #726B60; margin-bottom: 3mm; }
+    .rec-cliente-nombre { font-size: 19pt; font-family: 'Cormorant Garamond', serif; font-weight: 700; line-height: 1.2; margin-bottom: 2mm; }
+    .rec-evento { font-size: 9pt; color: #555; }
+
+    .rec-specs { display: flex; gap: 12mm; padding: 5mm 10mm; background: #F3EEE6; margin: 6mm 0; }
+    .rec-spec { flex: 1; }
+    .rec-spec-label { font-size: 7pt; text-transform: uppercase; letter-spacing: 0.1em; color: #726B60; margin-bottom: 1mm; }
+    .rec-spec-val { font-size: 10pt; font-weight: 600; }
+
+    .rec-tabla-titulo { font-size: 9pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: #726B60; padding: 0 10mm; margin-bottom: 3mm; }
+
+    .rec-tabla { width: 100%; border-collapse: collapse; margin-bottom: 6mm; }
+    .rec-tabla td { padding: 5mm 10mm; font-size: 10pt; border-bottom: 1px solid #E8E6E0; vertical-align: top; }
+    .rec-tabla td:last-child { text-align: right; font-weight: 600; white-space: nowrap; }
+    .rec-tabla td.rec-td-fecha { font-size: 8.5pt; color: #726B60; white-space: nowrap; text-align: center; }
+    .rec-tabla .rec-total-row td { border-top: 2px solid #1C1A18; border-bottom: none; font-weight: 700; }
+    .rec-tabla .rec-pendiente-row td { color: #8A6A2C; background: rgba(201,161,90,0.14); }
+
+    .badge {
+      display: inline-block; font-size: 7pt; padding: 1.5px 6px; border-radius: 9999px; margin-left: 6px;
+      vertical-align: middle; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    .badge-pagado { background: rgba(31,157,85,0.14); color: #1F9D55; }
+    .badge-pendiente { background: rgba(201,161,90,0.20); color: #8A6A2C; }
+
+    .rec-incluidos { padding: 0 10mm; margin-bottom: 6mm; }
+    .rec-incluidos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1mm 8mm; }
+    .rec-incluido-item { font-size: 9.5pt; color: #333; padding: 2mm 0; border-bottom: 1px solid #EEECE6; display: flex; align-items: center; gap: 4px; }
+    .rec-incluido-item::before { content: '—'; color: #C9A15A; font-weight: 700; flex-shrink: 0; }
+
+    .rec-footer {
+      position: absolute; bottom: 10mm; left: 16mm; right: 16mm; display: flex; justify-content: space-between;
+      align-items: flex-end; padding-top: 4mm; border-top: 1px solid rgba(28,26,24,0.14);
+    }
+    .rec-footer-datos { font-size: 8pt; color: #726B60; line-height: 1.7; }
+    .rec-footer-firma { font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: 13pt; color: #1C1A18; opacity: 0.4; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ EDITOR ═══════════════ -->
+<div class="editor-app" id="app">
+
+  <nav>
+    <div class="inner">
+      <span class="brand">Finite Estudio</span>
+      <span class="panel-tag">Panel interno</span>
+    </div>
+  </nav>
+
+  <div class="wrap">
+
+    <div class="header">
+      <span class="tag">Solo uso interno</span>
+      <h1>Generador de <span class="cursive">recibos</span>.</h1>
+      <p class="sub">Llena los datos de la sesión y los pagos. El recibo se arma solo, listo para imprimir o guardar como PDF.</p>
+    </div>
+
+    <!-- Cliente y sesión -->
+    <div class="card">
+      <div class="card-label">Cliente y sesión</div>
+      <div class="field">
+        <label>Nombre completo del cliente</label>
+        <input type="text" id="cliente-nombre" placeholder="Ej. Sofía Ramírez">
+      </div>
+      <div class="row-2">
+        <div class="field">
+          <label>Tipo de servicio</label>
+          <select id="tipo-servicio">
+            <option>Fotografía de boda</option>
+            <option>Sesión Save the Date</option>
+            <option>Sesión de fotos</option>
+            <option>Otro</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Fecha de la sesión</label>
+          <input type="date" id="fecha-evento">
+        </div>
+      </div>
+    </div>
+
+    <!-- Paquete -->
+    <div class="card">
+      <div class="card-label">Paquete</div>
+      <div class="row-2">
+        <div class="field">
+          <label>Nombre del paquete</label>
+          <input type="text" id="paquete-nombre" placeholder="Ej. Premier">
+        </div>
+        <div class="field">
+          <label>Precio total (MXN)</label>
+          <input type="number" id="paquete-precio" placeholder="0.00" min="0" step="0.01">
+        </div>
+      </div>
+    </div>
+
+    <!-- Incluidos del paquete -->
+    <div class="card">
+      <div class="card-label">Incluidos del paquete</div>
+      <div id="incluidos-container"></div>
+      <button class="btn-add" onclick="agregarIncluido()">+ Agregar ítem</button>
+    </div>
+
+    <!-- Pagos -->
+    <div class="card">
+      <div class="card-label">Pagos registrados</div>
+      <div class="pagos-head">
+        <span>Concepto</span><span>Monto MXN</span><span>Fecha pago</span><span></span><span></span>
+      </div>
+      <div class="pagos-section" id="pagos-container"></div>
+      <button class="btn-add" onclick="agregarPago()">+ Agregar pago</button>
+
+      <div class="totales">
+        <div class="total-row"><span>Total paquete</span><span id="tot-paquete">$0.00 MXN</span></div>
+        <div class="total-row"><span>Total pagado</span><span id="tot-pagado">$0.00 MXN</span></div>
+        <div class="total-row pendiente principal"><span>Saldo pendiente</span><span id="tot-pendiente">$0.00 MXN</span></div>
+      </div>
+    </div>
+
+    <!-- Datos del estudio -->
+    <div class="card">
+      <div class="card-label">Datos del estudio</div>
+      <div class="row-2">
+        <div class="field">
+          <label>Correo</label>
+          <input type="email" id="studio-email" value="finite.estudio@gmail.com">
+        </div>
+        <div class="field">
+          <label>WhatsApp</label>
+          <input type="text" id="studio-tel" value="664 337 2791">
+        </div>
+      </div>
+      <div class="field">
+        <label>Número de recibo (se incrementa solo)</label>
+        <input type="number" id="num-recibo" value="1" min="1">
+      </div>
+    </div>
+
+    <button class="btn-gold" onclick="generarPDF()">Imprimir / Guardar PDF →</button>
+  </div>
+</div>
+
+<!-- ═══════════════ RECIBO (solo impresión) ═══════════════ -->
+<div class="recibo" id="recibo">
+  <div class="recibo-page">
+
+    <div class="rec-header">
+      <div class="rec-brand">
+        <div class="rec-invoice-num"><strong>RECIBO</strong> <span id="r-num">001</span></div>
+        <div class="rec-tipo" id="r-tipo">Fotografía de boda</div>
+      </div>
+      <div class="rec-fecha-bloque">
+        <div class="rec-logo-area"><span>F</span></div>
+        <div class="rec-studio">Finite Estudio</div>
+        <div class="rec-fecha-box" id="r-fecha-emision"></div>
+      </div>
+    </div>
+
+    <hr class="rec-divider">
+
+    <div class="rec-intro">
+      <div class="rec-saludo">Para</div>
+      <div class="rec-cliente-nombre" id="r-cliente">—</div>
+      <div class="rec-evento" id="r-evento">—</div>
+    </div>
+
+    <div class="rec-specs">
+      <div class="rec-spec">
+        <div class="rec-spec-label">Paquete</div>
+        <div class="rec-spec-val" id="r-paquete">—</div>
+      </div>
+      <div class="rec-spec">
+        <div class="rec-spec-label">Fecha de la sesión</div>
+        <div class="rec-spec-val" id="r-fecha-evento">—</div>
+      </div>
+      <div class="rec-spec">
+        <div class="rec-spec-label">Fecha de emisión</div>
+        <div class="rec-spec-val" id="r-fecha-emision2">—</div>
+      </div>
+    </div>
+
+    <div class="rec-incluidos" id="r-incluidos-bloque" style="display:none;">
+      <div class="rec-tabla-titulo" style="padding-left:0;margin-bottom:3mm;">Incluye</div>
+      <div class="rec-incluidos-grid" id="r-incluidos-grid"></div>
+    </div>
+
+    <div class="rec-tabla-titulo">Desglose de pagos</div>
+    <table class="rec-tabla">
+      <tbody id="r-tabla-pagos"></tbody>
+      <tbody>
+        <tr class="rec-total-row">
+          <td colspan="2">Total del paquete</td>
+          <td id="r-total-paquete">$0.00 MXN</td>
+        </tr>
+        <tr class="rec-pendiente-row" id="r-fila-pendiente">
+          <td colspan="2">Saldo pendiente</td>
+          <td id="r-total-pendiente">$0.00 MXN</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="rec-footer">
+      <div class="rec-footer-datos">
+        <span id="r-studio-email"></span><br>
+        <span id="r-studio-tel"></span>
+      </div>
+      <div class="rec-footer-firma">Finite.</div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  let incluidos = [];
+  let contadorIncluido = 0;
+
+  function agregarIncluido(texto='') {
+    incluidos.push({ id: contadorIncluido++, texto });
+    renderIncluidos();
+  }
+
+  function renderIncluidos() {
+    const cont = document.getElementById('incluidos-container');
+    cont.innerHTML = '';
+    incluidos.forEach((item, i) => {
+      const row = document.createElement('div');
+      row.className = 'incluido-row';
+
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.placeholder = 'Ej. Fotografía de ceremonia completa';
+      input.value = item.texto;
+      input.oninput = (e) => { incluidos[i].texto = e.target.value; };
+
+      const btnX = document.createElement('button');
+      btnX.className = 'btn-remove';
+      btnX.textContent = '×';
+      btnX.onclick = () => { incluidos.splice(i, 1); renderIncluidos(); };
+
+      row.appendChild(input);
+      row.appendChild(btnX);
+      cont.appendChild(row);
+    });
+  }
+
+  let pagos = [];
+  let contadorPago = 0;
+
+  function agregarPago(concepto='', monto='', pagado=true, fecha='') {
+    pagos.push({ id: contadorPago++, concepto, monto, pagado, fecha });
+    renderPagos();
+  }
+
+  function renderPagos() {
+    const cont = document.getElementById('pagos-container');
+    cont.innerHTML = '';
+    pagos.forEach((p, i) => {
+      const row = document.createElement('div');
+      row.className = 'pago-row';
+
+      // Concepto
+      const inputCon = document.createElement('input');
+      inputCon.type = 'text';
+      inputCon.placeholder = i === 0 ? 'Ej. Anticipo' : 'Ej. 2do pago';
+      inputCon.value = p.concepto;
+      inputCon.oninput = (e) => { pagos[i].concepto = e.target.value; };
+
+      // Monto
+      const inputMonto = document.createElement('input');
+      inputMonto.type = 'number';
+      inputMonto.placeholder = '0.00';
+      inputMonto.value = p.monto;
+      inputMonto.min = '0';
+      inputMonto.step = '0.01';
+      inputMonto.oninput = (e) => { pagos[i].monto = e.target.value; actualizarTotales(); };
+
+      // Fecha de pago
+      const inputFecha = document.createElement('input');
+      inputFecha.type = 'date';
+      inputFecha.value = p.fecha;
+      inputFecha.onchange = (e) => { pagos[i].fecha = e.target.value; };
+
+      // Badge estado
+      const badge = document.createElement('span');
+      badge.className = 'pago-estado ' + (p.pagado ? 'estado-pagado' : 'estado-pendiente');
+      badge.textContent = p.pagado ? '✓ Pagado' : '○ Pendiente';
+      badge.title = 'Clic para cambiar estado';
+      badge.onclick = () => { pagos[i].pagado = !pagos[i].pagado; renderPagos(); actualizarTotales(); };
+
+      // Botón eliminar (a un lado)
+      const btnX = document.createElement('button');
+      btnX.className = 'btn-remove';
+      btnX.textContent = '×';
+      btnX.title = 'Eliminar pago';
+      btnX.onclick = () => { pagos.splice(i, 1); renderPagos(); actualizarTotales(); };
+
+      row.appendChild(inputCon);
+      row.appendChild(inputMonto);
+      row.appendChild(inputFecha);
+      row.appendChild(badge);
+      row.appendChild(btnX);
+      cont.appendChild(row);
+    });
+    actualizarTotales();
+  }
+
+  function actualizarTotales() {
+    const precioTotal = parseFloat(document.getElementById('paquete-precio').value) || 0;
+    const totalPagado = pagos.filter(p => p.pagado).reduce((s, p) => s + (parseFloat(p.monto) || 0), 0);
+    const pendiente = Math.max(0, precioTotal - totalPagado);
+    document.getElementById('tot-paquete').textContent = fmt(precioTotal);
+    document.getElementById('tot-pagado').textContent = fmt(totalPagado);
+    document.getElementById('tot-pendiente').textContent = fmt(pendiente);
+  }
+
+  document.getElementById('paquete-precio').addEventListener('input', actualizarTotales);
+
+  function fmt(n) {
+    return '$' + n.toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' MXN';
+  }
+
+  function fmtFecha(str) {
+    if (!str) return '—';
+    const [y, m, d] = str.split('-');
+    const meses = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+    return `${parseInt(d)} de ${meses[parseInt(m)-1]} del ${y}`;
+  }
+
+  function padNum(n) { return String(n).padStart(3, '0'); }
+
+  function generarPDF() {
+    const num = parseInt(document.getElementById('num-recibo').value) || 1;
+    const cliente = document.getElementById('cliente-nombre').value || '—';
+    const tipo = document.getElementById('tipo-servicio').value;
+    const fechaEvento = document.getElementById('fecha-evento').value;
+    const paqueteNombre = document.getElementById('paquete-nombre').value || '—';
+    const precioTotal = parseFloat(document.getElementById('paquete-precio').value) || 0;
+    const studioEmail = document.getElementById('studio-email').value;
+    const studioTel = document.getElementById('studio-tel').value;
+
+    const hoy = new Date();
+    const hoyStr = `${hoy.getDate()} · ${['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'][hoy.getMonth()]} · ${hoy.getFullYear()}`;
+
+    document.getElementById('r-num').textContent = padNum(num);
+    document.getElementById('r-tipo').textContent = tipo;
+    document.getElementById('r-fecha-emision').textContent = hoyStr;
+    document.getElementById('r-fecha-emision2').textContent = hoyStr;
+    document.getElementById('r-cliente').textContent = cliente;
+    document.getElementById('r-evento').textContent = tipo + (fechaEvento ? ' — ' + fmtFecha(fechaEvento) : '');
+    document.getElementById('r-fecha-evento').textContent = fechaEvento ? fmtFecha(fechaEvento) : '—';
+    document.getElementById('r-paquete').textContent = paqueteNombre;
+    document.getElementById('r-studio-email').textContent = studioEmail;
+    document.getElementById('r-studio-tel').textContent = studioTel;
+    document.getElementById('r-total-paquete').textContent = fmt(precioTotal);
+
+    const totalPagado = pagos.filter(p => p.pagado).reduce((s, p) => s + (parseFloat(p.monto) || 0), 0);
+    const pendiente = Math.max(0, precioTotal - totalPagado);
+
+    // Tabla de pagos con columna de fecha
+    const tbody = document.getElementById('r-tabla-pagos');
+    tbody.innerHTML = '';
+    pagos.forEach(p => {
+      const tr = document.createElement('tr');
+      const esPagado = p.pagado;
+      const fechaPagoStr = p.fecha ? fmtFecha(p.fecha) : '—';
+      tr.innerHTML = `
+        <td>${p.concepto || 'Pago'} <span class="badge ${esPagado ? 'badge-pagado' : 'badge-pendiente'}">${esPagado ? 'Pagado' : 'Pendiente'}</span></td>
+        <td class="rec-td-fecha">${fechaPagoStr}</td>
+        <td>${fmt(parseFloat(p.monto) || 0)}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+
+    // Fila pendiente
+    const filaPendiente = document.getElementById('r-fila-pendiente');
+    if (pendiente <= 0) {
+      filaPendiente.style.display = 'none';
+    } else {
+      filaPendiente.style.display = '';
+      document.getElementById('r-total-pendiente').textContent = fmt(pendiente);
+    }
+
+    document.getElementById('num-recibo').value = num + 1;
+
+    // Incluidos
+    const grid = document.getElementById('r-incluidos-grid');
+    const bloque = document.getElementById('r-incluidos-bloque');
+    const itemsValidos = incluidos.filter(i => i.texto.trim());
+    if (itemsValidos.length > 0) {
+      bloque.style.display = '';
+      grid.innerHTML = '';
+      itemsValidos.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'rec-incluido-item';
+        div.textContent = item.texto;
+        grid.appendChild(div);
+      });
+    } else {
+      bloque.style.display = 'none';
+    }
+
+    window.print();
+  }
+
+  // Inicializar
+  agregarPago('Anticipo', '', true, '');
+  agregarPago('Saldo final', '', false, '');
+</script>
+</body>
+</html>
