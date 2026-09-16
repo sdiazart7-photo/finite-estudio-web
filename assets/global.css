@@ -415,6 +415,8 @@ section { padding: 90px 0; }
   font-family: var(--font-display); font-size: 1.2rem; font-style: italic;
 }
 .article-body ul { padding-left: 20px; }
+.article-body p a, .article-body li a { color: var(--oro); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.article-body p a:hover, .article-body li a:hover { opacity: 0.75; }
 .article-body li { margin-bottom: 8px; }
 .article-cta {
   text-align: center; margin: 50px 0;
