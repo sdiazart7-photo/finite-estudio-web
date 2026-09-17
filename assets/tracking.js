@@ -21,6 +21,25 @@
   'use strict';
 
   var PIXEL_ID = '2447959342366827';
+  var GA_MEASUREMENT_ID = 'G-P67NB8CXYP';
+
+  // ---------- 0. Cargar Google Analytics 4 (una sola vez) ----------
+  // Mismo principio que el Pixel de abajo: una sola fuente de verdad,
+  // cargada aquí y heredada por cada página vía <script src="/assets/tracking.js">.
+  // gtag ya manda su propio page_view automático al cargar — no hace
+  // falta duplicarlo a mano como sí se hace con el Pixel más abajo.
+  (function () {
+    var gaScript = document.createElement('script');
+    gaScript.async = true;
+    gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_MEASUREMENT_ID;
+    document.head.appendChild(gaScript);
+
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { window.dataLayer.push(arguments); }
+    window.gtag = gtag;
+    gtag('js', new Date());
+    gtag('config', GA_MEASUREMENT_ID);
+  })();
 
   // ---------- 1. Cargar el Meta Pixel (una sola vez) ----------
   /* eslint-disable */
