@@ -170,6 +170,36 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
   /* Inversión — bloque editorial angosto y centrado */
   .invest{background:var(--cream-deep); padding:140px 0;}
   .invest-inner{max-width:660px; margin:0 auto; text-align:center;}
+  .packages-mini-grid{
+    max-width:1040px;
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:0;
+    text-align:left;
+    margin:54px auto;
+  }
+  .package-mini{
+    padding:0 26px;
+    border-left:1px solid var(--line);
+  }
+  .package-mini:first-child{border-left:none; padding-left:0;}
+  .package-mini h3{font-size:1.3rem; margin-bottom:16px; color:var(--ink);}
+  .package-mini ul{list-style:none; margin:0; padding:0;}
+  .package-mini li{
+    font-size:.92rem;
+    line-height:1.5;
+    opacity:.78;
+    margin-bottom:10px;
+    padding-left:14px;
+    position:relative;
+  }
+  .package-mini li::before{
+    content:"";
+    position:absolute; left:0; top:.6em;
+    width:5px; height:5px;
+    background:var(--taupe);
+    border-radius:50%;
+  }
   .invest blockquote{
     font-style:italic;
     font-size:clamp(1.35rem,2.4vw,1.75rem);
@@ -177,19 +207,12 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
     color:var(--ink);
     margin:0 0 40px;
   }
-  .invest-card{
-    border:1px solid var(--line);
-    padding:44px 40px;
-    margin:0 auto 40px;
-    max-width:420px;
-  }
-  .invest-card h3{font-size:1.35rem; margin-bottom:10px;}
-  .invest-card p{opacity:.75; font-size:.95rem; margin-bottom:18px;}
-  .invest-card .price{
+  .price-standalone{
     display:block;
     font-family:'Cormorant Garamond', serif;
-    font-size:2.1rem;
+    font-size:2.6rem;
     color:var(--taupe);
+    margin-bottom:28px;
   }
   .invest-closing{font-size:1.05rem; opacity:.85; max-width:48ch; margin:0 auto;}
 
@@ -210,6 +233,16 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
     to{transform:translateX(-50%);}
   }
 
+  /* Sobre mí */
+  .about{background:var(--cream); padding:130px 0;}
+  .about-block{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:60px;
+    align-items:center;
+  }
+  .about-block h2{font-size:clamp(1.7rem,2.6vw,2.2rem); margin-bottom:18px;}
+  .about-block p{max-width:46ch;}
   /* Cierre */
   .closing{
     position:relative;
@@ -233,11 +266,15 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
     .hero-inner{padding-bottom:60px;}
     .welcome{margin-top:36px;}
     .wrap{padding:0 22px;}
-    .welcome-grid, .process-grid{grid-template-columns:1fr; gap:50px;}
+    .welcome-grid, .process-grid, .about-block{grid-template-columns:1fr; gap:40px;}
+    .about{padding:90px 0;}
     .welcome-images{padding-bottom:70px;}
     .welcome{padding:90px 0;}
     .process{padding:90px 0;}
     .invest{padding:100px 0;}
+    .packages-mini-grid{grid-template-columns:1fr 1fr; gap:34px 0;}
+    .package-mini{border-left:none; padding:0; border-top:1px solid var(--line); padding-top:22px;}
+    .package-mini:first-child{border-top:none; padding-top:0;}
     .testi{padding:80px 0 90px;}
     .invest-card{padding:34px 26px;}
   }
@@ -356,11 +393,43 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
 <div class="wrap invest-inner reveal">
 <span class="eyebrow">Inversión</span>
 <blockquote>Cada propuesta se construye a partir de una conversación, entendiendo el tipo de boda, el ritmo del día y lo que es importante para ustedes.</blockquote>
-<div class="invest-card">
-<h3>Cobertura de bodas</h3>
-<p>De 6 a 12 horas de cobertura el día de tu boda.</p>
-<span class="price">Desde $20,000 MXN</span>
 </div>
+<div class="wrap packages-mini-grid reveal">
+<div class="package-mini">
+<h3>Paquete Premier</h3>
+<ul>
+<li>Hasta 12h de cobertura.</li>
+<li>Foto + video.</li>
+<li>Cobertura completa del día.</li>
+</ul>
+</div>
+<div class="package-mini">
+<h3>Paquete Trilogía</h3>
+<ul>
+<li>Hasta 10h de cobertura.</li>
+<li>Solo foto.</li>
+<li>Cobertura completa el día.</li>
+</ul>
+</div>
+<div class="package-mini">
+<h3>Paquete Secuela</h3>
+<ul>
+<li>Hasta 6h de cobertura.</li>
+<li>Solo foto.</li>
+<li>Cobertura desde la ceremonia.</li>
+</ul>
+</div>
+<div class="package-mini">
+<h3>Paquete Piloto</h3>
+<ul>
+<li>Hasta 6h de cobertura.</li>
+<li>Solo foto.</li>
+<li>Para cubrir ceremonia y un poco de fiesta.</li>
+</ul>
+</div>
+</div>
+<div class="invest-inner">
+<span class="price-standalone">Desde $20,000 MXN</span>
 <p class="invest-closing">Si sienten que esta forma de trabajar encaja con lo que están buscando, el siguiente paso es conversar con calma.</p>
 <a href="https://wa.me/526643372791?text=Hola%2C%20vi%20el%20anuncio%20y%20quiero%20platicar%20sobre%20mi%20boda" class="cta-btn on-light section-cta" data-track="contact" target="_blank" rel="noopener">Escríbeme por WhatsApp</a>
 </div>
@@ -389,6 +458,17 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
 </div>
 <div class="wrap" style="text-align:center; margin-top:56px;">
 <a href="https://wa.me/526643372791?text=Hola%2C%20vi%20el%20anuncio%20y%20quiero%20platicar%20sobre%20mi%20boda" class="cta-btn on-photo" data-track="contact" target="_blank" rel="noopener">Escríbeme por WhatsApp</a>
+</div>
+</section>
+
+<section class="about">
+<div class="wrap about-block">
+<div>
+<span class="eyebrow">Fotógrafo de bodas</span>
+<h2>Hola, soy Saúl Díaz</h2>
+<p>Me gusta el cine, la música y sí, las bodas. Y quiero ayudarte a que revivas la tuya. Me encanta conocer a cada una de las parejas con las que trabajo, porque una boda es un momento tan personal que lo mínimo que merece es que conozca cómo se conocieron y sus momentos favoritos como pareja — eso ayuda muchísimo a la hora de su sesión.</p>
+</div>
+<img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_900/finite-estudio-web/sobre-mi/perfil-saul.jpg" alt="Saúl Díaz, fotógrafo de bodas en Tijuana" loading="lazy">
 </div>
 </section>
 
