@@ -457,6 +457,21 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
     config: {"layout":"month_view"}
   });
   Cal.ns['cita-para-boda']('ui', {'styles': {'branding': {'brandColor': '#000000'}}, 'hideEventTypeDetails': false, 'layout': 'month_view'});
+
+  // Quita el aviso "Cargando calendario..." en cuanto Cal.com inserte el iframe real dentro del contenedor
+  (function(){
+    const container = document.getElementById('my-cal-inline');
+    if (!container) return;
+    const observer = new MutationObserver(() => {
+      const iframe = container.querySelector('iframe');
+      const fallback = container.querySelector('.cal-fallback');
+      if (iframe && fallback) {
+        fallback.remove();
+        observer.disconnect();
+      }
+    });
+    observer.observe(container, { childList: true, subtree: true });
+  })();
 </script>
 
 <script>
