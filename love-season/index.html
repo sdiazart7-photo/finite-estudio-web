@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finite Estudio · Love Season, sesiones de pareja</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<!-- Finite Estudio — tracking compartido -->
+<script src="/assets/tracking.js?v=2"></script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
+/></noscript>
+<meta name="facebook-domain-verification" content="auvuffvpgju80mvvaxymv2gnwyjohu" />
+<style>
+  :root{
+    --crema:#f8f7f3;
+    --carbon:#2b2b2b;
+    --taupe:#937b63;
+    --taupe-soft:#c9b8a8;
+    --linea: rgba(43,43,43,0.14);
+    --blanco:#ffffff;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Jost',sans-serif;
+    color:var(--carbon);
+    background:var(--crema);
+    overflow-x:hidden;
+  }
+  .serif{font-family:'Cormorant Garamond',serif;}
+  img{max-width:100%; display:block;}
+  .wrap{ width:100%; max-width:960px; margin:0 auto; padding:0 20px; }
+  .eyebrow{ font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--taupe); margin-bottom:18px; display:block; text-align:center; }
+  h2{ font-family:'Cormorant Garamond',serif; font-weight:500; font-size:clamp(1.7rem,3.4vw,2.3rem); line-height:1.22; text-align:center; max-width:640px; margin:0 auto; }
+  p.sub{ font-size:15px; line-height:1.7; margin-top:18px; font-weight:300; text-align:center; max-width:480px; margin-left:auto; margin-right:auto; }
+  ::selection{ background:var(--taupe-soft); }
+  :focus-visible{ outline:2px solid var(--taupe); outline-offset:2px; }
+
+  /* TOPBAR (sits over the hero photo) */
+  .topbar{
+    position:absolute; top:0; left:0; right:0; z-index:3;
+    width:100%; padding:26px 20px;
+    display:flex; justify-content:center; align-items:center;
+  }
+  .brandmark{ font-family:'Cormorant Garamond',serif; font-size:clamp(13px,3.6vw,16px); letter-spacing:.04em; color:var(--crema); }
+
+  /* HERO — fondo fotográfico rotativo */
+  .hero{
+    position:relative; min-height:100vh; display:flex; align-items:flex-end;
+    overflow:hidden;
+  }
+  .hero-bg{ position:absolute; inset:0; z-index:0; }
+  .hero-bg-img{
+    position:absolute; inset:0; background-size:cover; background-position:center;
+    opacity:0; transition:opacity 1.8s ease;
+  }
+  .hero-bg-img.active{ opacity:1; }
+  .hero-scrim{
+    position:absolute; inset:0; z-index:1;
+    background:linear-gradient(180deg, rgba(20,18,15,.32) 0%, rgba(20,18,15,.18) 38%, rgba(20,18,15,.68) 100%);
+  }
+  .hero-inner{
+    position:relative; z-index:2; width:100%;
+    text-align:center; padding:0 20px 96px;
+  }
+  .hero .eyebrow{ color:var(--taupe-soft); }
+  .hero h1{ font-family:'Cormorant Garamond',serif; font-weight:500; font-size:clamp(2.2rem,5.6vw,3.5rem); line-height:1.16; max-width:800px; margin:0 auto; color:var(--crema); }
+  .hero p.lead{ font-size:15.5px; line-height:1.7; margin-top:20px; font-weight:300; max-width:480px; margin-left:auto; margin-right:auto; color:rgba(248,247,243,.86); }
+
+  /* SECTION TONES */
+  section{ padding:96px 0; }
+  .tone-dark{ background:var(--carbon); color:var(--crema); }
+  .tone-dark .eyebrow{ color:var(--taupe-soft); }
+  .tone-dark h2{ color:var(--crema); }
+  .tone-taupe{ background:var(--taupe); color:var(--crema); }
+  .tone-taupe .eyebrow{ color:rgba(248,247,243,.75); }
+  .tone-crema{ background:var(--crema); }
+  .tone-blanco{ background:var(--blanco); }
+
+  /* TESTIMONIOS */
+  .test-block{ text-align:center; }
+  .test-track{ position:relative; min-height:150px; }
+  .test{ display:none; }
+  .test.active{ display:block; animation:rise .5s cubic-bezier(.2,.7,.3,1); }
+  @keyframes rise{ from{opacity:0; transform:translateY(14px);} to{opacity:1; transform:translateY(0);} }
+  .test img{ max-width:440px; width:100%; margin:0 auto; border-radius:8px; box-shadow:0 24px 50px rgba(0,0,0,.28); }
+  .test-dots{ display:flex; gap:8px; justify-content:center; margin-top:26px; }
+  .test-dots button{ width:6px; height:6px; border-radius:50%; border:none; background:rgba(248,247,243,.25); cursor:pointer; padding:0; }
+  .test-dots button.active{ background:var(--taupe-soft); width:18px; border-radius:3px; }
+
+  /* STATS */
+  .stats-grid{ display:flex; justify-content:center; gap:64px; flex-wrap:wrap; margin-top:16px; text-align:center; }
+  .stat-num{ font-family:'Cormorant Garamond',serif; font-weight:500; font-size:clamp(2.4rem,6vw,3.6rem); line-height:1; }
+  .stat-label{ font-size:12.5px; letter-spacing:.04em; margin-top:10px; color:rgba(248,247,243,.82); }
+
+  /* PACKAGES */
+  .pkg-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:48px; text-align:left; align-items:stretch; }
+  @media(max-width:900px){ .pkg-grid{ grid-template-columns:1fr 1fr; } }
+  @media(max-width:560px){ .pkg-grid{ grid-template-columns:1fr; } }
+  .pkg{ background:var(--blanco); border:1px solid var(--linea); border-radius:4px; padding:26px 22px; position:relative; display:flex; flex-direction:column; height:100%; }
+  .pkg .tag{ position:absolute; top:-12px; left:50%; transform:translateX(-50%); background:var(--taupe); color:var(--crema); font-size:10.5px; letter-spacing:.04em; padding:5px 14px; border-radius:999px; white-space:nowrap; }
+  .pkg.featured{ border-color:var(--taupe); }
+  .pkg.complete{ background:var(--carbon); color:var(--crema); border-color:var(--carbon); }
+  .pkg.complete .tag{ background:var(--taupe-soft); color:var(--carbon); }
+  .pkg.complete .hrs, .pkg.complete .price span{ color:#bdb6ac; }
+  .pkg.complete li{ color:#d8d3ca; border-top-color:rgba(248,247,243,0.14); }
+  .pkg h3{ font-family:'Cormorant Garamond',serif; font-size:1.5rem; font-weight:500; margin:6px 0 2px; }
+  .pkg .hrs{ font-size:12.5px; color:#8a8377; letter-spacing:.03em; margin-bottom:14px; display:block; }
+  .pkg .price{ font-family:'Cormorant Garamond',serif; font-size:1.9rem; margin-bottom:16px; }
+  .pkg .price span{ font-family:'Jost',sans-serif; font-size:12px; color:#8a8377; }
+  .pkg ul{ list-style:none; margin:0; flex-grow:1; }
+  .pkg li{ font-size:12.5px; color:#5c574e; padding:7px 0; border-top:1px solid var(--linea); font-weight:300; }
+  .pkg li:first-child{ border-top:none; }
+  .pkg-note{ margin-top:30px; text-align:center; font-size:13.5px; color:#6b6459; font-weight:300; }
+
+  /* EXTRAS */
+  .extras-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:56px 40px; margin-top:56px; text-align:center; }
+  @media(max-width:760px){ .extras-grid{ grid-template-columns:1fr 1fr; gap:44px 28px; } }
+  @media(max-width:480px){ .extras-grid{ grid-template-columns:1fr; } }
+  .extra-name{ font-family:'Cormorant Garamond',serif; font-size:1.25rem; color:var(--carbon); }
+  .extra-price{ font-family:'Cormorant Garamond',serif; font-weight:600; font-size:1.1rem; color:var(--carbon); margin-top:10px; }
+
+  .custom-note{
+    max-width:600px; margin:36px auto 0; text-align:center;
+    border-top:1px solid var(--linea); padding-top:32px;
+  }
+  .custom-note p{ font-size:14.5px; color:#3f3b34; line-height:1.7; font-weight:400; }
+  .custom-note a{ color:var(--taupe); font-weight:500; text-decoration:underline; text-underline-offset:3px; }
+
+  /* CTA */
+  .btn{
+    display:inline-block; margin-top:10px; padding:15px 34px; border:none; border-radius:999px;
+    text-decoration:none; color:var(--crema); font-size:14.5px; font-weight:500;
+    transition:background .3s ease; background:var(--carbon); font-family:'Jost',sans-serif; cursor:pointer;
+  }
+  .btn:hover{ background:#1c1c1c; }
+  .btn.gold{ background:var(--taupe); }
+  .btn.gold:hover{ background:var(--carbon); }
+  .btn.ghost{ background:none; border:1px solid var(--linea); color:var(--carbon); }
+  .btn.ghost:hover{ background:var(--blanco); }
+
+  .decision-block{
+    max-width:600px; margin:0 auto; text-align:center;
+    background:rgba(147,123,99,0.07); border:1px solid rgba(147,123,99,0.22);
+    border-radius:6px; padding:40px 32px;
+  }
+  .decision-note{ font-size:15px; color:#3f3b34; line-height:1.7; font-weight:400; max-width:52ch; margin:0 auto; }
+  .decision-note strong{ color:var(--carbon); font-weight:600; }
+  .cta-links{ margin-top:26px; display:flex; gap:16px; flex-wrap:wrap; justify-content:center; }
+  .cta-links .btn{ margin-top:0; }
+  @media(max-width:480px){
+    .decision-block{ padding:28px 20px; }
+    .cta-links{ flex-direction:column; }
+    .cta-links .btn{ width:100%; text-align:center; }
+  }
+
+  footer{ text-align:center; padding:40px 20px 60px; background:var(--crema); }
+  footer a{ font-size:12.5px; color:#6b6459; text-decoration:underline; text-underline-offset:3px; }
+
+  /* FAQ */
+  .wrap-wide{ width:100%; max-width:1120px; margin:0 auto; padding:0 20px; }
+  .faq-wrap{ max-width:720px; margin:44px auto 0; }
+
+  .accordion details{ border-top:1px solid var(--linea); padding:18px 0; }
+  .accordion details:last-child{ border-bottom:1px solid var(--linea); }
+  .accordion summary{
+    list-style:none; cursor:pointer; display:flex; justify-content:space-between; align-items:center; gap:16px;
+    font-family:'Cormorant Garamond',serif; font-size:1.05rem; letter-spacing:.02em; color:var(--carbon);
+  }
+  .accordion summary::-webkit-details-marker{ display:none; }
+  .accordion summary .plus{ font-size:1.3rem; color:var(--taupe); flex-shrink:0; transition:transform .25s ease; font-family:'Jost',sans-serif; font-weight:300; }
+  .accordion details[open] summary .plus{ transform:rotate(45deg); }
+  .accordion .a-body{ font-size:13.5px; color:#6b6459; line-height:1.7; font-weight:300; margin-top:12px; max-width:52ch; }
+
+  .whatsapp-fallback{ text-align:center; margin-top:20px; font-size:13.5px; color:#6b6459; font-weight:300; }
+  .whatsapp-fallback a{ color:var(--taupe); font-weight:500; text-decoration:underline; text-underline-offset:3px; }
+
+  /* LOVE SEASON — dos paquetes centrados */
+  .pkg-grid.two{ grid-template-columns:repeat(2,1fr); max-width:720px; margin-left:auto; margin-right:auto; }
+  @media(max-width:560px){ .pkg-grid.two{ grid-template-columns:1fr; gap:26px; } }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="topbar">
+    <span class="brandmark">Finite Estudio · Sesiones de pareja</span>
+  </div>
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-scrim"></div>
+  <div class="hero-inner">
+    <span class="eyebrow">Love Season</span>
+    <h1>Una hora para ustedes dos y fotos que van a querer abrir una y otra vez.</h1>
+    <p class="lead">Para un save the date, una pedida de mano, un aniversario o simplemente porque se quieren. Ustedes llegan, se ríen, se abrazan y el resto se lo dejan a la cámara.</p>
+  </div>
+</section>
+
+<!-- TESTIMONIOS -->
+<section class="tone-dark">
+  <div class="wrap test-block">
+    <span class="eyebrow">Lo que dicen quienes ya vivieron el proceso</span>
+    <div class="test-track">
+      <div class="test active">
+        <img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto/finite-estudio-web/testimonios/testimonio-01.png" alt="Testimonio de cliente">
+      </div>
+      <div class="test">
+        <img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto/finite-estudio-web/testimonios/testimonio-02.png" alt="Testimonio de cliente">
+      </div>
+      <div class="test">
+        <img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto/finite-estudio-web/testimonios/testimonio-03.jpg" alt="Testimonio de cliente">
+      </div>
+      <div class="test">
+        <img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto/finite-estudio-web/testimonios/testimonio-04.jpg" alt="Testimonio de cliente">
+      </div>
+      <div class="test">
+        <img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto/finite-estudio-web/testimonios/testimonio-05.jpg" alt="Testimonio de cliente">
+      </div>
+      <div class="test">
+        <img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto/finite-estudio-web/testimonios/testimonio-06.jpg" alt="Testimonio de cliente">
+      </div>
+    </div>
+    <div class="test-dots">
+      <button class="active" data-t="0" aria-label="Testimonio 1"></button>
+      <button data-t="1" aria-label="Testimonio 2"></button>
+      <button data-t="2" aria-label="Testimonio 3"></button>
+      <button data-t="3" aria-label="Testimonio 4"></button>
+      <button data-t="4" aria-label="Testimonio 5"></button>
+      <button data-t="5" aria-label="Testimonio 6"></button>
+    </div>
+  </div>
+</section>
+
+<!-- PAQUETES -->
+<section class="tone-crema" id="paquetes">
+  <div class="wrap">
+    <span class="eyebrow">Love Season</span>
+    <h2>Elijan su sesión de pareja</h2>
+    <p class="sub">Sirve para una sesión casual, un save the date, un post-boda, una pedida de mano, un aniversario y cualquier otra excusa para verse bien juntos.</p>
+    <div class="pkg-grid two">
+      <div class="pkg complete" data-pkg="paquete-2">
+        <span class="tag">El paquete más completo</span>
+        <h3 class="serif">Paquete II</h3>
+        <span class="hrs">1 hora de cobertura</span>
+        <div class="price">$4,300 <span>MXN</span></div>
+        <ul>
+          <li>Sesión en exterior o estudio</li>
+          <li>35 a 50 fotografías digitales editadas</li>
+          <li>Cuadro canvas tamaño 11x14</li>
+          <li>Galería online</li>
+          <li>De regalo: invitación digital (aplica para sesión Save the Date)</li>
+        </ul>
+      </div>
+      <div class="pkg" data-pkg="paquete-1">
+        <h3 class="serif">Paquete I</h3>
+        <span class="hrs">1 hora de cobertura</span>
+        <div class="price">$3,300 <span>MXN</span></div>
+        <ul>
+          <li>Sesión en exterior o estudio</li>
+          <li>35 a 50 fotografías digitales editadas</li>
+          <li>Galería online</li>
+          <li>De regalo: invitación digital (aplica para sesión Save the Date)</li>
+        </ul>
+      </div>
+    </div>
+    <p class="pkg-note">Precios válidos en Tijuana y Rosarito.</p>
+    <div class="custom-note">
+      <p>¿Tienen algo distinto en mente para su sesión? <a href="https://wa.me/526643372791?text=Hola!%20Tenemos%20algo%20distinto%20en%20mente%20para%20nuestra%20sesi%C3%B3n%20de%20pareja%2C%20%C2%BFme%20ayudas%20a%20armar%20una%20propuesta%3F" target="_blank" rel="noopener" data-track="contact">Escríbanme por WhatsApp</a> y armamos una propuesta hecha a su medida.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="tone-blanco">
+  <div class="wrap-wide">
+    <span class="eyebrow">Antes de escribir</span>
+    <h2>Preguntas frecuentes</h2>
+    <div class="faq-wrap">
+      <div class="accordion">
+        <details open>
+          <summary>¿Dónde estás ubicado?<span class="plus">+</span></summary>
+          <p class="a-body">En Tijuana, Baja California. Pero mi cámara no se queja si la llevo de viaje.</p>
+        </details>
+        <details>
+          <summary>¿Para qué ocasiones sirve la sesión?<span class="plus">+</span></summary>
+          <p class="a-body">Para una sesión casual, un save the date, un post-boda, una pedida de mano, un aniversario y cualquier otra razón que tengan para celebrarse.</p>
+        </details>
+        <details>
+          <summary>¿Cuánto dura y dónde se hace?<span class="plus">+</span></summary>
+          <p class="a-body">Ambos paquetes incluyen una hora de cobertura, en exterior o en estudio. Ustedes eligen.</p>
+        </details>
+        <details>
+          <summary>¿Cuántas fotos incluye?<span class="plus">+</span></summary>
+          <p class="a-body">Entre 35 y 50 fotografías digitales editadas, en una galería online.</p>
+        </details>
+        <details>
+          <summary>¿Qué diferencia hay entre el Paquete I y el Paquete II?<span class="plus">+</span></summary>
+          <p class="a-body">El Paquete II suma un cuadro canvas tamaño 11x14 por $1,000 MXN más. Todo lo demás es igual en los dos.</p>
+        </details>
+        <details>
+          <summary>¿Qué es la invitación digital de regalo?<span class="plus">+</span></summary>
+          <p class="a-body">Si su sesión es Save the Date, ambos paquetes incluyen de regalo una invitación digital.</p>
+        </details>
+        <details>
+          <summary>¿Qué métodos de pago aceptas?<span class="plus">+</span></summary>
+          <p class="a-body">Puedes realizar cualquier pago en efectivo, transferencia o tarjeta de crédito/débito.</p>
+        </details>
+      </div>
+      <p class="whatsapp-fallback">¿Listos para su sesión o con dudas? <a href="https://wa.me/526643372791?text=Hola!%20Nos%20gustar%C3%ADa%20platicar%20sobre%20una%20sesi%C3%B3n%20de%20pareja." target="_blank" rel="noopener" data-track="contact">Escríbanme por WhatsApp</a>.</p>
+    </div>
+  </div>
+</section>
+
+<script>
+  const cld = 'https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1600/finite-estudio-web/';
+  const heroImgs = [
+    cld+'sobre-mi/save-the-date-rosarito.jpg',
+    cld+'info/atardecer-playa.jpg',
+    cld+'sobre-mi/save-the-date-playa.jpg',
+    cld+'blog/descubre-que-es-una-sesion-save-the-date/img04.jpg',
+    cld+'blog/descubre-que-es-una-sesion-save-the-date/img02.jpg'
+  ];
+  const heroBg = document.getElementById('heroBg');
+  heroImgs.forEach((url, i) => {
+    const div = document.createElement('div');
+    div.className = 'hero-bg-img' + (i === 0 ? ' active' : '');
+    div.style.backgroundImage = `url('${url}')`;
+    heroBg.appendChild(div);
+  });
+  const heroLayers = document.querySelectorAll('.hero-bg-img');
+  let hi = 0;
+  setInterval(() => {
+    heroLayers[hi].classList.remove('active');
+    hi = (hi + 1) % heroLayers.length;
+    heroLayers[hi].classList.add('active');
+  }, 4500);
+
+  const tests = document.querySelectorAll('.test');
+  const tdots = document.querySelectorAll('.test-dots button');
+  let ti = 0;
+  function showTest(i){
+    tests.forEach((t,idx)=>t.classList.toggle('active', idx===i));
+    tdots.forEach((d,idx)=>d.classList.toggle('active', idx===i));
+    ti = i;
+  }
+  tdots.forEach(d=> d.addEventListener('click', ()=> showTest(parseInt(d.dataset.t,10))));
+  setInterval(()=>{ showTest((ti+1)%tests.length); }, 6000);
+</script>
+
+</body>
+</html>
