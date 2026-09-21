@@ -149,6 +149,10 @@
 
   // ---------- 6. Eventos automáticos según el tipo de página ----------
   // <body data-page-type="..."> se define en cada plantilla, no aquí.
+  // Este script carga en el <head>, donde document.body todavia no existe:
+  // se espera al DOM para leer data-page-type (antes lanzaba un TypeError y
+  // window.FiniteTrack nunca llegaba a definirse).
+  function runPageEvents() {
   var pageType = document.body.getAttribute('data-page-type');
 
   if (pageType === 'blog-post') {
@@ -164,6 +168,8 @@
   if (pageType !== 'blog-post' && document.referrer.indexOf('/blog/') !== -1) {
     track('InicioBlog'); // llegó aquí con un clic que venía de un artículo del blog
   }
+  }
+  if (document.body) { runPageEvents(); } else { document.addEventListener('DOMContentLoaded', runPageEvents); }
 
   // Disponible por si alguna página necesita mandar un evento con datos dinámicos
   // (ej. el botón de "Enviar comprobante" en pago.html, que ya trae el monto).
