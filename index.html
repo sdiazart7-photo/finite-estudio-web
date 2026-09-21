@@ -373,22 +373,10 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
     padding:40px 36px;
   }
   #contacto h2{ font-size:clamp(1.5rem,2.6vw,1.9rem); }
-  .form-grid{ display:grid; gap:16px; margin-top:8px; }
-  .field label, .field .field-label{
-    display:block; font-family:var(--font-ui); text-transform:uppercase; letter-spacing:.12em;
-    font-size:.66rem; color:var(--tinta-suave); margin-bottom:7px;
-  }
-  .field input, .field textarea{
-    width:100%; border:1px solid rgba(43,43,43,.25); border-radius:var(--radius);
-    background:var(--crema); color:var(--tinta); font-family:var(--font-ui); font-size:14px;
-    padding:11px 13px; transition:border-color .25s ease;
-  }
-  .field input:focus, .field textarea:focus{ outline:none; border-color:var(--oro); }
-  .field textarea{ min-height:80px; resize:vertical; }
-  .radio-group{ display:flex; flex-direction:column; gap:9px; }
-  .field .radio-option{ display:flex; align-items:center; gap:10px; font-size:13.5px; cursor:pointer; font-weight:normal; text-transform:none; letter-spacing:normal; }
-  .radio-option input{ width:16px; height:16px; accent-color:var(--oro); flex:none; }
-  .hp-field{ display:none; }
+  .form-field{ margin-bottom:20px; }
+  .form-field label{ display:block; font-size:.75rem; text-transform:uppercase; letter-spacing:.1em; margin-bottom:8px; color:var(--tinta-suave); }
+  .form-field input, .form-field select, .form-field textarea{ width:100%; padding:12px 14px; border:1px solid rgba(43,43,43,.25); background:var(--crema-suave); font-family:var(--font-ui); font-size:1rem; border-radius:var(--radius); }
+  .form-field textarea{ min-height:120px; resize:vertical; }
 
   /* ================= FOOTER ================= */
   footer{ background:var(--tinta); color:var(--crema); padding:54px 0 34px; }
@@ -617,8 +605,9 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
   <div class="wrap inner">
     <div class="about-photo" data-reveal><img loading="lazy" src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_800/finite-estudio-web/sobre-mi/perfil-saul.jpg" alt="Saúl Díaz, fotógrafo de bodas en Tijuana"></div>
     <div data-reveal>
-      <h2>Detrás de la cámara</h2>
-      <p>Saúl descubrió la fotografía hace seis años, en una materia de la universidad que se quedó pegada mucho después del semestre. Durante la pandemia se volvió un hobbie serio, y ese hobbie terminó convertido en Finite Estudio. Hoy fotografía bodas en Tijuana, Rosarito y el Valle de Guadalupe, y limita el calendario a un puñado de fechas al año para llegar a cada boda con la cabeza despejada, no llenando un cupo más.</p>
+      <span class="eyebrow">Fotógrafo de bodas</span>
+      <h2>Hola, soy Saúl Díaz</h2>
+      <p>Me gusta el cine, la música y sí, las bodas. Y quiero ayudarte a que revivas la tuya. Me encanta conocer a cada una de las parejas con las que trabajo, porque una boda es un momento tan personal que lo mínimo que merece es que conozca cómo se conocieron y sus momentos favoritos como pareja — eso ayuda muchísimo a la hora de su sesión.</p>
     </div>
   </div>
 </section>
@@ -672,39 +661,40 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
       <h2 class="center">¿Ya tienen fecha? Empecemos por ahí</h2>
       <p class="center" style="opacity:.65; font-size:14px; margin:10px 0 4px;">Les respondemos en menos de 24 horas.</p>
 
-      <form class="form-grid" id="form-contacto" name="contacto" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/gracias.html">
+      <form id="form-contacto" name="contacto" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/gracias.html" style="margin-top:30px;">
         <input type="hidden" name="form-name" value="contacto">
-        <p class="hp-field"><label>No llenar: <input name="bot-field"></label></p>
-        <div class="field">
-          <label for="f-nombres">Sus nombres *</label>
-          <input type="text" id="f-nombres" name="nombres" required>
+        <p style="display:none;"><label>No llenar: <input name="bot-field"></label></p>
+        <div class="form-field">
+          <label for="nombres">Sus nombres</label>
+          <input type="text" id="nombres" name="nombres" required>
         </div>
-        <div class="field">
-          <label for="f-correo">Correo *</label>
-          <input type="email" id="f-correo" name="correo" required>
+        <div class="form-field">
+          <label for="correo">Correo</label>
+          <input type="email" id="correo" name="correo" required>
         </div>
-        <div class="field">
-          <label for="f-whatsapp">WhatsApp *</label>
-          <input type="tel" id="f-whatsapp" name="whatsapp" required>
+        <div class="form-field">
+          <label for="whatsapp">WhatsApp</label>
+          <input type="tel" id="whatsapp" name="whatsapp" required>
         </div>
-        <div class="field">
-          <label for="f-fecha">Fecha de su boda *</label>
-          <input type="date" id="f-fecha" name="fecha" required>
+        <div class="form-field">
+          <label for="fecha">Fecha de su boda</label>
+          <input type="date" id="fecha" name="fecha" required>
         </div>
-        <div class="field">
-          <label for="f-lugar">Dónde se casan *</label>
-          <input type="text" id="f-lugar" name="lugar" placeholder="Estado o ciudad" required>
+        <div class="form-field">
+          <label for="lugar">Dónde se casan</label>
+          <input type="text" id="lugar" name="lugar" required>
         </div>
-        <div class="field">
-          <span class="field-label" id="lbl-servicio">Servicio que les interesa *</span>
-          <div class="radio-group" role="radiogroup" aria-labelledby="lbl-servicio">
-            <label class="radio-option"><input type="radio" name="servicio" value="Cobertura de boda (6h o más)" required> Cobertura de boda (6h o más)</label>
-            <label class="radio-option"><input type="radio" name="servicio" value="Love Season (save the date / sesión casual)"> Love season (save the date, sesión casual)</label>
-          </div>
+        <div class="form-field">
+          <label for="servicio">Servicio que les interesa</label>
+          <select id="servicio" name="servicio" required>
+            <option value="">Elige una opción</option>
+            <option value="Cobertura de boda (6h o más)">Cobertura de boda (6h o más de cobertura)</option>
+            <option value="Love Season (save the date / sesión casual)">Love Season (sesión "save the date", sesión casual)</option>
+          </select>
         </div>
-        <div class="field">
-          <label for="f-detalle">Cuéntame sobre tu boda</label>
-          <textarea id="f-detalle" name="mensaje"></textarea>
+        <div class="form-field">
+          <label for="mensaje">Cuéntame sobre tu boda</label>
+          <textarea id="mensaje" name="mensaje"></textarea>
         </div>
         <button type="submit" class="btn btn-block">Quiero revivir mi boda</button>
       </form>
