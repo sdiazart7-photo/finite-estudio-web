@@ -48,103 +48,322 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
 
 <header class="site-header">
   <div class="wrap">
-          <a href="/"><img class="logo" src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto/finite-estudio-web/marca/logo.png" alt="Finite Estudio" width="500" height="135" loading="lazy"></a>
-      <nav class="site-nav">
+    <a href="/"><img class="logo" src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto/finite-estudio-web/marca/logo.png" alt="Finite Estudio" width="500" height="135" loading="lazy"></a>
+    <nav class="site-nav">
       <a href="/" class="active">Inicio</a>
-      <a href="/portafolio/">Portafolio</a>
-      <a href="/info/">Info</a>
-      <a href="/sobre-mi/">Sobre mí</a>
+      <a href="#portafolio">Portafolio</a>
+      <a href="#precios">Precios</a>
+      <a href="#sobre-mi">Sobre mí</a>
       <a href="/blog/">Blog</a>
-      <a href="/contacto/">Contacto</a>
+      <a href="#contacto">Contacto</a>
     </nav>
     <button class="nav-toggle" aria-label="Abrir menú">☰</button>
   </div>
 </header>
 
-<section class="hero" style="background-image:url('https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1600/finite-estudio-web/inicio/hero.jpg')">
-  <div class="wrap hero-inner">
-    <span class="eyebrow">Fotógrafo de bodas · Tijuana</span>
-    <h1>Vas a poder revivir tu boda,<br>no solo verla.</h1>
-    <p>Fotografía documental con estilo editorial, para Tijuana, Rosarito y Valle de Guadalupe.</p>
-    <div class="cta-row">
-      <a href="/contacto/" class="btn btn-oro" data-track="contact">Revisar mi fecha</a>
-      <a href="/portafolio/" class="btn btn-outline-crema" data-track="view-portfolio">Ver portafolio</a>
+<!-- ============ HERO — varias fotos rotando ============ -->
+<section class="hero" id="hero-rotativo">
+  <div class="hero-bg-slide active" style="background-image:url('https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1600/finite-estudio-web/inicio/hero.jpg')"></div>
+  <div class="hero-bg-slide" style="background-image:url('https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1600/finite-estudio-web/inicio/documental-atardecer.jpg')"></div>
+  <div class="hero-bg-slide" style="background-image:url('https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1600/finite-estudio-web/inicio/retrato-bn-caminando.jpg')"></div>
+  <div class="hero-bg-slide" style="background-image:url('https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1600/finite-estudio-web/inicio/sesion-novios-parque.jpg')"></div>
+  <div class="wrap hero-inner" style="text-align:center; margin:0 auto;">
+    <span class="eyebrow">Fotógrafo de bodas · Tijuana, Rosarito y Valle de Guadalupe</span>
+    <h1>La memoria más valiosa de tu vida</h1>
+    <p style="margin-left:auto; margin-right:auto;">La memoria puede fallar. Pero tus fotos... ellas te devuelven cada risa, cada mirada, cada piel chinita. La promesa es que revivas el día de tu boda, sin que se escape nada.</p>
+    <div class="cta-row" style="justify-content:center;">
+      <a href="#contacto" class="btn btn-oro">Quiero revivir mi boda</a>
     </div>
   </div>
 </section>
 
+<!-- ============ PROBLEMA ============ -->
 <section class="section-crema">
   <div class="wrap center-copy">
-    <span class="eyebrow">Más que foto</span>
-    <h2>Un viaje emocional</h2>
-  </div>
-  <div class="wrap mood-duo">
-    <img class="mood-a" src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_600/finite-estudio-web/inicio/retrato-editorial-bn.jpg" alt="Retrato editorial en blanco y negro de pareja en su boda" width="600" height="849" loading="lazy">
-    <img class="mood-b" src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_500/finite-estudio-web/inicio/beso-velo.jpg" alt="Novios besándose con velo cubriéndolos en Tijuana" width="500" height="759" loading="lazy">
+    <h2>El miedo a elegir mal</h2>
+    <p style="margin-top:14px;">Todos los portafolios se ven increíbles y todos prometen lo mismo. Tu boda pasa una sola vez y no hay segunda toma, así que la duda pesa: ¿y si eliges mal y te enteras cuando ya no hay vuelta atrás?</p>
   </div>
 </section>
 
-<section class="section-suave">
-  <div class="wrap two-col">
-    <img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_900/finite-estudio-web/inicio/zapatos-novia-jardin.jpg" alt="Zapatos de novia elegantes para boda en jardín" width="900" height="1208" loading="lazy">
-    <div>
-      <span class="eyebrow">Hay días que no se repiten</span>
-      <h2>Tu boda es uno de ellos</h2>
-      <p>Y si no puedes volver a ella de verdad cuando veas tus fotos, algo se pierde. La promesa es que la revivas.</p>
+<!-- ============ PROCESO ============ -->
+<section class="section-tinta">
+  <div class="wrap">
+    <div class="center-copy" style="margin-bottom:50px;">
+      <span class="eyebrow">El proceso</span>
+      <h2>Cómo es el proceso</h2>
+    </div>
+    <div class="proceso-grid">
+      <div class="proceso-step">
+        <span class="num">01</span>
+        <h3 style="font-size:1.3rem; margin:10px 0;">Contáctanos</h3>
+        <p>Revisaremos disponibilidad de tu fecha en nuestra agenda.</p>
+      </div>
+      <div class="proceso-step">
+        <span class="num">02</span>
+        <h3 style="font-size:1.3rem; margin:10px 0;">Cita/Contrato</h3>
+        <p>Agendamos una cita, nos conocemos, me platican acerca de su boda y si todo hace sentido y están seguros que soy su fotógrafo ideal procedemos a firmar contrato y bloquear su fecha en nuestra agenda.</p>
+      </div>
+      <div class="proceso-step">
+        <span class="num">03</span>
+        <h3 style="font-size:1.3rem; margin:10px 0;">Sesión/Boda</h3>
+        <p>Tendremos una reunión de planeación una semana antes de la boda. Y llegado el tan esperado día, ustedes se encargan de vivirlo y nosotros de documentarlo.</p>
+      </div>
+      <div class="proceso-step">
+        <span class="num">04</span>
+        <h3 style="font-size:1.3rem; margin:10px 0;">Entrega</h3>
+        <p>Una vez que hayamos vivido el gran día, nos tomará entre 30 a 35 días hábiles entregar su material. Les enviaremos enlaces de descarga para su material digital.</p>
+      </div>
+    </div>
+    <div class="cta-row" style="justify-content:center; margin-top:50px;">
+      <a href="#contacto" class="btn btn-oro">Quiero revivir mi boda</a>
     </div>
   </div>
 </section>
 
+<!-- ============ PROMESA ============ -->
 <section class="section-crema">
   <div class="wrap two-col">
     <div>
-      <span class="eyebrow">Más allá de posar</span>
-      <h2>Tampoco tienes que sonreír todo el tiempo</h2>
-      <p>Ni pararte "bonito", ni fingir que no estás nerviosa. Ese día no vas a actuar. Vas a sentir. Y eso, por sí solo, va a ser suficiente.</p>
+      <h2>Revive tu boda una y otra vez</h2>
+      <p style="font-family:var(--font-display); font-style:italic; color:var(--oro); font-size:1.3rem; margin:18px 0;">De la ansiedad de decidir, a la calma de saber que ya quedó bien.</p>
+      <p>Tu boda dura un día, y una galería bien hecha te la devuelve cada vez que la abres. Vuelves a la risa de tu abuela, al brindis de tu papá y a lo que se te pasó mientras saludabas mesa por mesa. Y la tranquilidad de que así será empieza desde hoy, con la decisión ya tomada.</p>
     </div>
-    <img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_900/finite-estudio-web/inicio/tacones-novia.jpg" alt="Tacones de novia en su boda en Tijuana" width="900" height="1350" loading="lazy">
+    <img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_900/finite-estudio-web/sobre-mi/save-the-date-playa.jpg" alt="Pareja en su sesión Save the Date en la playa">
   </div>
 </section>
 
-<section class="bg-fixed-section" style="background-image:url('https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1600/finite-estudio-web/inicio/novia-damas-diversion.jpg')">
-  <div class="bg-fixed-overlay"></div>
-  <div class="wrap center-copy bg-fixed-content">
-    <span class="eyebrow">La única forma de volver</span>
-    <h2>Las flores se secan. El vestido se guarda.</h2>
-    <p>Lo único que te devuelve ese día son fotografías que se sienten.</p>
-  </div>
-</section>
-
-<section class="section-crema">
+<!-- ============ PORTAFOLIO ============ -->
+<section class="section-tinta" id="portafolio" style="padding-bottom:0;">
   <div class="wrap center-copy">
-    <span class="eyebrow">Te vas a ver bien</span>
-    <h2>Porque vas a estar tranquila</h2>
-    <p>Porque vas a sentirte tú. Te vas a ver bien, porque te vas a sentir bien.</p>
+    <span class="eyebrow">Portafolio</span>
+    <h2 style="max-width:20ch; margin:10px auto 16px;">Momentos que ya se pueden volver a vivir</h2>
+    <p>Cada boda tiene su propio ritmo. Esto es lo que queda cuando ese ritmo se documenta con cuidado.</p>
+  </div>
+</section>
+<section class="section-tinta" style="padding-top:50px;">
+  <div class="photo-grid-full">
+    <img loading="lazy" src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_700/finite-estudio-web/portafolio/portafolio-02.jpg" data-full="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1800/finite-estudio-web/portafolio/portafolio-02.jpg" alt="Pareja de novios durante su boda en Tijuana">
+    <img loading="lazy" src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_700/finite-estudio-web/portafolio/portafolio-05.jpg" data-full="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1800/finite-estudio-web/portafolio/portafolio-05.jpg" alt="Retrato de novios en su boda">
+    <img loading="lazy" src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_700/finite-estudio-web/portafolio/portafolio-08.jpg" data-full="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1800/finite-estudio-web/portafolio/portafolio-08.jpg" alt="Detalle de la boda documentado por Finite Estudio">
+    <img loading="lazy" src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_700/finite-estudio-web/portafolio/portafolio-11.jpg" data-full="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1800/finite-estudio-web/portafolio/portafolio-11.jpg" alt="Sesión de pareja de novios">
+    <img loading="lazy" src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_700/finite-estudio-web/portafolio/portafolio-14.jpg" data-full="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1800/finite-estudio-web/portafolio/portafolio-14.jpg" alt="Novios abrazados en su boda en Tijuana">
+    <img loading="lazy" src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_700/finite-estudio-web/portafolio/portafolio-17.jpg" data-full="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1800/finite-estudio-web/portafolio/portafolio-17.jpg" alt="Detalle del vestido de novia">
+    <img loading="lazy" src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_700/finite-estudio-web/portafolio/portafolio-20.jpg" data-full="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1800/finite-estudio-web/portafolio/portafolio-20.jpg" alt="Novia sonriendo durante su sesión de fotos">
+    <img loading="lazy" src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_700/finite-estudio-web/portafolio/portafolio-23.jpg" data-full="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1800/finite-estudio-web/portafolio/portafolio-23.jpg" alt="Pareja de novios abrazados en su boda">
+    <img loading="lazy" src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_700/finite-estudio-web/portafolio/portafolio-26.jpg" data-full="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1800/finite-estudio-web/portafolio/portafolio-26.jpg" alt="Invitados celebrando en la fiesta de la boda">
+    <img loading="lazy" src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_700/finite-estudio-web/portafolio/portafolio-29.jpg" data-full="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1800/finite-estudio-web/portafolio/portafolio-29.jpg" alt="Retrato de la novia en su boda en Tijuana">
+    <img loading="lazy" src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_700/finite-estudio-web/portafolio/portafolio-32.jpg" data-full="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1800/finite-estudio-web/portafolio/portafolio-32.jpg" alt="Novios abrazados durante su sesión de fotos">
+    <img loading="lazy" src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_700/finite-estudio-web/portafolio/portafolio-35.jpg" data-full="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1800/finite-estudio-web/portafolio/portafolio-35.jpg" alt="Pareja de novios en su boda en Tijuana">
+  </div>
+  <div class="wrap center-copy" style="padding-top:48px;">
+    <a href="https://mx.pinterest.com/finiteestudio/" target="_blank" rel="noopener" class="text-link">Ver más portafolio</a>
   </div>
 </section>
 
+<div class="lightbox">
+  <button class="close" aria-label="Cerrar">&times;</button>
+  <button class="lb-nav lb-prev" aria-label="Anterior">&#8249;</button>
+  <img src="" alt="">
+  <button class="lb-nav lb-next" aria-label="Siguiente">&#8250;</button>
+</div>
+
+<!-- ============ TESTIMONIOS ============ -->
 <section class="section-tinta">
   <div class="wrap center-copy">
-    <span class="eyebrow">Fotógrafo de bodas en Tijuana</span>
-    <h2>Testimonios</h2>
+    <h2>Lo que dicen las parejas</h2>
   </div>
   <div class="wrap testi-strip" style="margin-top:40px;">
-    <img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,h_500/finite-estudio-web/testimonios/testimonio-01.png" alt="Testimonio de cliente" width="1289" height="500" loading="lazy">
-    <img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,h_500/finite-estudio-web/testimonios/testimonio-02.png" alt="Testimonio de cliente" width="1771" height="500" loading="lazy">
-    <img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,h_500/finite-estudio-web/testimonios/testimonio-03.jpg" alt="Testimonio de cliente" width="1306" height="500" loading="lazy">
-    <img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,h_500/finite-estudio-web/testimonios/testimonio-04.jpg" alt="Testimonio de cliente" width="919" height="500" loading="lazy">
-    <img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,h_500/finite-estudio-web/testimonios/testimonio-05.jpg" alt="Testimonio de cliente" width="1023" height="500" loading="lazy">
-    <img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,h_500/finite-estudio-web/testimonios/testimonio-06.jpg" alt="Testimonio de cliente" width="291" height="500" loading="lazy">
+    <img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,h_500/finite-estudio-web/testimonios/testimonio-01.png" alt="Testimonio de una pareja sobre su experiencia con Finite Estudio">
+    <img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,h_500/finite-estudio-web/testimonios/testimonio-02.png" alt="Testimonio de una pareja sobre su experiencia con Finite Estudio">
+    <img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,h_500/finite-estudio-web/testimonios/testimonio-03.jpg" alt="Testimonio de una pareja sobre su experiencia con Finite Estudio">
   </div>
 </section>
 
+<!-- ============ PRECIOS ============ -->
+<section class="section-suave" id="precios">
+  <div class="wrap">
+    <div class="center-copy" style="margin-bottom:50px;">
+      <span class="eyebrow">Inversión</span>
+      <h2>Paquetes y precios</h2>
+      <p style="margin-top:16px;">Cada propuesta se construye a partir de una conversación, entendiendo el tipo de boda, el ritmo del día y lo que es importante para ustedes.</p>
+    </div>
+    <div class="pkg-grid">
+      <div class="pkg-card">
+        <h3 style="font-size:1.3rem;">Paquete Premier</h3>
+        <ul>
+          <li>Hasta 12h de cobertura.</li>
+          <li>Foto + video.</li>
+          <li>Cobertura completa del día.</li>
+        </ul>
+      </div>
+      <div class="pkg-card">
+        <h3 style="font-size:1.3rem;">Paquete Trilogía</h3>
+        <ul>
+          <li>Hasta 10h de cobertura.</li>
+          <li>Solo foto.</li>
+          <li>Cobertura completa el día.</li>
+        </ul>
+      </div>
+      <div class="pkg-card">
+        <h3 style="font-size:1.3rem;">Paquete Secuela</h3>
+        <ul>
+          <li>Hasta 6h de cobertura.</li>
+          <li>Solo foto.</li>
+          <li>Cobertura desde la ceremonia.</li>
+        </ul>
+      </div>
+      <div class="pkg-card">
+        <h3 style="font-size:1.3rem;">Paquete Piloto</h3>
+        <ul>
+          <li>Hasta 6h de cobertura.</li>
+          <li>Solo foto.</li>
+          <li>Para cubrir ceremonia y un poco de fiesta.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="center-copy" style="margin-top:50px;">
+      <p style="font-family:var(--font-display); font-style:italic; color:var(--oro); font-size:2rem;">Desde $20,000 MXN</p>
+      <p style="margin-top:20px;">Si sienten que esta forma de trabajar encaja con lo que están buscando, el siguiente paso es conversar con calma.</p>
+      <div class="cta-row" style="justify-content:center; margin-top:26px;">
+        <a href="#contacto" class="btn btn-oro">Quiero revivir mi boda</a>
+      </div>
+      <p style="font-size:0.78rem; opacity:0.55; max-width:380px; margin:18px auto 0;">¿Tu boda necesita menos de 6h? Házmelo saber para crear una propuesta personalizada para tu boda.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRÓXIMOS PASOS ============ -->
 <section class="section-crema">
-  <div class="wrap center-copy">
-    <h2>¿Listos para revivir su boda?</h2>
-    <p style="margin-top:14px;">Cuéntame tu fecha y platicamos si encajamos.</p>
-    <div class="cta-row" style="justify-content:center; margin-top:26px;">
-      <a href="/contacto/" class="btn btn-oro" data-track="contact">Cotizar ahora</a>
-      <a href="/info/" class="btn">Ver paquetes</a>
+  <div class="wrap">
+    <div class="center-copy" style="margin-bottom:50px;">
+      <h2>Qué pasa después de que nos escribes</h2>
+    </div>
+    <div class="proceso-grid" style="grid-template-columns:repeat(3,1fr); max-width:840px; margin:0 auto;">
+      <div class="proceso-step" style="text-align:center;">
+        <span class="num" style="font-size:1.6rem;">01</span>
+        <h3 style="font-size:1.1rem; margin:10px 0;">Respuesta en menos de 24 horas</h3>
+        <p style="font-size:0.95rem;">Se confirma disponibilidad para la fecha y se agenda la reunión guiada.</p>
+      </div>
+      <div class="proceso-step" style="text-align:center;">
+        <span class="num" style="font-size:1.6rem;">02</span>
+        <h3 style="font-size:1.1rem; margin:10px 0;">Platicamos su boda</h3>
+        <p style="font-size:0.95rem;">En la llamada se resuelven dudas y se arma la propuesta según lo que necesitan.</p>
+      </div>
+      <div class="proceso-step" style="text-align:center;">
+        <span class="num" style="font-size:1.6rem;">03</span>
+        <h3 style="font-size:1.1rem; margin:10px 0;">Apartan su fecha</h3>
+        <p style="font-size:0.95rem;">Con el depósito, la fecha queda bloqueada y empieza la planeación de la cobertura.</p>
+      </div>
+    </div>
+    <div class="cta-row" style="justify-content:center; margin-top:50px;">
+      <a href="#contacto" class="btn btn-oro">Quiero revivir mi boda</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SOBRE MÍ ============ -->
+<section class="section-suave" id="sobre-mi">
+  <div class="wrap two-col">
+    <img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_900/finite-estudio-web/sobre-mi/perfil-saul.jpg" alt="Saúl Díaz, fotógrafo de bodas en Tijuana">
+    <div>
+      <span class="eyebrow">Fotógrafo de bodas</span>
+      <h2>Hola, soy Saúl Díaz</h2>
+      <p style="margin-top:14px;">Me gusta el cine, la música y sí, las bodas. Y quiero ayudarte a que revivas la tuya. Me encanta conocer a cada una de las parejas con las que trabajo, porque una boda es un momento tan personal que lo mínimo que merece es que conozca cómo se conocieron y sus momentos favoritos como pareja — eso ayuda muchísimo a la hora de su sesión.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="section-crema">
+  <div class="wrap" style="max-width:800px;">
+    <div class="center-copy" style="margin-bottom:20px;">
+      <span class="eyebrow">Preguntas frecuentes</span>
+      <h2>Lo que más nos preguntan</h2>
+    </div>
+
+    <details class="faq-item">
+      <summary>¿Cuántas bodas cubren al año?</summary>
+      <p>Alrededor de 25, a propósito. Menos fechas significa más atención en cada boda, no una agenda apretada.</p>
+    </details>
+    <details class="faq-item">
+      <summary>¿Dónde estás ubicado?</summary>
+      <p>En Tijuana, Baja California. Pero mi cámara no se queja si la llevo de viaje.</p>
+    </details>
+    <details class="faq-item">
+      <summary>¿Haces bodas destino?</summary>
+      <p>Sí. Si el amor viaja, yo también.</p>
+    </details>
+    <details class="faq-item">
+      <summary>¿Editas las fotos?</summary>
+      <p>Claro. Se hace una selección de las mejores fotos del día y se editan de manera detallada, pero sin exagerar.</p>
+    </details>
+    <details class="faq-item">
+      <summary>¿Qué métodos de pago aceptas?</summary>
+      <p>Efectivo, transferencia bancaria y pago con tarjeta.</p>
+    </details>
+    <details class="faq-item">
+      <summary>¿Cómo reservo la fecha de mi boda?</summary>
+      <p>Es simple: Agendamos una cita para decidir el paquete ideal para su boda. Si todo hace clic, firmas contrato y reservas con un anticipo. Y listo, la fecha es tuya.</p>
+    </details>
+    <details class="faq-item">
+      <summary>¿Cuánto tiempo tardas en entregar las fotos?</summary>
+      <p>El tiempo de entrega de tus fotos es de 30 a 35 días hábiles.</p>
+    </details>
+    <details class="faq-item">
+      <summary>¿Cuándo y dónde se hace la sesión Save the Date?</summary>
+      <p>Lo ideal es hacerla 3 a 6 meses antes de la boda. Tú eliges el lugar (también te recomiendo lugares) el mejor horario para que no haya luz fea. Y no te preocupes, no necesitas saber posar.</p>
+    </details>
+  </div>
+</section>
+
+<!-- ============ CONTACTO — formulario real, foto de fondo ============ -->
+<section class="bg-fixed-section" id="contacto" style="background-image:url('https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1600/finite-estudio-web/inicio/beso-velo.jpg'); padding:100px 0;">
+  <div class="bg-fixed-overlay"></div>
+  <div class="wrap bg-fixed-content">
+    <div class="contacto-card">
+      <div class="center-copy" style="margin-bottom:10px;">
+        <h2 style="font-size:1.8rem;">¿Ya tienen fecha? Empecemos por ahí</h2>
+        <p style="margin-top:10px; font-size:0.9rem; opacity:0.75;">Les respondemos en menos de 24 horas.</p>
+      </div>
+
+      <form id="form-contacto" name="contacto" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/gracias.html" style="margin-top:30px;">
+        <input type="hidden" name="form-name" value="contacto">
+        <p style="display:none;"><label>No llenar: <input name="bot-field"></label></p>
+        <div class="form-field">
+          <label for="nombres">Sus nombres</label>
+          <input type="text" id="nombres" name="nombres" required>
+        </div>
+        <div class="form-field">
+          <label for="correo">Correo</label>
+          <input type="email" id="correo" name="correo" required>
+        </div>
+        <div class="form-field">
+          <label for="whatsapp">WhatsApp</label>
+          <input type="tel" id="whatsapp" name="whatsapp" required>
+        </div>
+        <div class="form-field">
+          <label for="fecha">Fecha de su boda</label>
+          <input type="date" id="fecha" name="fecha" required>
+        </div>
+        <div class="form-field">
+          <label for="lugar">Dónde se casan</label>
+          <input type="text" id="lugar" name="lugar" required>
+        </div>
+        <div class="form-field">
+          <label for="servicio">Servicio que les interesa</label>
+          <select id="servicio" name="servicio" required>
+            <option value="">Elige una opción</option>
+            <option value="Cobertura de boda (6h o más)">Cobertura de boda (6h o más de cobertura)</option>
+            <option value="Love Season (save the date / sesión casual)">Love Season (sesión "save the date", sesión casual)</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label for="mensaje">Cuéntame sobre tu boda</label>
+          <textarea id="mensaje" name="mensaje"></textarea>
+        </div>
+        <button type="submit" class="btn btn-oro" style="width:100%; border:none; cursor:pointer;">Quiero revivir mi boda</button>
+      </form>
     </div>
   </div>
 </section>
@@ -156,11 +375,11 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
       <p class="small-caps" style="opacity:0.7;">Fotógrafo de bodas · Tijuana</p>
     </div>
     <div class="footer-links">
-      <a href="/portafolio/">Portafolio</a>
-      <a href="/info/">Info</a>
-      <a href="/sobre-mi/">Sobre mí</a>
+      <a href="#portafolio">Portafolio</a>
+      <a href="#precios">Precios</a>
+      <a href="#sobre-mi">Sobre mí</a>
       <a href="/blog/">Blog</a>
-      <a href="/contacto/">Contacto</a>
+      <a href="#contacto">Contacto</a>
       <a href="/privacidad.html">Privacidad</a>
     </div>
   </div>
@@ -170,5 +389,24 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
 </footer>
 
 <script src="/assets/main.js"></script>
+<script>
+  // Hero: rotación directa entre varias fotos de fondo (sin fundido, cambio rápido)
+  (function () {
+    var slides = document.querySelectorAll('#hero-rotativo .hero-bg-slide');
+    if (slides.length < 2) return;
+    var i = 0;
+    setInterval(function () {
+      slides[i].classList.remove('active');
+      i = (i + 1) % slides.length;
+      slides[i].classList.add('active');
+    }, 1400);
+  })();
+
+  // "Interesado en reunión": Lead solo si el formulario pasó la validación nativa
+  // (todos los campos requeridos llenos) — igual que antes, ahora deduplicado con CAPI.
+  document.getElementById('form-contacto').addEventListener('submit', function () {
+    if (window.FiniteTrack) { window.FiniteTrack('InteresadoEnCita'); }
+  });
+</script>
 </body>
 </html>
