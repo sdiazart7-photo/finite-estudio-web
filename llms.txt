@@ -5,12 +5,12 @@
 ## Paginas principales
 
 - [Inicio](https://www.finiteestudio.com/): presentacion del estudio, la promesa central y como contactar.
-- [Portafolio](https://www.finiteestudio.com/portafolio/): coleccion de fotografias de bodas reales en Tijuana, Rosarito y Valle de Guadalupe.
-- [Info](https://www.finiteestudio.com/info/): paquetes, cobertura y precios de los servicios de fotografia de bodas.
-- [Sobre mi](https://www.finiteestudio.com/sobre-mi/): quien es el fotografo detras de Finite Estudio y su forma de trabajar.
+- [Portafolio](https://www.finiteestudio.com/#portafolio): coleccion de fotografias de bodas reales en Tijuana, Rosarito y Valle de Guadalupe.
+- [Info](https://www.finiteestudio.com/#precios): paquetes, cobertura y precios de los servicios de fotografia de bodas.
+- [Sobre mi](https://www.finiteestudio.com/#sobre-mi): quien es el fotografo detras de Finite Estudio y su forma de trabajar.
 - [Propuesta](https://www.finiteestudio.com/propuesta/): cotizador interactivo para que una pareja arme su paquete segun su fecha y tipo de cobertura.
 - [Blog](https://www.finiteestudio.com/blog/): guias sobre bodas en Tijuana, Rosarito y Valle de Guadalupe (lugares, precios, horarios, planeacion).
-- [Contacto](https://www.finiteestudio.com/contacto/): formulario y datos para agendar una consulta.
+- [Contacto](https://www.finiteestudio.com/#contacto): formulario y datos para agendar una consulta.
 
 ## Contacto
 
