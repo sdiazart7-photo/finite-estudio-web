@@ -34,8 +34,8 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/global.css?v=20260921">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-glacial-indifference@1.1.14/index.css">
 
 <!-- Finite Estudio — tracking compartido -->
 <script src="/assets/tracking.js?v=2"></script>
@@ -43,369 +43,806 @@
 src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
 /></noscript>
 <meta name="facebook-domain-verification" content="auvuffvpgju80mvvaxymv2gnwyjohu" />
+
+<style>
+
+  @font-face{
+    font-family:"TheSeasons";
+    src:url("/assets/fonts/TheSeasons-Regular.woff2") format("woff2"),
+        url("/assets/fonts/TheSeasons-Regular.woff") format("woff"),
+        url("/assets/fonts/TheSeasons-Regular.otf") format("opentype");
+    font-weight:400; font-style:normal; font-display:swap;
+  }
+
+  :root{
+    --crema:#f8f7f3;
+    --crema-suave:#f1efe8;
+    --tinta:#2b2b2b;
+    --tinta-suave:#55524c;
+    --oro:#937b63;
+    --radius:2px;
+    --font-display:'TheSeasons','Cormorant Garamond', Georgia, serif;
+    --font-ui:'Glacial Indifference','Jost','Helvetica Neue', Arial, sans-serif;
+    --maxw:1180px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:.001ms !important; transition-duration:.001ms !important;}
+  }
+
+  body{
+    margin:0;
+    background:var(--crema);
+    color:var(--tinta);
+    font-family:var(--font-ui);
+    font-size:17px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  h1,h2,h3{
+    font-family:var(--font-display);
+    font-weight:500;
+    letter-spacing:.01em;
+    line-height:1.15;
+    margin:0;
+  }
+
+  p{ margin:0; }
+  a{ color:inherit; }
+  img{ max-width:100%; display:block; }
+
+  .wrap{ max-width:var(--maxw); margin:0 auto; padding:0 24px; }
+  section{ padding:110px 0; }
+  @media (max-width:760px){ section{ padding:72px 0; } }
+
+  .eyebrow{
+    display:block;
+    font-family:var(--font-ui);
+    text-transform:uppercase;
+    letter-spacing:.18em;
+    font-size:.72rem;
+    color:var(--oro);
+    margin-bottom:18px;
+  }
+  .eyebrow.on-dark{ color:#cbb9a3; }
+  .center{ text-align:center; }
+
+  .section-tinta{ background:var(--tinta); color:var(--crema); }
+  .section-suave{ background:var(--crema-suave); }
+
+  .kw{ font-family:var(--font-display); font-style:italic; color:var(--oro); }
+
+  /* ---------- botones (según el sistema real: outline, uppercase, tracking) ---------- */
+  .btn{
+    display:inline-block;
+    padding:15px 34px;
+    border:1px solid var(--oro);
+    border-radius:var(--radius);
+    font-family:var(--font-ui);
+    font-size:12.5px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    text-decoration:none;
+    color:var(--crema);
+    background:var(--oro);
+    cursor:pointer;
+    transition:transform .25s ease, box-shadow .25s ease, filter .25s ease;
+  }
+  .btn:hover{ transform:translateY(-3px); box-shadow:0 16px 28px -14px rgba(147,123,99,.65); filter:brightness(1.08); }
+  .btn-block{ display:block; width:100%; text-align:center; }
+
+  .text-link{
+    font-family:var(--font-ui); font-size:13.5px; letter-spacing:.08em; text-transform:uppercase;
+    text-decoration:none; color:var(--tinta); border-bottom:1px solid var(--tinta); padding-bottom:3px;
+  }
+  .text-link:hover{ color:var(--oro); border-color:var(--oro); }
+
+  /* ---------- reveal-on-scroll ---------- */
+  [data-reveal]{
+    opacity:0; transform:translateY(34px) scale(.97);
+    transition:opacity .8s cubic-bezier(.22,.61,.36,1), transform .8s cubic-bezier(.22,.61,.36,1);
+  }
+  [data-reveal].in-view{ opacity:1; transform:none; }
+
+  /* ================= HEADER ================= */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(248,247,243,.94);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid transparent;
+    transition:border-color .3s ease, box-shadow .3s ease;
+  }
+  header.scrolled{ border-color:rgba(43,43,43,.12); box-shadow:0 6px 24px -18px rgba(0,0,0,.3); }
+  .header-inner{ display:flex; align-items:center; justify-content:space-between; padding:18px 0; }
+  .logo{ display:block; text-decoration:none; }
+  .logo img{ height:30px; width:auto; display:block; }
+  .nav-links{ display:flex; gap:32px; list-style:none; margin:0; padding:0; }
+  .nav-links a{ position:relative; text-decoration:none; font-size:13.5px; letter-spacing:.03em; color:var(--tinta); opacity:.82; padding-bottom:3px; transition:opacity .2s ease; }
+  .nav-links a::after{ content:''; position:absolute; left:0; bottom:0; width:0; height:1px; background:var(--oro); transition:width .3s ease; }
+  .nav-links a:hover{ opacity:1; }
+  .nav-links a:hover::after{ width:100%; }
+  .header-cta{ display:flex; align-items:center; gap:22px; }
+  .menu-toggle{ display:none; background:none; border:none; cursor:pointer; width:34px; height:26px; position:relative; }
+  .menu-toggle span{ position:absolute; left:0; right:0; height:2px; background:var(--tinta); transition:transform .25s ease, opacity .25s ease; }
+  .menu-toggle span:nth-child(1){ top:2px; }
+  .menu-toggle span:nth-child(2){ top:12px; }
+  .menu-toggle span:nth-child(3){ top:22px; }
+  .menu-toggle.open span:nth-child(1){ transform:translateY(10px) rotate(45deg); }
+  .menu-toggle.open span:nth-child(2){ opacity:0; }
+  .menu-toggle.open span:nth-child(3){ transform:translateY(-10px) rotate(-45deg); }
+  @media (max-width:860px){
+    .nav-links{ position:absolute; top:100%; left:0; right:0; flex-direction:column; gap:0; background:var(--crema); border-bottom:1px solid rgba(43,43,43,.12); max-height:0; overflow:hidden; transition:max-height .35s ease; }
+    .nav-links.open{ max-height:320px; }
+    .nav-links a{ display:block; padding:16px 24px; border-top:1px solid rgba(43,43,43,.12); }
+    .header-cta .btn{ display:none; }
+    .menu-toggle{ display:block; }
+  }
+
+  /* ================= HERO (foto de fondo, todo centrado) ================= */
+  #hero{
+    position:relative; overflow:hidden;
+    min-height:92vh;
+    display:flex; align-items:flex-end; justify-content:center;
+    padding:0 0 110px;
+  }
+  .hero-bg-wrap{ position:absolute; inset:-6%; }
+  .hero-bg-slide{
+    position:absolute; inset:0; background-size:cover; background-position:center;
+    opacity:0;
+    animation:kb 24s ease-in-out infinite alternate;
+  }
+  .hero-bg-slide.active{ opacity:1; }
+  @keyframes kb{ from{ transform:scale(1);} to{ transform:scale(1.09);} }
+  .hero-inner{
+    position:relative; z-index:2;
+    max-width:680px; text-align:center;
+    display:flex; flex-direction:column; align-items:center; gap:24px;
+    padding:0 24px;
+  }
+  .hero-inner h1{ color:var(--crema); font-size:clamp(2.3rem,5vw,3.6rem); }
+  .hero-inner p{ color:var(--crema); opacity:.9; font-size:1.08rem; max-width:46ch; }
+  @media (max-width:600px){ #hero{ padding-bottom:70px; } }
+
+  /* ================= PROBLEMA ================= */
+  #problema .wrap{ max-width:700px; text-align:center; }
+  #problema h2{ font-size:clamp(1.8rem,3vw,2.3rem); margin-bottom:22px; }
+  #problema p{ font-size:17.5px; opacity:.82; }
+
+  /* ================= PROCESO (dark, según captura) ================= */
+  #proceso h2{ font-size:clamp(2rem,3.4vw,2.6rem); text-transform:uppercase; letter-spacing:.04em; margin-bottom:64px; }
+  .steps{ display:grid; grid-template-columns:repeat(4,1fr); gap:32px; }
+  .step{ padding-top:0; }
+  .step .num{ font-family:var(--font-display); font-style:italic; font-size:1.6rem; color:var(--crema); display:block; margin-bottom:18px; }
+  #proceso.section-tinta .step h3{ color:var(--crema); font-family:var(--font-ui); font-weight:600; font-size:16px; margin-bottom:12px; }
+  #proceso.section-tinta .step p{ color:var(--crema); opacity:.72; font-size:14.5px; }
+  #proceso .cta-row{ text-align:center; margin-top:64px; }
+  @media (max-width:900px){ .steps{ grid-template-columns:1fr 1fr; row-gap:44px; } }
+  @media (max-width:560px){ .steps{ grid-template-columns:1fr; } }
+
+  /* ================= PROMESA (texto izquierda, foto derecha) ================= */
+  #promesa .inner{ display:grid; grid-template-columns:1.15fr .85fr; gap:56px; align-items:center; text-align:left; }
+  #promesa h2{ font-size:clamp(1.9rem,3.2vw,2.5rem); }
+  #promesa .transform{ font-family:var(--font-display); font-style:italic; font-size:clamp(1.2rem,2vw,1.5rem); margin:22px 0 22px; color:var(--oro); }
+  #promesa p.body{ font-size:17.5px; opacity:.85; }
+  .promesa-photo{
+    aspect-ratio:4/5; border-radius:var(--radius);
+    position:relative; overflow:hidden;
+  }
+  .promesa-photo img, .about-photo img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  @media (max-width:820px){
+    #promesa .inner{ grid-template-columns:1fr; text-align:center; }
+    #promesa .promesa-photo{ max-width:320px; width:100%; min-height:320px; margin:32px auto 0; }
+  }
+
+  /* ================= PORTAFOLIO (fondo secundario, texto primario) ================= */
+  #portafolio{ background:var(--tinta); color:var(--crema); }
+  .badge{
+    display:inline-block; padding:8px 20px;
+    background:var(--crema); border-radius:999px; font-family:var(--font-ui); text-transform:uppercase;
+    letter-spacing:.16em; font-size:.68rem; color:var(--tinta); margin-bottom:28px;
+  }
+  #portafolio h2{
+    font-size:clamp(1.9rem,3.6vw,2.7rem);
+    color:var(--crema); margin-bottom:16px; max-width:26ch; margin-left:auto; margin-right:auto;
+    text-wrap:balance;
+  }
+  #portafolio .sub{ color:var(--crema); opacity:.62; font-size:16px; max-width:46ch; margin:0 auto 56px; }
+  .grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+  .tile{
+    position:relative; overflow:hidden; border-radius:16px; aspect-ratio:4/5;
+    cursor:pointer;
+  }
+  .tile-img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform .6s ease; }
+  .tile:focus-visible{ outline:2px solid var(--oro); outline-offset:3px; }
+  .tile:hover .tile-img{ transform:scale(1.08); }
+  .see-more{ text-align:center; margin-top:48px; }
+  #portafolio .text-link{ color:var(--crema); border-color:rgba(248,247,243,.4); }
+  #portafolio .text-link:hover{ color:var(--oro); border-color:var(--oro); }
+  @media (max-width:820px){ .grid{ grid-template-columns:repeat(2,1fr); } }
+
+  /* ================= VISOR DE FOTOS (lightbox) ================= */
+  .lightbox{
+    position:fixed; inset:0; background:rgba(17,17,17,.94);
+    display:none; align-items:center; justify-content:center; z-index:200; padding:24px;
+  }
+  .lightbox.open{ display:flex; }
+  .lightbox img{ max-width:88vw; max-height:84vh; border-radius:4px; }
+  .lightbox-close{
+    position:absolute; top:20px; right:24px; background:none; border:none;
+    color:var(--crema); font-size:34px; line-height:1; cursor:pointer; opacity:.8;
+  }
+  .lightbox-close:hover{ opacity:1; }
+  .lightbox-nav{
+    position:absolute; top:50%; transform:translateY(-50%); background:none; border:none;
+    color:var(--crema); font-size:42px; line-height:1; cursor:pointer; padding:10px 16px; opacity:.7;
+    transition:opacity .2s ease;
+  }
+  .lightbox-nav:hover{ opacity:1; }
+  .lightbox-prev{ left:8px; }
+  .lightbox-next{ right:8px; }
+  @media (max-width:600px){
+    .lightbox-nav{ font-size:32px; padding:6px 10px; }
+    .lightbox-close{ top:14px; right:16px; font-size:28px; }
+  }
+
+  /* ================= TESTIMONIOS ================= */
+  #testimonios{ background:var(--tinta); color:var(--crema); padding-top:0; }
+  #testimonios h2{ font-size:clamp(1.7rem,3vw,2.2rem); color:var(--crema); margin-bottom:52px; }
+  .testi-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+  .testi-card{
+    background:rgba(248,247,243,.06); border:1px solid rgba(248,247,243,.14); border-radius:16px;
+    padding:14px; text-align:left; transition:transform .35s ease, background .35s ease;
+    display:flex; align-items:center;
+  }
+  .testi-card:hover{ transform:translateY(-6px); background:rgba(248,247,243,.1); }
+  .testi-card img{ width:100%; border-radius:10px; display:block; }
+  @media (max-width:820px){ .testi-grid{ grid-template-columns:1fr; } }
+
+  /* ================= PRECIOS (patrón infoprecios) ================= */
+  #precios .wrap{ max-width:1100px; }
+  #precios .intro{ max-width:640px; margin:0 auto 60px; text-align:center; }
+  #precios h2{ font-size:clamp(1.9rem,3.2vw,2.4rem); margin-bottom:20px; }
+  #precios .intro p{ font-size:16.5px; opacity:.8; }
+  .pkg-list{ display:grid; grid-template-columns:repeat(4,1fr); gap:20px; }
+  .pkg-row{
+    border:1px solid rgba(43,43,43,.16); border-radius:var(--radius);
+    background:var(--crema); padding:32px 24px;
+    transition:transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+  }
+  .pkg-row:hover{ transform:translateY(-8px); box-shadow:0 24px 44px -26px rgba(43,43,43,.4); border-color:var(--oro); }
+  .pkg-row h3{ font-size:1.25rem; margin-bottom:20px; }
+  .pkg-row ul{ list-style:none; margin:0; padding:0; }
+  .pkg-row li{ font-size:14px; opacity:.78; padding:8px 0; border-top:1px solid rgba(43,43,43,.1); }
+  .pkg-row li:first-child{ border-top:none; padding-top:0; }
+  .price-note{ text-align:center; font-family:var(--font-display); font-style:italic; font-size:2rem; color:var(--oro); margin:44px 0 44px; }
+  .price-subnote{ text-align:center; font-size:12px; opacity:.5; max-width:380px; margin:18px auto 0; }
+  #precios .closing{ max-width:520px; margin:0 auto; text-align:center; }
+  #precios .closing p{ font-size:15.5px; opacity:.8; margin-bottom:28px; }
+  @media (max-width:980px){ .pkg-list{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:560px){ .pkg-list{ grid-template-columns:1fr; } }
+
+  /* ================= PASOS (post-contacto) ================= */
+  #pasos h2{ font-size:clamp(1.8rem,3vw,2.3rem); margin-bottom:52px; }
+  #pasos .steps{ grid-template-columns:repeat(3,1fr); max-width:840px; margin:0 auto; }
+  #pasos .cta-row{ text-align:center; margin-top:56px; }
+
+  /* ================= SOBRE MI ================= */
+  #sobre-mi .inner{ display:grid; grid-template-columns:.8fr 1.2fr; gap:56px; align-items:center; }
+  .about-photo{
+    aspect-ratio:4/5; border-radius:var(--radius);
+    position:relative; overflow:hidden;
+  }
+  #sobre-mi h2{ font-size:clamp(1.8rem,3vw,2.3rem); margin-bottom:20px; }
+  #sobre-mi p{ font-size:16.5px; opacity:.85; }
+  @media (max-width:820px){ #sobre-mi .inner{ grid-template-columns:1fr; } .about-photo{ max-width:280px; } }
+
+  /* ================= FAQ ================= */
+  #faq .wrap{ max-width:720px; }
+  #faq h2{ font-size:clamp(1.8rem,3vw,2.3rem); margin-bottom:40px; }
+  .faq-item{ border-bottom:1px solid rgba(43,43,43,.15); }
+  .faq-q{
+    width:100%; text-align:left; background:none; border:none; cursor:pointer;
+    padding:22px 4px; display:flex; justify-content:space-between; align-items:center;
+    font-family:var(--font-ui); font-size:16.5px; font-weight:500; color:var(--tinta);
+  }
+  .faq-q .icon{ width:18px; height:18px; position:relative; flex:none; margin-left:20px; }
+  .faq-q .icon::before, .faq-q .icon::after{ content:''; position:absolute; background:var(--tinta); }
+  .faq-q .icon::before{ top:8px; left:0; width:18px; height:2px; }
+  .faq-q .icon::after{ top:0; left:8px; width:2px; height:18px; transition:transform .3s ease; }
+  .faq-item.open .faq-q .icon::after{ transform:rotate(90deg); }
+  .faq-a{ max-height:0; overflow:hidden; transition:max-height .35s ease; }
+  .faq-a p{ padding:0 4px 22px; font-size:15px; opacity:.78; max-width:60ch; }
+
+  /* ================= FORMULARIO DE CONTACTO (imagen de fondo + tarjeta compacta) ================= */
+  #contacto{ position:relative; overflow:hidden; padding:100px 0; }
+  .contacto-bg{
+    position:absolute; inset:0;
+    background:
+      linear-gradient(rgba(20,16,13,.55), rgba(20,16,13,.6)),
+      url('https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1600/finite-estudio-web/inicio/beso-velo.jpg');
+    background-size:cover; background-position:center;
+  }
+  .contacto-card{
+    position:relative; z-index:2;
+    max-width:520px; margin:0 auto;
+    background:var(--crema); border-radius:var(--radius);
+    padding:40px 36px;
+  }
+  #contacto h2{ font-size:clamp(1.5rem,2.6vw,1.9rem); }
+  .form-grid{ display:grid; gap:16px; margin-top:8px; }
+  .field label, .field .field-label{
+    display:block; font-family:var(--font-ui); text-transform:uppercase; letter-spacing:.12em;
+    font-size:.66rem; color:var(--tinta-suave); margin-bottom:7px;
+  }
+  .field input, .field textarea{
+    width:100%; border:1px solid rgba(43,43,43,.25); border-radius:var(--radius);
+    background:var(--crema); color:var(--tinta); font-family:var(--font-ui); font-size:14px;
+    padding:11px 13px; transition:border-color .25s ease;
+  }
+  .field input:focus, .field textarea:focus{ outline:none; border-color:var(--oro); }
+  .field textarea{ min-height:80px; resize:vertical; }
+  .radio-group{ display:flex; flex-direction:column; gap:9px; }
+  .field .radio-option{ display:flex; align-items:center; gap:10px; font-size:13.5px; cursor:pointer; font-weight:normal; text-transform:none; letter-spacing:normal; }
+  .radio-option input{ width:16px; height:16px; accent-color:var(--oro); flex:none; }
+  .hp-field{ display:none; }
+
+  /* ================= FOOTER ================= */
+  footer{ background:var(--tinta); color:var(--crema); padding:54px 0 34px; }
+  .footer-inner{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:24px; padding-bottom:34px; border-bottom:1px solid rgba(248,247,243,.15); }
+  .footer-logo img{ height:30px; width:auto; filter:brightness(0) invert(1); }
+  .footer-links{ display:flex; gap:26px; list-style:none; margin:0; padding:0; }
+  .footer-links a{ text-decoration:none; font-size:13.5px; opacity:.75; }
+  .footer-links a:hover{ opacity:1; }
+  .footer-bottom{ padding-top:26px; font-size:12.5px; opacity:.55; }
+  @media (max-width:600px){ .footer-inner{ flex-direction:column; align-items:flex-start; } }
+</style>
+<noscript><style>[data-reveal]{opacity:1;transform:none;}</style></noscript>
 </head>
 <body>
 
-<header class="site-header">
-  <div class="wrap">
-    <a href="/"><img class="logo" src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto/finite-estudio-web/marca/logo.png" alt="Finite Estudio" width="500" height="135" loading="lazy"></a>
-    <nav class="site-nav">
-      <a href="/" class="active">Inicio</a>
-      <a href="#portafolio">Portafolio</a>
-      <a href="#precios">Precios</a>
-      <a href="#sobre-mi">Sobre mí</a>
-      <a href="/blog/">Blog</a>
-      <a href="#contacto">Contacto</a>
+<!-- ============ HEADER ============ -->
+<header id="site-header">
+  <div class="wrap header-inner">
+    <a href="#hero" class="logo"><img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto/finite-estudio-web/marca/logo.png" alt="Finite Estudio"></a>
+    <nav>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#hero">Inicio</a></li>
+        <li><a href="#portafolio">Portafolio</a></li>
+        <li><a href="#precios">Precios</a></li>
+        <li><a href="#sobre-mi">Sobre mí</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
     </nav>
-    <button class="nav-toggle" aria-label="Abrir menú">☰</button>
+    <div class="header-cta">
+      <a href="#contacto" class="btn">Quiero revivir mi boda</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="navLinks">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </div>
 </header>
 
-<!-- ============ HERO — varias fotos rotando ============ -->
-<section class="hero" id="hero-rotativo">
-  <div class="hero-bg-slide active" style="background-image:url('https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1600/finite-estudio-web/inicio/hero.jpg')"></div>
-  <div class="hero-bg-slide" style="background-image:url('https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1600/finite-estudio-web/inicio/documental-atardecer.jpg')"></div>
-  <div class="hero-bg-slide" style="background-image:url('https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1600/finite-estudio-web/inicio/retrato-bn-caminando.jpg')"></div>
-  <div class="hero-bg-slide" style="background-image:url('https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1600/finite-estudio-web/inicio/sesion-novios-parque.jpg')"></div>
-  <div class="wrap hero-inner" style="text-align:center; margin:0 auto;">
-    <span class="eyebrow">Fotógrafo de bodas · Tijuana, Rosarito y Valle de Guadalupe</span>
-    <h1>La memoria más valiosa de tu vida</h1>
-    <p style="margin-left:auto; margin-right:auto;">La memoria puede fallar. Pero tus fotos... ellas te devuelven cada risa, cada mirada, cada piel chinita. La promesa es que revivas el día de tu boda, sin que se escape nada.</p>
-    <div class="cta-row" style="justify-content:center;">
-      <a href="#contacto" class="btn btn-oro">Quiero revivir mi boda</a>
-    </div>
+<!-- ============ HERO — fotos rotando ============ -->
+<section id="hero">
+  <div class="hero-bg-wrap">
+    <div class="hero-bg-slide active" style="background-image:linear-gradient(rgba(20,16,13,.42),rgba(20,16,13,.5)), url('https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1600/finite-estudio-web/inicio/hero.jpg');"></div>
+    <div class="hero-bg-slide" style="background-image:linear-gradient(rgba(20,16,13,.42),rgba(20,16,13,.5)), url('https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1600/finite-estudio-web/inicio/documental-atardecer.jpg');"></div>
+    <div class="hero-bg-slide" style="background-image:linear-gradient(rgba(20,16,13,.42),rgba(20,16,13,.5)), url('https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1600/finite-estudio-web/inicio/retrato-bn-caminando.jpg');"></div>
+    <div class="hero-bg-slide" style="background-image:linear-gradient(rgba(20,16,13,.42),rgba(20,16,13,.5)), url('https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1600/finite-estudio-web/inicio/sesion-novios-parque.jpg');"></div>
+  </div>
+  <div class="hero-inner">
+    <span class="eyebrow on-dark" data-reveal>Fotógrafo de bodas · Tijuana, Rosarito y Valle de Guadalupe</span>
+    <h1 data-reveal>La memoria más valiosa de tu vida</h1>
+    <p data-reveal>La memoria puede fallar. Pero tus fotos... ellas te devuelven cada risa, cada mirada, cada piel chinita. La promesa es que <span class="kw" style="color:var(--crema);">revivas</span> el día de tu boda, sin que se escape nada.</p>
+    <a href="#contacto" class="btn on-dark" data-reveal>Quiero revivir mi boda</a>
   </div>
 </section>
 
 <!-- ============ PROBLEMA ============ -->
-<section class="section-crema">
-  <div class="wrap center-copy">
+<section id="problema">
+  <div class="wrap" data-reveal>
     <h2>El miedo a elegir mal</h2>
-    <p style="margin-top:14px;">Todos los portafolios se ven increíbles y todos prometen lo mismo. Tu boda pasa una sola vez y no hay segunda toma, así que la duda pesa: ¿y si eliges mal y te enteras cuando ya no hay vuelta atrás?</p>
+    <p>Todos los portafolios se ven increíbles y todos prometen lo mismo. Tu boda pasa una sola vez y no hay segunda toma, así que la duda pesa: ¿y si eliges mal y te enteras cuando ya no hay vuelta atrás?</p>
   </div>
 </section>
 
 <!-- ============ PROCESO ============ -->
-<section class="section-tinta">
-  <div class="wrap">
-    <div class="center-copy" style="margin-bottom:50px;">
-      <span class="eyebrow">El proceso</span>
-      <h2>Cómo es el proceso</h2>
-    </div>
-    <div class="proceso-grid">
-      <div class="proceso-step">
+<section id="proceso" class="section-tinta">
+  <div class="wrap center">
+    <h2 data-reveal>Cómo es el proceso</h2>
+    <div class="steps">
+      <div class="step" data-reveal>
         <span class="num">01</span>
-        <h3 style="font-size:1.3rem; margin:10px 0;">Contáctanos</h3>
+        <h3>Contáctanos</h3>
         <p>Revisaremos disponibilidad de tu fecha en nuestra agenda.</p>
       </div>
-      <div class="proceso-step">
+      <div class="step" data-reveal>
         <span class="num">02</span>
-        <h3 style="font-size:1.3rem; margin:10px 0;">Cita/Contrato</h3>
+        <h3>Cita/Contrato</h3>
         <p>Agendamos una cita, nos conocemos, me platican acerca de su boda y si todo hace sentido y están seguros que soy su fotógrafo ideal procedemos a firmar contrato y bloquear su fecha en nuestra agenda.</p>
       </div>
-      <div class="proceso-step">
+      <div class="step" data-reveal>
         <span class="num">03</span>
-        <h3 style="font-size:1.3rem; margin:10px 0;">Sesión/Boda</h3>
+        <h3>Sesión/Boda</h3>
         <p>Tendremos una reunión de planeación una semana antes de la boda. Y llegado el tan esperado día, ustedes se encargan de vivirlo y nosotros de documentarlo.</p>
       </div>
-      <div class="proceso-step">
+      <div class="step" data-reveal>
         <span class="num">04</span>
-        <h3 style="font-size:1.3rem; margin:10px 0;">Entrega</h3>
+        <h3>Entrega</h3>
         <p>Una vez que hayamos vivido el gran día, nos tomará entre 30 a 35 días hábiles entregar su material. Les enviaremos enlaces de descarga para su material digital.</p>
       </div>
     </div>
-    <div class="cta-row" style="justify-content:center; margin-top:50px;">
-      <a href="#contacto" class="btn btn-oro">Quiero revivir mi boda</a>
+    <div class="cta-row" data-reveal>
+      <a href="#contacto" class="btn">Quiero revivir mi boda</a>
     </div>
   </div>
 </section>
 
 <!-- ============ PROMESA ============ -->
-<section class="section-crema">
-  <div class="wrap two-col">
-    <div>
+<section id="promesa">
+  <div class="wrap inner">
+    <div data-reveal>
       <h2>Revive tu boda una y otra vez</h2>
-      <p style="font-family:var(--font-display); font-style:italic; color:var(--oro); font-size:1.3rem; margin:18px 0;">De la ansiedad de decidir, a la calma de saber que ya quedó bien.</p>
-      <p>Tu boda dura un día, y una galería bien hecha te la devuelve cada vez que la abres. Vuelves a la risa de tu abuela, al brindis de tu papá y a lo que se te pasó mientras saludabas mesa por mesa. Y la tranquilidad de que así será empieza desde hoy, con la decisión ya tomada.</p>
+      <p class="transform">De la ansiedad de decidir, a la calma de saber que ya quedó bien.</p>
+      <p class="body">Tu boda dura un día, y una galería bien hecha te la devuelve cada vez que la abres. Vuelves a la risa de tu abuela, al brindis de tu papá y a lo que se te pasó mientras saludabas mesa por mesa. Y la tranquilidad de que así será empieza desde hoy, con la decisión ya tomada.</p>
     </div>
-    <img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_900/finite-estudio-web/sobre-mi/save-the-date-playa.jpg" alt="Pareja en su sesión Save the Date en la playa">
+    <div class="promesa-photo" data-reveal><img loading="lazy" src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_800/finite-estudio-web/sobre-mi/save-the-date-playa.jpg" alt="Pareja en su sesión Save the Date en la playa"></div>
   </div>
 </section>
 
 <!-- ============ PORTAFOLIO ============ -->
-<section class="section-tinta" id="portafolio" style="padding-bottom:0; display:flow-root;">
-  <div class="wrap center-copy">
-    <span class="eyebrow">Portafolio</span>
-    <h2 style="max-width:20ch; margin:10px auto 16px;">Momentos que ya se pueden volver a vivir</h2>
-    <p>Cada boda tiene su propio ritmo. Esto es lo que queda cuando ese ritmo se documenta con cuidado.</p>
-  </div>
-</section>
-<section class="section-tinta" style="padding-top:50px;">
-  <div class="photo-grid-full">
-    <img loading="lazy" src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_700/finite-estudio-web/portafolio/portafolio-02.jpg" data-full="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1800/finite-estudio-web/portafolio/portafolio-02.jpg" alt="Pareja de novios durante su boda en Tijuana">
-    <img loading="lazy" src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_700/finite-estudio-web/portafolio/portafolio-05.jpg" data-full="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1800/finite-estudio-web/portafolio/portafolio-05.jpg" alt="Retrato de novios en su boda">
-    <img loading="lazy" src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_700/finite-estudio-web/portafolio/portafolio-08.jpg" data-full="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1800/finite-estudio-web/portafolio/portafolio-08.jpg" alt="Detalle de la boda documentado por Finite Estudio">
-    <img loading="lazy" src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_700/finite-estudio-web/portafolio/portafolio-11.jpg" data-full="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1800/finite-estudio-web/portafolio/portafolio-11.jpg" alt="Sesión de pareja de novios">
-    <img loading="lazy" src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_700/finite-estudio-web/portafolio/portafolio-14.jpg" data-full="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1800/finite-estudio-web/portafolio/portafolio-14.jpg" alt="Novios abrazados en su boda en Tijuana">
-    <img loading="lazy" src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_700/finite-estudio-web/portafolio/portafolio-17.jpg" data-full="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1800/finite-estudio-web/portafolio/portafolio-17.jpg" alt="Detalle del vestido de novia">
-    <img loading="lazy" src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_700/finite-estudio-web/portafolio/portafolio-20.jpg" data-full="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1800/finite-estudio-web/portafolio/portafolio-20.jpg" alt="Novia sonriendo durante su sesión de fotos">
-    <img loading="lazy" src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_700/finite-estudio-web/portafolio/portafolio-23.jpg" data-full="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1800/finite-estudio-web/portafolio/portafolio-23.jpg" alt="Pareja de novios abrazados en su boda">
-    <img loading="lazy" src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_700/finite-estudio-web/portafolio/portafolio-26.jpg" data-full="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1800/finite-estudio-web/portafolio/portafolio-26.jpg" alt="Invitados celebrando en la fiesta de la boda">
-    <img loading="lazy" src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_700/finite-estudio-web/portafolio/portafolio-29.jpg" data-full="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1800/finite-estudio-web/portafolio/portafolio-29.jpg" alt="Retrato de la novia en su boda en Tijuana">
-    <img loading="lazy" src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_700/finite-estudio-web/portafolio/portafolio-32.jpg" data-full="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1800/finite-estudio-web/portafolio/portafolio-32.jpg" alt="Novios abrazados durante su sesión de fotos">
-    <img loading="lazy" src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_700/finite-estudio-web/portafolio/portafolio-35.jpg" data-full="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1800/finite-estudio-web/portafolio/portafolio-35.jpg" alt="Pareja de novios en su boda en Tijuana">
-  </div>
-  <div class="wrap center-copy" style="padding-top:48px;">
-    <a href="https://mx.pinterest.com/finiteestudio/" target="_blank" rel="noopener" class="text-link">Ver más portafolio</a>
+<section id="portafolio">
+  <div class="wrap center">
+    <span class="badge" data-reveal>Portafolio</span>
+    <h2 data-reveal>Momentos que ya se pueden volver a vivir</h2>
+    <p class="sub" data-reveal>Cada boda tiene su propio ritmo. Esto es lo que queda cuando ese ritmo se documenta con cuidado.</p>
+    <div class="grid">
+      <!-- 12 fotos del portafolio. Clic para ampliar. -->
+      <div class="tile" data-reveal role="button" tabindex="0"><img class="tile-img" loading="lazy" src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_600/finite-estudio-web/portafolio/portafolio-02.jpg" alt="Pareja de novios durante su boda en Tijuana"></div>
+      <div class="tile" data-reveal role="button" tabindex="0"><img class="tile-img" loading="lazy" src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_600/finite-estudio-web/portafolio/portafolio-05.jpg" alt="Retrato de novios en su boda"></div>
+      <div class="tile" data-reveal role="button" tabindex="0"><img class="tile-img" loading="lazy" src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_600/finite-estudio-web/portafolio/portafolio-08.jpg" alt="Detalle de la boda documentado por Finite Estudio"></div>
+      <div class="tile" data-reveal role="button" tabindex="0"><img class="tile-img" loading="lazy" src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_600/finite-estudio-web/portafolio/portafolio-11.jpg" alt="Sesión de pareja de novios"></div>
+      <div class="tile" data-reveal role="button" tabindex="0"><img class="tile-img" loading="lazy" src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_600/finite-estudio-web/portafolio/portafolio-14.jpg" alt="Novios abrazados en su boda en Tijuana"></div>
+      <div class="tile" data-reveal role="button" tabindex="0"><img class="tile-img" loading="lazy" src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_600/finite-estudio-web/portafolio/portafolio-17.jpg" alt="Detalle del vestido de novia"></div>
+      <div class="tile" data-reveal role="button" tabindex="0"><img class="tile-img" loading="lazy" src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_600/finite-estudio-web/portafolio/portafolio-20.jpg" alt="Novia sonriendo durante su sesión de fotos"></div>
+      <div class="tile" data-reveal role="button" tabindex="0"><img class="tile-img" loading="lazy" src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_600/finite-estudio-web/portafolio/portafolio-23.jpg" alt="Pareja de novios abrazados en su boda"></div>
+      <div class="tile" data-reveal role="button" tabindex="0"><img class="tile-img" loading="lazy" src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_600/finite-estudio-web/portafolio/portafolio-26.jpg" alt="Invitados celebrando en la fiesta de la boda"></div>
+      <div class="tile" data-reveal role="button" tabindex="0"><img class="tile-img" loading="lazy" src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_600/finite-estudio-web/portafolio/portafolio-29.jpg" alt="Retrato de la novia en su boda en Tijuana"></div>
+      <div class="tile" data-reveal role="button" tabindex="0"><img class="tile-img" loading="lazy" src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_600/finite-estudio-web/portafolio/portafolio-32.jpg" alt="Novios abrazados durante su sesión de fotos"></div>
+      <div class="tile" data-reveal role="button" tabindex="0"><img class="tile-img" loading="lazy" src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_600/finite-estudio-web/portafolio/portafolio-35.jpg" alt="Pareja de novios en su boda en Tijuana"></div>
+    </div>
+    <div class="see-more" data-reveal>
+      <a href="https://mx.pinterest.com/finiteestudio/" target="_blank" rel="noopener" class="text-link">Ver más portafolio</a>
+    </div>
   </div>
 </section>
 
-<div class="lightbox">
-  <button class="close" aria-label="Cerrar">&times;</button>
-  <button class="lb-nav lb-prev" aria-label="Anterior">&#8249;</button>
-  <img src="" alt="">
-  <button class="lb-nav lb-next" aria-label="Siguiente">&#8250;</button>
+<!-- ============ VISOR DE FOTOS (lightbox) ============ -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Cerrar">&times;</button>
+  <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Foto anterior">&#8249;</button>
+  <img id="lightboxImg" src="" alt="Foto del portafolio ampliada">
+  <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Foto siguiente">&#8250;</button>
 </div>
 
 <!-- ============ TESTIMONIOS ============ -->
-<section class="section-tinta">
-  <div class="wrap center-copy">
-    <h2>Lo que dicen las parejas</h2>
-  </div>
-  <div class="wrap testi-strip" style="margin-top:40px;">
-    <img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,h_500/finite-estudio-web/testimonios/testimonio-01.png" alt="Testimonio de una pareja sobre su experiencia con Finite Estudio">
-    <img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,h_500/finite-estudio-web/testimonios/testimonio-02.png" alt="Testimonio de una pareja sobre su experiencia con Finite Estudio">
-    <img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,h_500/finite-estudio-web/testimonios/testimonio-03.jpg" alt="Testimonio de una pareja sobre su experiencia con Finite Estudio">
+<section id="testimonios">
+  <div class="wrap center">
+    <h2 data-reveal>Lo que dicen las parejas</h2>
+    <div class="testi-grid">
+      <div class="testi-card" data-reveal>
+        <img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_700/finite-estudio-web/testimonios/testimonio-01.png" alt="Testimonio de una pareja sobre su experiencia con Finite Estudio">
+      </div>
+      <div class="testi-card" data-reveal>
+        <img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_700/finite-estudio-web/testimonios/testimonio-02.png" alt="Testimonio de una pareja sobre su experiencia con Finite Estudio">
+      </div>
+      <div class="testi-card" data-reveal>
+        <img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_700/finite-estudio-web/testimonios/testimonio-03.jpg" alt="Testimonio de una pareja sobre su experiencia con Finite Estudio">
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- ============ PRECIOS ============ -->
-<section class="section-suave" id="precios">
+<section id="precios" class="section-suave">
   <div class="wrap">
-    <div class="center-copy" style="margin-bottom:50px;">
-      <span class="eyebrow">Inversión</span>
-      <h2>Paquetes y precios</h2>
-      <p style="margin-top:16px;">Cada propuesta se construye a partir de una conversación, entendiendo el tipo de boda, el ritmo del día y lo que es importante para ustedes.</p>
+    <div class="intro">
+      <span class="eyebrow center" style="text-align:center;">Inversión</span>
+      <h2 data-reveal>Paquetes y precios</h2>
+      <p data-reveal style="margin-top:20px;">Cada propuesta se construye a partir de una conversación, entendiendo el tipo de boda, el ritmo del día y lo que es importante para ustedes.</p>
     </div>
-    <div class="pkg-grid">
-      <div class="pkg-card">
-        <h3 style="font-size:1.3rem;">Paquete Premier</h3>
-        <ul>
-          <li>Hasta 12h de cobertura.</li>
-          <li>Foto + video.</li>
-          <li>Cobertura completa del día.</li>
-        </ul>
+
+    <div class="pkg-list">
+      <div class="pkg-row" data-reveal>
+        <h3>Paquete Premier</h3>
+        <ul><li>Hasta 12h de cobertura.</li><li>Foto + video.</li><li>Cobertura completa del día.</li></ul>
       </div>
-      <div class="pkg-card">
-        <h3 style="font-size:1.3rem;">Paquete Trilogía</h3>
-        <ul>
-          <li>Hasta 10h de cobertura.</li>
-          <li>Solo foto.</li>
-          <li>Cobertura completa el día.</li>
-        </ul>
+      <div class="pkg-row" data-reveal>
+        <h3>Paquete Trilogía</h3>
+        <ul><li>Hasta 10h de cobertura.</li><li>Solo foto.</li><li>Cobertura completa el día.</li></ul>
       </div>
-      <div class="pkg-card">
-        <h3 style="font-size:1.3rem;">Paquete Secuela</h3>
-        <ul>
-          <li>Hasta 6h de cobertura.</li>
-          <li>Solo foto.</li>
-          <li>Cobertura desde la ceremonia.</li>
-        </ul>
+      <div class="pkg-row" data-reveal>
+        <h3>Paquete Secuela</h3>
+        <ul><li>Hasta 6h de cobertura.</li><li>Solo foto.</li><li>Cobertura desde la ceremonia.</li></ul>
       </div>
-      <div class="pkg-card">
-        <h3 style="font-size:1.3rem;">Paquete Piloto</h3>
-        <ul>
-          <li>Hasta 6h de cobertura.</li>
-          <li>Solo foto.</li>
-          <li>Para cubrir ceremonia y un poco de fiesta.</li>
-        </ul>
+      <div class="pkg-row" data-reveal>
+        <h3>Paquete Piloto</h3>
+        <ul><li>Hasta 6h de cobertura.</li><li>Solo foto.</li><li>Para cubrir ceremonia y un poco de fiesta.</li></ul>
       </div>
     </div>
 
-    <div class="center-copy" style="margin-top:50px;">
-      <p style="font-family:var(--font-display); font-style:italic; color:var(--oro); font-size:2rem;">Desde $20,000 MXN</p>
-      <p style="margin-top:20px;">Si sienten que esta forma de trabajar encaja con lo que están buscando, el siguiente paso es conversar con calma.</p>
-      <div class="cta-row" style="justify-content:center; margin-top:26px;">
-        <a href="#contacto" class="btn btn-oro">Quiero revivir mi boda</a>
-      </div>
-      <p style="font-size:0.78rem; opacity:0.55; max-width:380px; margin:18px auto 0;">¿Tu boda necesita menos de 6h? Házmelo saber para crear una propuesta personalizada para tu boda.</p>
+    <p class="price-note" data-reveal>Desde $20,000 MXN</p>
+
+    <div class="closing" data-reveal>
+      <p>Si sienten que esta forma de trabajar encaja con lo que están buscando, el siguiente paso es conversar con calma.</p>
+      <a href="#contacto" class="btn">Quiero revivir mi boda</a>
+      <p class="price-subnote">¿Tu boda necesita menos de 6h? Házmelo saber para crear una propuesta personalizada para tu boda.</p>
     </div>
   </div>
 </section>
 
 <!-- ============ PRÓXIMOS PASOS ============ -->
-<section class="section-crema">
-  <div class="wrap">
-    <div class="center-copy" style="margin-bottom:50px;">
-      <h2>Qué pasa después de que nos escribes</h2>
-    </div>
-    <div class="proceso-grid" style="grid-template-columns:repeat(3,1fr); max-width:840px; margin:0 auto;">
-      <div class="proceso-step" style="text-align:center;">
-        <span class="num" style="font-size:1.6rem;">01</span>
-        <h3 style="font-size:1.1rem; margin:10px 0;">Respuesta en menos de 24 horas</h3>
-        <p style="font-size:0.95rem;">Se confirma disponibilidad para la fecha y se agenda la reunión guiada.</p>
+<section id="pasos">
+  <div class="wrap center">
+    <h2 data-reveal>Qué pasa después de que nos escribes</h2>
+    <div class="steps">
+      <div class="step" data-reveal>
+        <span class="num" style="color:var(--oro);">01</span>
+        <h3 style="font-family:var(--font-ui); font-weight:600; font-size:16px; margin-bottom:12px;">Respuesta en menos de 24 horas</h3>
+        <p style="font-size:14.5px; opacity:.75;">Se confirma disponibilidad para la fecha y se agenda la reunión guiada.</p>
       </div>
-      <div class="proceso-step" style="text-align:center;">
-        <span class="num" style="font-size:1.6rem;">02</span>
-        <h3 style="font-size:1.1rem; margin:10px 0;">Platicamos su boda</h3>
-        <p style="font-size:0.95rem;">En la llamada se resuelven dudas y se arma la propuesta según lo que necesitan.</p>
+      <div class="step" data-reveal>
+        <span class="num" style="color:var(--oro);">02</span>
+        <h3 style="font-family:var(--font-ui); font-weight:600; font-size:16px; margin-bottom:12px;">Platicamos su boda</h3>
+        <p style="font-size:14.5px; opacity:.75;">En la llamada se resuelven dudas y se arma la propuesta según lo que necesitan.</p>
       </div>
-      <div class="proceso-step" style="text-align:center;">
-        <span class="num" style="font-size:1.6rem;">03</span>
-        <h3 style="font-size:1.1rem; margin:10px 0;">Apartan su fecha</h3>
-        <p style="font-size:0.95rem;">Con el depósito, la fecha queda bloqueada y empieza la planeación de la cobertura.</p>
+      <div class="step" data-reveal>
+        <span class="num" style="color:var(--oro);">03</span>
+        <h3 style="font-family:var(--font-ui); font-weight:600; font-size:16px; margin-bottom:12px;">Apartan su fecha</h3>
+        <p style="font-size:14.5px; opacity:.75;">Con el depósito, la fecha queda bloqueada y empieza la planeación de la cobertura.</p>
       </div>
     </div>
-    <div class="cta-row" style="justify-content:center; margin-top:50px;">
-      <a href="#contacto" class="btn btn-oro">Quiero revivir mi boda</a>
+    <div class="cta-row" data-reveal>
+      <a href="#contacto" class="btn">Quiero revivir mi boda</a>
     </div>
   </div>
 </section>
 
 <!-- ============ SOBRE MÍ ============ -->
-<section class="section-suave" id="sobre-mi">
-  <div class="wrap two-col">
-    <img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_900/finite-estudio-web/sobre-mi/perfil-saul.jpg" alt="Saúl Díaz, fotógrafo de bodas en Tijuana">
-    <div>
-      <span class="eyebrow">Fotógrafo de bodas</span>
-      <h2>Hola, soy Saúl Díaz</h2>
-      <p style="margin-top:14px;">Me gusta el cine, la música y sí, las bodas. Y quiero ayudarte a que revivas la tuya. Me encanta conocer a cada una de las parejas con las que trabajo, porque una boda es un momento tan personal que lo mínimo que merece es que conozca cómo se conocieron y sus momentos favoritos como pareja — eso ayuda muchísimo a la hora de su sesión.</p>
+<section id="sobre-mi">
+  <div class="wrap inner">
+    <div class="about-photo" data-reveal><img loading="lazy" src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_800/finite-estudio-web/sobre-mi/perfil-saul.jpg" alt="Saúl Díaz, fotógrafo de bodas en Tijuana"></div>
+    <div data-reveal>
+      <h2>Detrás de la cámara</h2>
+      <p>Saúl descubrió la fotografía hace seis años, en una materia de la universidad que se quedó pegada mucho después del semestre. Durante la pandemia se volvió un hobbie serio, y ese hobbie terminó convertido en Finite Estudio. Hoy fotografía bodas en Tijuana, Rosarito y el Valle de Guadalupe, y limita el calendario a un puñado de fechas al año para llegar a cada boda con la cabeza despejada, no llenando un cupo más.</p>
     </div>
   </div>
 </section>
 
 <!-- ============ FAQ ============ -->
-<section class="section-crema">
-  <div class="wrap" style="max-width:800px;">
-    <div class="center-copy" style="margin-bottom:20px;">
-      <span class="eyebrow">Preguntas frecuentes</span>
-      <h2>Lo que más nos preguntan</h2>
+<section id="faq" class="section-suave">
+  <div class="wrap">
+    <h2 data-reveal>Preguntas frecuentes</h2>
+    <div id="faqList">
+      <div class="faq-item" data-reveal>
+        <button class="faq-q" aria-expanded="false">¿Cuántas bodas cubren al año?<span class="icon"></span></button>
+        <div class="faq-a"><p>Alrededor de 25, a propósito. Menos fechas significa más atención en cada boda, no una agenda apretada.</p></div>
+      </div>
+      <div class="faq-item" data-reveal>
+        <button class="faq-q" aria-expanded="false">¿Dónde estás ubicado?<span class="icon"></span></button>
+        <div class="faq-a"><p>En Tijuana, Baja California. Pero mi cámara no se queja si la llevo de viaje.</p></div>
+      </div>
+      <div class="faq-item" data-reveal>
+        <button class="faq-q" aria-expanded="false">¿Haces bodas destino?<span class="icon"></span></button>
+        <div class="faq-a"><p>Sí. Si el amor viaja, yo también.</p></div>
+      </div>
+      <div class="faq-item" data-reveal>
+        <button class="faq-q" aria-expanded="false">¿Editas las fotos?<span class="icon"></span></button>
+        <div class="faq-a"><p>Claro. Se hace una selección de las mejores fotos del día y se editan de manera detallada, pero sin exagerar.</p></div>
+      </div>
+      <div class="faq-item" data-reveal>
+        <button class="faq-q" aria-expanded="false">¿Qué métodos de pago aceptas?<span class="icon"></span></button>
+        <div class="faq-a"><p>Efectivo, transferencia bancaria y pago con tarjeta.</p></div>
+      </div>
+      <div class="faq-item" data-reveal>
+        <button class="faq-q" aria-expanded="false">¿Cómo reservo la fecha de mi boda?<span class="icon"></span></button>
+        <div class="faq-a"><p>Es simple: Agendamos una cita para decidir el paquete ideal para su boda. Si todo hace clic, firmas contrato y reservas con un anticipo. Y listo, la fecha es tuya.</p></div>
+      </div>
+      <div class="faq-item" data-reveal>
+        <button class="faq-q" aria-expanded="false">¿Cuánto tiempo tardas en entregar las fotos?<span class="icon"></span></button>
+        <div class="faq-a"><p>El tiempo de entrega de tus fotos es de 30 a 35 días hábiles.</p></div>
+      </div>
+      <div class="faq-item" data-reveal>
+        <button class="faq-q" aria-expanded="false">¿Cuándo y dónde se hace la sesión Save the Date?<span class="icon"></span></button>
+        <div class="faq-a"><p>Lo ideal es hacerla 3 a 6 meses antes de la boda. Tú eliges el lugar (también te recomiendo lugares) el mejor horario para que no haya luz fea. Y no te preocupes, no necesitas saber posar.</p></div>
+      </div>
     </div>
-
-    <details class="faq-item">
-      <summary>¿Cuántas bodas cubren al año?</summary>
-      <p>Alrededor de 25, a propósito. Menos fechas significa más atención en cada boda, no una agenda apretada.</p>
-    </details>
-    <details class="faq-item">
-      <summary>¿Dónde estás ubicado?</summary>
-      <p>En Tijuana, Baja California. Pero mi cámara no se queja si la llevo de viaje.</p>
-    </details>
-    <details class="faq-item">
-      <summary>¿Haces bodas destino?</summary>
-      <p>Sí. Si el amor viaja, yo también.</p>
-    </details>
-    <details class="faq-item">
-      <summary>¿Editas las fotos?</summary>
-      <p>Claro. Se hace una selección de las mejores fotos del día y se editan de manera detallada, pero sin exagerar.</p>
-    </details>
-    <details class="faq-item">
-      <summary>¿Qué métodos de pago aceptas?</summary>
-      <p>Efectivo, transferencia bancaria y pago con tarjeta.</p>
-    </details>
-    <details class="faq-item">
-      <summary>¿Cómo reservo la fecha de mi boda?</summary>
-      <p>Es simple: Agendamos una cita para decidir el paquete ideal para su boda. Si todo hace clic, firmas contrato y reservas con un anticipo. Y listo, la fecha es tuya.</p>
-    </details>
-    <details class="faq-item">
-      <summary>¿Cuánto tiempo tardas en entregar las fotos?</summary>
-      <p>El tiempo de entrega de tus fotos es de 30 a 35 días hábiles.</p>
-    </details>
-    <details class="faq-item">
-      <summary>¿Cuándo y dónde se hace la sesión Save the Date?</summary>
-      <p>Lo ideal es hacerla 3 a 6 meses antes de la boda. Tú eliges el lugar (también te recomiendo lugares) el mejor horario para que no haya luz fea. Y no te preocupes, no necesitas saber posar.</p>
-    </details>
   </div>
 </section>
 
-<!-- ============ CONTACTO — formulario real, foto de fondo ============ -->
-<section class="bg-fixed-section" id="contacto" style="background-image:url('https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1600/finite-estudio-web/inicio/beso-velo.jpg'); padding:100px 0;">
-  <div class="bg-fixed-overlay"></div>
-  <div class="wrap bg-fixed-content">
-    <div class="contacto-card">
-      <div class="center-copy" style="margin-bottom:10px;">
-        <h2 style="font-size:1.8rem;">¿Ya tienen fecha? Empecemos por ahí</h2>
-        <p style="margin-top:10px; font-size:0.9rem; opacity:0.75;">Les respondemos en menos de 24 horas.</p>
-      </div>
+<!-- ============ FORMULARIO DE CONTACTO ============ -->
+<section id="contacto">
+  <div class="contacto-bg" role="img" aria-label="Pareja de novios besándose bajo el velo"></div>
+  <div class="wrap">
+    <div class="contacto-card" data-reveal>
+      <h2 class="center">¿Ya tienen fecha? Empecemos por ahí</h2>
+      <p class="center" style="opacity:.65; font-size:14px; margin:10px 0 4px;">Les respondemos en menos de 24 horas.</p>
 
-      <form id="form-contacto" name="contacto" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/gracias.html" style="margin-top:30px;">
+      <form class="form-grid" id="form-contacto" name="contacto" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/gracias.html">
         <input type="hidden" name="form-name" value="contacto">
-        <p style="display:none;"><label>No llenar: <input name="bot-field"></label></p>
-        <div class="form-field">
-          <label for="nombres">Sus nombres</label>
-          <input type="text" id="nombres" name="nombres" required>
+        <p class="hp-field"><label>No llenar: <input name="bot-field"></label></p>
+        <div class="field">
+          <label for="f-nombres">Sus nombres *</label>
+          <input type="text" id="f-nombres" name="nombres" required>
         </div>
-        <div class="form-field">
-          <label for="correo">Correo</label>
-          <input type="email" id="correo" name="correo" required>
+        <div class="field">
+          <label for="f-correo">Correo *</label>
+          <input type="email" id="f-correo" name="correo" required>
         </div>
-        <div class="form-field">
-          <label for="whatsapp">WhatsApp</label>
-          <input type="tel" id="whatsapp" name="whatsapp" required>
+        <div class="field">
+          <label for="f-whatsapp">WhatsApp *</label>
+          <input type="tel" id="f-whatsapp" name="whatsapp" required>
         </div>
-        <div class="form-field">
-          <label for="fecha">Fecha de su boda</label>
-          <input type="date" id="fecha" name="fecha" required>
+        <div class="field">
+          <label for="f-fecha">Fecha de su boda *</label>
+          <input type="date" id="f-fecha" name="fecha" required>
         </div>
-        <div class="form-field">
-          <label for="lugar">Dónde se casan</label>
-          <input type="text" id="lugar" name="lugar" required>
+        <div class="field">
+          <label for="f-lugar">Dónde se casan *</label>
+          <input type="text" id="f-lugar" name="lugar" placeholder="Estado o ciudad" required>
         </div>
-        <div class="form-field">
-          <label for="servicio">Servicio que les interesa</label>
-          <select id="servicio" name="servicio" required>
-            <option value="">Elige una opción</option>
-            <option value="Cobertura de boda (6h o más)">Cobertura de boda (6h o más de cobertura)</option>
-            <option value="Love Season (save the date / sesión casual)">Love Season (sesión "save the date", sesión casual)</option>
-          </select>
+        <div class="field">
+          <span class="field-label" id="lbl-servicio">Servicio que les interesa *</span>
+          <div class="radio-group" role="radiogroup" aria-labelledby="lbl-servicio">
+            <label class="radio-option"><input type="radio" name="servicio" value="Cobertura de boda (6h o más)" required> Cobertura de boda (6h o más)</label>
+            <label class="radio-option"><input type="radio" name="servicio" value="Love Season (save the date / sesión casual)"> Love season (save the date, sesión casual)</label>
+          </div>
         </div>
-        <div class="form-field">
-          <label for="mensaje">Cuéntame sobre tu boda</label>
-          <textarea id="mensaje" name="mensaje"></textarea>
+        <div class="field">
+          <label for="f-detalle">Cuéntame sobre tu boda</label>
+          <textarea id="f-detalle" name="mensaje"></textarea>
         </div>
-        <button type="submit" class="btn btn-oro" style="width:100%; border:none; cursor:pointer;">Quiero revivir mi boda</button>
+        <button type="submit" class="btn btn-block">Quiero revivir mi boda</button>
       </form>
     </div>
   </div>
 </section>
 
-<footer class="site-footer">
+<!-- ============ FOOTER ============ -->
+<footer>
   <div class="wrap">
-    <div>
-      <img class="logo" src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto/finite-estudio-web/marca/logo.png" alt="Finite Estudio" width="500" height="135" loading="lazy">
-      <p class="small-caps" style="opacity:0.7;">Fotógrafo de bodas · Tijuana</p>
+    <div class="footer-inner">
+      <a href="#hero" class="footer-logo"><img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto/finite-estudio-web/marca/logo.png" alt="Finite Estudio" width="500" height="135" loading="lazy"></a>
+      <ul class="footer-links">
+        <li><a href="/privacidad.html">Privacidad</a></li>
+        <li><a href="/blog/">Blog</a></li>
+      </ul>
     </div>
-    <div class="footer-links">
-      <a href="#portafolio">Portafolio</a>
-      <a href="#precios">Precios</a>
-      <a href="#sobre-mi">Sobre mí</a>
-      <a href="/blog/">Blog</a>
-      <a href="#contacto">Contacto</a>
-      <a href="/privacidad.html">Privacidad</a>
-    </div>
-  </div>
-  <div class="wrap footer-bottom">
-    <span>© 2026 Finite Estudio</span>
+    <div class="footer-bottom">© 2026 Finite Estudio</div>
   </div>
 </footer>
 
-<script src="/assets/main.js"></script>
 <script>
-  // Hero: rotación directa entre varias fotos de fondo (sin fundido, cambio rápido)
-  (function () {
-    var slides = document.querySelectorAll('#hero-rotativo .hero-bg-slide');
-    if (slides.length < 2) return;
-    var i = 0;
-    setInterval(function () {
-      slides[i].classList.remove('active');
-      i = (i + 1) % slides.length;
-      slides[i].classList.add('active');
-    }, 1400);
-  })();
+  const header = document.getElementById('site-header');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive:true });
 
+  const menuToggle = document.getElementById('menuToggle');
+  const navLinks = document.getElementById('navLinks');
+  menuToggle.addEventListener('click', () => {
+    const isOpen = navLinks.classList.toggle('open');
+    menuToggle.classList.toggle('open', isOpen);
+    menuToggle.setAttribute('aria-expanded', isOpen);
+  });
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    navLinks.classList.remove('open');
+    menuToggle.classList.remove('open');
+    menuToggle.setAttribute('aria-expanded', false);
+  }));
+
+  document.querySelectorAll('[data-reveal]').forEach((el) => {
+    const parent = el.parentElement;
+    const siblings = parent ? Array.from(parent.children).filter(c => c.hasAttribute('data-reveal')) : [];
+    const idx = siblings.indexOf(el);
+    if (idx > 0 && siblings.length > 1) {
+      el.style.transitionDelay = Math.min(idx * 90, 540) + 'ms';
+    }
+  });
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold:.15 });
+  document.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
+
+  // ---------- Visor de fotos del portafolio (lightbox) ----------
+  const portfolioImages = [
+    'https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1400/finite-estudio-web/portafolio/portafolio-02.jpg',
+    'https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1400/finite-estudio-web/portafolio/portafolio-05.jpg',
+    'https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1400/finite-estudio-web/portafolio/portafolio-08.jpg',
+    'https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1400/finite-estudio-web/portafolio/portafolio-11.jpg',
+    'https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1400/finite-estudio-web/portafolio/portafolio-14.jpg',
+    'https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1400/finite-estudio-web/portafolio/portafolio-17.jpg',
+    'https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1400/finite-estudio-web/portafolio/portafolio-20.jpg',
+    'https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1400/finite-estudio-web/portafolio/portafolio-23.jpg',
+    'https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1400/finite-estudio-web/portafolio/portafolio-26.jpg',
+    'https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1400/finite-estudio-web/portafolio/portafolio-29.jpg',
+    'https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1400/finite-estudio-web/portafolio/portafolio-32.jpg',
+    'https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1400/finite-estudio-web/portafolio/portafolio-35.jpg'
+  ];
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+  let lbIndex = 0;
+  function openLightbox(i){
+    lbIndex = i;
+    lightboxImg.src = portfolioImages[lbIndex];
+    lightbox.classList.add('open');
+  }
+  function closeLightbox(){ lightbox.classList.remove('open'); }
+  function lbNext(){ lbIndex = (lbIndex + 1) % portfolioImages.length; lightboxImg.src = portfolioImages[lbIndex]; }
+  function lbPrev(){ lbIndex = (lbIndex - 1 + portfolioImages.length) % portfolioImages.length; lightboxImg.src = portfolioImages[lbIndex]; }
+  document.querySelectorAll('#portafolio .tile').forEach((tile, i) => {
+    tile.addEventListener('click', () => openLightbox(i));
+    tile.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox(i); }
+    });
+  });
+  document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+  document.getElementById('lightboxNext').addEventListener('click', lbNext);
+  document.getElementById('lightboxPrev').addEventListener('click', lbPrev);
+  lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+  document.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowRight') lbNext();
+    if (e.key === 'ArrowLeft') lbPrev();
+  });
+
+  // ---------- Hero: rotación de fotos de fondo ----------
+  const heroSlides = document.querySelectorAll('.hero-bg-slide');
+  let heroIndex = 0;
+  if (heroSlides.length > 1) {
+    setInterval(() => {
+      heroSlides[heroIndex].classList.remove('active');
+      heroIndex = (heroIndex + 1) % heroSlides.length;
+      heroSlides[heroIndex].classList.add('active');
+    }, 1400);
+  }
+
+  // ---------- Formulario de contacto (Netlify Forms) ----------
   // "Interesado en reunión": Lead solo si el formulario pasó la validación nativa
-  // (todos los campos requeridos llenos) — igual que antes, ahora deduplicado con CAPI.
-  document.getElementById('form-contacto').addEventListener('submit', function () {
-    if (window.FiniteTrack) { window.FiniteTrack('InteresadoEnCita'); }
+  // (todos los campos requeridos llenos). Deduplicado con CAPI en tracking.js.
+  const contactForm = document.getElementById('form-contacto');
+  if (contactForm) {
+    contactForm.addEventListener('submit', () => {
+      if (window.FiniteTrack) { window.FiniteTrack('InteresadoEnCita'); }
+    });
+  }
+
+  document.querySelectorAll('.faq-item').forEach(item => {
+    const btn = item.querySelector('.faq-q');
+    const answer = item.querySelector('.faq-a');
+    btn.addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(other => {
+        if (other !== item) {
+          other.classList.remove('open');
+          other.querySelector('.faq-a').style.maxHeight = null;
+          other.querySelector('.faq-q').setAttribute('aria-expanded', false);
+        }
+      });
+      item.classList.toggle('open', !isOpen);
+      btn.setAttribute('aria-expanded', !isOpen);
+      answer.style.maxHeight = !isOpen ? answer.scrollHeight + 'px' : null;
+    });
   });
 </script>
 </body>
