@@ -1,3 +1,7 @@
 /contrato /herramientas/contrato.html 200
 /pago /herramientas/pago.html 200
 /recibos /herramientas/recibos.html 200
+/portafolio/* /#portafolio 301
+/sobre-mi/* /#sobre-mi 301
+/contacto/* /#contacto 301
+/info/* /#precios 301
