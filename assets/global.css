@@ -460,3 +460,37 @@ section { padding: 90px 0; }
         display: block;
         border-radius: var(--radius);
 }
+
+/* =========================================================
+   Bloque agregado para el inicio de una sola página (index.html)
+   ========================================================= */
+
+/* Hero: rotación de fotos de fondo (varias capas, cambio directo) */
+.hero-bg-slide {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center;
+  opacity: 0;
+}
+.hero-bg-slide.active { opacity: 1; }
+
+/* Paquetes con lista de características (en vez de un solo párrafo) */
+.pkg-card ul { list-style: none; margin: 14px 0 0; padding: 0; }
+.pkg-card li { font-size: 0.92rem; color: var(--tinta-suave); padding: 5px 0; }
+
+/* Tarjeta del formulario de contacto sobre foto de fondo fija */
+.contacto-card {
+  background: var(--crema);
+  color: var(--tinta);
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 44px 40px;
+  border-radius: var(--radius);
+}
+@media (max-width: 600px) { .contacto-card { padding: 34px 24px; } }
+
+/* Link de texto sutil (ej. "Ver más portafolio") */
+.text-link {
+  font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;
+  border-bottom: 1px solid var(--crema); padding-bottom: 3px;
+}
+.text-link:hover { color: var(--oro); border-color: var(--oro); }
