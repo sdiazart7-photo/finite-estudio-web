@@ -1,5 +1,5 @@
 // capi-relay.js — recibe los eventos que tracking.js manda desde el navegador
-// (PageView, Lead, Contact, VerPortafolio, VerBlog, InicioBlog, InitiateCheckout, Purchase)
+// (todos los de EVENTOS_PERMITIDOS de abajo)
 // y los reenvía a Meta Conversions API con el MISMO event_id que ya se mandó por Pixel,
 // para que Meta deduplique y se quede con los datos de mejor calidad disponibles.
 //
@@ -11,15 +11,24 @@ const { sendCapiEvent } = require('./capi');
 // Nombres de evento que este endpoint acepta. Cualquier otro valor se ignora
 // silenciosamente — así una llamada mal formada o maliciosa no le mete
 // eventos falsos al Administrador de Eventos.
+// Tiene que coincidir 1 a 1 con lo que manda assets/tracking.js
+// (mapa EVENTOS + eventos automáticos + window.FiniteTrack). Si un nombre
+// falta aquí, ese evento llega a Meta solo por Pixel, sin respaldo de CAPI.
 const EVENTOS_PERMITIDOS = new Set([
+  // Automáticos (tracking.js, secciones 4 y 6)
   'PageView',
-  'Lead',
-  'Contact',
-  'VerPortafolio',
   'VerBlog',
   'InicioBlog',
-  'InitiateCheckout',
+  'InitiateCheckout',   // también por clic en contrato.html
+  // Por clic (data-track)
+  'InteresadoEnCita',   // también al enviar el formulario del home
+  'Contact',
+  'ClicCTABlog',
+  'VerPortafolio',
+  'SolicitudTarjeta',
   'Purchase',
+  // Por window.FiniteTrack desde el quiz de /propuesta/
+  'VerPaquetes',
 ]);
 
 exports.handler = async (event) => {

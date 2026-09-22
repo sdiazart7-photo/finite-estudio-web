@@ -12,7 +12,12 @@
 // Esto compensa lo que los bloqueadores de anuncios le esconden al Pixel.
 //
 // Cómo trackear un botón nuevo sin tocar este archivo:
-// agrega data-track="lead" | "contact" | "view-portfolio" al elemento.
+// agrega data-track="lead" | "contact" | "cta-blog" | "view-portfolio" al elemento.
+//
+// OJO: si agregas un evento NUEVO al mapa EVENTOS de abajo (o lo mandas con
+// window.FiniteTrack), agrégalo también a EVENTOS_PERMITIDOS en
+// netlify/functions/capi-relay.js. Si no, solo viaja por Pixel y el servidor
+// lo descarta en silencio (sin error visible en ningún lado).
 // Si necesitas mandar un valor (ej. un monto), agrega también
 // data-value="1500" data-currency="MXN".
 // =========================================================
@@ -116,7 +121,8 @@
   // así ningún botón nuevo empieza a ensuciar el Administrador de Eventos por accidente.
   var EVENTOS = {
     'lead': 'InteresadoEnCita',         // (personalizado) Dio clic en "Agendar videollamada o cafecito" o envió el formulario de contacto — SOLO interés, todavía no agendó de verdad. El agendado real es "Schedule", ver más abajo.
-    'contact': 'Contact',               // WhatsApp, Revisar/Reservar mi fecha, Cotizar ahora, Contacto
+    'contact': 'Contact',               // SOLO links que abren WhatsApp con un prospecto (home, /infoprecios/, /propuesta/, /love-season/). Nada de navegación interna ni clientes que ya firmaron.
+    'cta-blog': 'ClicCTABlog',          // (personalizado) Clic en un botón de un artículo del blog que lleva al contacto del home. Paso intermedio: todavía no escribió.
     'view-portfolio': 'VerPortafolio',  // Ver portafolio (evento personalizado)
     'checkout': 'InitiateCheckout',     // Inicio de compra: Firmar contrato y recibir PDF (contrato.html). El InitiateCheckout de pago.html es automático al cargar la página, no por clic — ver sección 6.
     'checkout-tarjeta': 'SolicitudTarjeta', // (personalizado) Clic en "Solicitar pago con tarjeta" en pago.html — evento aparte del InitiateCheckout automático de esa misma página, para no mezclar "llegó a pagar" con "pidió pagar con tarjeta".
