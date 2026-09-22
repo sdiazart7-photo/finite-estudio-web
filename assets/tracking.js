@@ -136,14 +136,45 @@
   // quedó agendada de verdad (netlify/functions/cal-webhook.js), no con un
   // clic que solo ABRE el calendario. Ver ese archivo para esos dos eventos.
 
+  // Eventos que cuentan PERSONAS, no clics: se mandan una sola vez por
+  // navegador cada 24 horas, sin importar cuántos botones distintos toque,
+  // cuántas veces recargue o si vuelve a entrar el mismo día.
+  // Por qué: /infoprecios/ tiene 6 botones de WhatsApp y antes cada uno
+  // disparaba su propio Contact, así que una sola pareja indecisa podía
+  // valer 6 "contactos" en Meta. Con esto, Contact ≈ personas que abrieron
+  // WhatsApp, y el algoritmo aprende con un número honesto.
+  var UNA_VEZ_POR_PERSONA = { 'Contact': true };
+  var VENTANA_MS = 24 * 60 * 60 * 1000;
+  var memoria = {}; // respaldo si el navegador bloquea localStorage (modo incógnito estricto, algunos navegadores in-app)
+
+  function yaSeMando(eventName) {
+    var key = 'finite_evt_' + eventName;
+    var ultimo = memoria[key];
+    try { ultimo = ultimo || parseInt(localStorage.getItem(key), 10); } catch (err) {}
+    return !!ultimo && (Date.now() - ultimo) < VENTANA_MS;
+  }
+
+  function marcarMandado(eventName) {
+    var key = 'finite_evt_' + eventName;
+    memoria[key] = Date.now();
+    try { localStorage.setItem(key, String(memoria[key])); } catch (err) {}
+  }
+
   document.addEventListener('click', function (e) {
     var el = e.target.closest('[data-track]');
     if (!el) return;
     var eventName = EVENTOS[el.getAttribute('data-track')];
     if (!eventName) return;
 
-    // Seguro contra doble clic / doble disparo accidental: un mismo botón
-    // no vuelve a mandar su evento en lo que dure la visita.
+    // Seguro 1 (eventos de personas, ej. Contact): una vez cada 24 h por navegador.
+    // El clic sigue abriendo WhatsApp normal; solo se omite el evento repetido.
+    if (UNA_VEZ_POR_PERSONA[eventName]) {
+      if (yaSeMando(eventName)) return;
+      marcarMandado(eventName);
+    }
+
+    // Seguro 2 (todos los demás): un mismo botón no vuelve a mandar su
+    // evento en lo que dure la visita (doble clic accidental).
     if (el.dataset.finiteTracked) return;
     el.dataset.finiteTracked = '1';
 
