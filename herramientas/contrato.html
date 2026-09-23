@@ -161,14 +161,6 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
     width: 100%; text-decoration: none; transition: all 0.28s;
   }
   .btn-gold:hover { filter: brightness(0.96); transform: translateY(-2px); }
-  .btn-ghost {
-    display: flex; align-items: center; justify-content: center; gap: 8px;
-    font-family: 'DM Sans', sans-serif; font-weight: 500; font-size: 13.5px; padding: 13px 20px;
-    border-radius: 9999px; background: transparent; color: var(--gray-text); border: 1.5px solid rgba(28,26,24,0.14);
-    cursor: pointer; width: 100%; text-decoration: none; transition: all 0.24s;
-  }
-  .btn-ghost:hover { border-color: var(--dark); color: var(--dark); }
-  .btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
 
   /* ── Estado post-firma ── */
   #firmado { display: none; }
@@ -196,7 +188,6 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
   @media (max-width: 720px) {
     .card { padding: 22px; border-radius: 18px; }
     .grid2 { grid-template-columns: 1fr; }
-    .btn-row { grid-template-columns: 1fr; }
   }
 
   nav a.back:focus-visible,
@@ -336,10 +327,6 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
 
       <a class="btn-gold" id="btnPagar" href="#">Continuar al pago →</a>
 
-      <div class="btn-row">
-        <button class="btn-ghost" id="btnDescargar" type="button">↓ Descargar PDF otra vez</button>
-        <a class="btn-ghost" id="btnWa" target="_blank" rel="noopener" href="#">Avisar por WhatsApp</a>
-      </div>
       <p class="mail-status" id="mailStatus"></p>
     </div>
   </div>
@@ -440,7 +427,7 @@ const contratoConfig = [
     endpointCorreo: '/.netlify/functions/contrato',
 
     // Página donde el cliente ve los datos bancarios y paga su anticipo
-    paginaPago: 'pago.html',
+    paginaPago: '/pago',
 
     // Costo por foto extra con edición (cláusula "Fotos adicionales")
     extraFoto: 150,
@@ -930,12 +917,12 @@ const contratoConfig = [
           statusEl.textContent = '✓ Copia enviada a ' + inputs.email.value.trim() + ' y a Finite Estudio.';
         } else {
           statusEl.className = 'mail-status warn';
-          statusEl.textContent = 'El PDF quedó descargado en tu dispositivo. El envío automático por correo todavía no está activo, mándanos el archivo por WhatsApp.';
+          statusEl.textContent = 'No pudimos enviar tu copia por correo. Continúa al pago y escríbenos por WhatsApp para mandártela.';
         }
       })
       .catch(function () {
         statusEl.className = 'mail-status warn';
-        statusEl.textContent = 'El PDF quedó descargado en tu dispositivo. No pudimos enviarlo por correo, mándanoslo por WhatsApp.';
+        statusEl.textContent = 'No pudimos enviar tu copia por correo. Continúa al pago y escríbenos por WhatsApp para mandártela.';
       });
   }
 
@@ -966,12 +953,6 @@ const contratoConfig = [
       }));
     } catch (e) {}
 
-    // WhatsApp de aviso
-    var textoWA = 'Hola, Saúl! Somos ' + inputs.nombre.value.trim() +
-      '. Ya firmamos nuestro contrato de boda (' + (inputs.paquete.value.trim() || 'paquete acordado') + ') para el ' +
-      fechaLarga(inputs.fecha.value) + '. Te adjuntamos el PDF 📄';
-    document.getElementById('btnWa').href = 'https://api.whatsapp.com/send?phone=' + CFG.whatsapp.replace('+', '') + '&text=' + encodeURIComponent(textoWA);
-
     // Botón "Continuar al pago" — lleva al cliente a la página con los
     // datos bancarios y el monto exacto de su anticipo.
     var qsPago = new URLSearchParams({
@@ -990,15 +971,6 @@ const contratoConfig = [
     enviarPorCorreo();
   });
 
-  document.getElementById('btnDescargar').addEventListener('click', function () {
-    if (!pdfDataUri) return;
-    var nueva = window.open('', '_blank');
-    if (nueva) {
-      nueva.location.href = pdfDataUri;
-    } else {
-      window.location.href = pdfDataUri;
-    }
-  });
 })();
 </script>
 </body>
