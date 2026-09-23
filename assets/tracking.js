@@ -1,8 +1,16 @@
 // =========================================================
 // Finite Estudio — tracking.js
-// Único lugar donde vive el Meta Pixel y todos los eventos del sitio.
-// Antes: cada página cargaba su propio Pixel copiado y pegado. Ahora:
-// una sola fuente de verdad, referenciada con <script src="/assets/tracking.js">.
+// Único lugar donde vive el Meta Pixel, Google Analytics 4 y todos los
+// eventos del sitio. Antes: cada página cargaba su propio Pixel copiado
+// y pegado. Ahora: una sola fuente de verdad, referenciada con
+// <script src="/assets/tracking.js">.
+//
+// Cada evento personalizado (los del mapa EVENTOS de abajo, más VerBlog
+// e InicioBlog) se manda con el mismo nombre a Meta y a GA4, para poder
+// comparar ambos paneles sin traducir nombres mentalmente. La única
+// excepción es PageView, que no se espeja a GA4 porque gtag ya manda su
+// propio page_view automático (ver sección 0) — mandarlo también aquí
+// solo duplicaría el conteo de vistas de página.
 //
 // Cómo funciona la deduplicación con CAPI:
 // Cada evento se genera con un event_id único y se manda DOS veces con
@@ -95,6 +103,15 @@
     customData = customData || {};
 
     fbq('track', eventName, customData, { eventID: eventId });
+
+    // Espejo a GA4: mismo nombre de evento que en Meta, para poder
+    // comparar ambos paneles sin traducir nombres mentalmente.
+    // 'PageView' se excluye a propósito: gtag ya manda su propio
+    // page_view automático (ver sección 0), mandarlo aquí también
+    // solo duplicaría el conteo de vistas de página en GA4.
+    if (window.gtag && eventName !== 'PageView') {
+      window.gtag('event', eventName, customData);
+    }
 
     var payload = JSON.stringify({
       eventName: eventName,
