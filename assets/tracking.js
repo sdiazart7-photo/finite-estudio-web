@@ -88,14 +88,78 @@
     return match ? decodeURIComponent(match[1]) : null;
   }
 
-  // fbc: si Meta todavía no puso la cookie _fbc, la reconstruimos a partir
-  // del fbclid en la URL (llega así en el primer clic desde un anuncio).
-  function getFbc() {
-    var fromCookie = getCookie('_fbc');
-    if (fromCookie) return fromCookie;
-    var fbclid = new URLSearchParams(location.search).get('fbclid');
-    return fbclid ? 'fb.1.' + Date.now() + '.' + fbclid : null;
+  // ---------- 2b. Parameter Builder oficial de Meta (fbc / fbp) ----------
+  // Antes armábamos el fbc a mano ('fb.1.' + fecha + fbclid) y leíamos _fbp
+  // de la cookie apenas cargaba la página. Dos problemas que Meta marcó en
+  // el Administrador de Eventos (sep 2026):
+  //  1) El fbc armado a mano llega "modificado": URLSearchParams convierte
+  //     los '+' del fbclid en espacios y además no lleva el sufijo de
+  //     verificación que Meta ahora agrega. Resultado: Meta no reconoce el
+  //     clic y la atribución del anuncio se pierde.
+  //  2) El PageView se disparaba ANTES de que fbevents.js creara la cookie
+  //     _fbp, así que el primer evento de cada visita viajaba al servidor
+  //     sin fbp (baja cobertura de fbp).
+  // La librería oficial resuelve ambos: crea _fbp al instante, guarda _fbc
+  // desde el fbclid en el formato exacto que Meta espera (sin tocar
+  // mayúsculas ni caracteres) y rescata el clic en los navegadores internos
+  // de Instagram/Facebook. Regla: NUNCA volver a construir el fbc a mano.
+  var PB_URL = 'https://cdn.jsdelivr.net/npm/meta-capi-param-builder-clientjs@1.3.2/dist/clientParamBuilder.bundle.js';
+  var PB_FALLBACK = 'https://unpkg.com/meta-capi-param-builder-clientjs@1.3.2/dist/clientParamBuilder.bundle.js';
+
+  function cargarScript(src) {
+    return new Promise(function (resolve, reject) {
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = src;
+      s.onload = resolve;
+      s.onerror = reject;
+      document.head.appendChild(s);
+    });
   }
+
+  // Promesa única: los eventos que salgan antes de que la librería termine
+  // esperan aquí (máximo 2.5 s) en vez de mandarse sin fbc/fbp.
+  var paramsListos = new Promise(function (resolve) {
+    var listo = false;
+    function fin(p) { if (!listo) { listo = true; resolve(p || {}); } }
+    setTimeout(function () { fin(null); }, 2500); // si la CDN tarda, no se pierde el evento
+    cargarScript(PB_URL)
+      .catch(function () { return cargarScript(PB_FALLBACK); })
+      .then(function () {
+        return window.clientParamBuilder.processAndCollectAllParams(location.href);
+      })
+      .then(fin, function () { fin(null); });
+  });
+
+  // Plan B si la librería no cargó: solo cookies, tal cual las dejó Meta.
+  // El fbc jamás se reconstruye a mano desde la URL.
+  function paramsDesdeCookies() {
+    return { _fbc: getCookie('_fbc'), _fbp: getCookie('_fbp') };
+  }
+
+  // Correo y teléfono hasheados (SHA-256) para eventos donde la persona
+  // ya los escribió en la página (hoy: InitiateCheckout de contrato.html).
+  // Meta pidió mandar correo en InitiateCheckout para subir la calidad de
+  // coincidencias. Nunca viaja el dato en claro: sale hasheado del navegador.
+  function datosPersonaHasheados() {
+    var pb = window.clientParamBuilder;
+    if (!pb || !pb.getNormalizedAndHashedPII) return {};
+    var out = {};
+    var email = document.getElementById('email');
+    var cel = document.getElementById('celular');
+    try {
+      if (email && email.value.trim()) {
+        out.em = pb.getNormalizedAndHashedPII(email.value.trim(), 'email');
+      }
+      if (cel && cel.value.trim()) {
+        var dig = cel.value.replace(/\D/g, '');
+        if (dig.length === 10) dig = '52' + dig; // celular mexicano sin lada de país
+        out.ph = pb.getNormalizedAndHashedPII(dig, 'phone');
+      }
+    } catch (err) {}
+    return out;
+  }
+  var EVENTOS_CON_DATOS_PERSONA = { 'InitiateCheckout': true };
 
   // ---------- 3. Disparo con deduplicación Pixel + CAPI ----------
   function track(eventName, customData) {
@@ -113,21 +177,31 @@
       window.gtag('event', eventName, customData);
     }
 
-    var payload = JSON.stringify({
-      eventName: eventName,
-      eventId: eventId,
-      eventSourceUrl: location.href,
-      customData: customData,
-      fbp: getCookie('_fbp'),
-      fbc: getFbc(),
-    });
+    // Los datos de la persona se leen en el momento del clic (el formulario
+    // podría limpiarse después); el envío al servidor espera a paramsListos.
+    var persona = EVENTOS_CON_DATOS_PERSONA[eventName] ? datosPersonaHasheados() : {};
+    var sourceUrl = location.href;
 
-    // sendBeacon no bloquea la navegación si el clic también abre WhatsApp o Cal.com
-    if (navigator.sendBeacon) {
-      navigator.sendBeacon('/.netlify/functions/capi-relay', new Blob([payload], { type: 'application/json' }));
-    } else {
-      fetch('/.netlify/functions/capi-relay', { method: 'POST', body: payload, keepalive: true }).catch(function () {});
-    }
+    paramsListos.then(function (p) {
+      var c = paramsDesdeCookies();
+      var payload = JSON.stringify({
+        eventName: eventName,
+        eventId: eventId,
+        eventSourceUrl: sourceUrl,
+        customData: customData,
+        fbp: (p && p._fbp) || c._fbp,
+        fbc: (p && p._fbc) || c._fbc,
+        em: persona.em,
+        ph: persona.ph,
+      });
+
+      // sendBeacon no bloquea la navegación si el clic también abre WhatsApp o Cal.com
+      if (navigator.sendBeacon) {
+        navigator.sendBeacon('/.netlify/functions/capi-relay', new Blob([payload], { type: 'application/json' }));
+      } else {
+        fetch('/.netlify/functions/capi-relay', { method: 'POST', body: payload, keepalive: true }).catch(function () {});
+      }
+    });
   }
 
   // ---------- 4. PageView (todas las páginas) ----------
