@@ -43,7 +43,11 @@ exports.handler = async (event) => {
     return { statusCode: 400, body: 'JSON inválido' };
   }
 
-  const { eventName, eventId, eventSourceUrl, customData, fbp, fbc } = payload;
+  const { eventName, eventId, eventSourceUrl, customData, fbp, fbc, em, ph } = payload;
+
+  // em/ph llegan ya hasheados (SHA-256) desde tracking.js. Si no tienen forma
+  // de hash, se descartan: así nunca se reenvía a Meta un dato en claro.
+  const pareceHash = (v) => typeof v === 'string' && /^[a-f0-9]{64}(\.[A-Za-z0-9_-]+)?$/.test(v);
 
   if (!EVENTOS_PERMITIDOS.has(eventName) || !eventId) {
     // Respondemos 200 para no generar reintentos ni errores visibles en el navegador
@@ -63,6 +67,8 @@ exports.handler = async (event) => {
       eventId,
       eventSourceUrl,
       actionSource: 'website',
+      hashedEmail: pareceHash(em) ? em : undefined,
+      hashedPhone: pareceHash(ph) ? ph : undefined,
       fbp: fbp || undefined,
       fbc: fbc || undefined,
       clientIpAddress,
