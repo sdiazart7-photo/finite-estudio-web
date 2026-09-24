@@ -97,7 +97,7 @@ exports.handler = async (event) => {
 
   const resumenHtml =
     '<table cellpadding="0" cellspacing="0" style="font-family:sans-serif;font-size:14px;">' +
-    filaTabla('Pareja', nombre) +
+    filaTabla('Nombre', nombre) +
     filaTabla('Fecha de la boda', fechaLarga(fecha)) +
     filaTabla('Salón', salon) +
     filaTabla('Iglesia', iglesia) +
