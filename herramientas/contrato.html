@@ -224,9 +224,9 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
       <p class="card-label">Datos de la boda</p>
       <div class="grid2">
         <div class="field" id="f-nombre">
-          <label for="nombre">Nombre de los novios</label>
-          <input type="text" id="nombre" autocomplete="name" placeholder="Ej. Ana &amp; Diego" />
-          <span class="field-error">Necesitamos el nombre de los novios.</span>
+          <label for="nombre">Nombre</label>
+          <input type="text" id="nombre" autocomplete="name" placeholder="Ej. Ana Pérez" />
+          <span class="field-error">Necesitamos tu nombre.</span>
         </div>
         <div class="field" id="f-email">
           <label for="email">Correo <span class="hint">— ahí te llega el PDF</span></label>
@@ -377,7 +377,7 @@ const contratoClausulas = [
   },
   {
     titulo: 'Fotos adicionales',
-    cuerpo: 'Si LOS CLIENTES solicitan fotos extra con edición y retoque, tendrán un costo adicional de ${{extraFoto}} MXN por imagen.',
+    cuerpo: 'Si LOS CLIENTES solicitan fotos extra con edición y retoque, tendrán un costo adicional de <b>${{extraFoto}} MXN</b> por imagen.',
   },
   {
     titulo: 'Uso de las imágenes',
@@ -526,7 +526,7 @@ const contratoConfig = [
     var precioVal = inputs.precio.value ? numeroConComas(precioNumerico()) : '';
     var anticipoVal = inputs.anticipo.value ? numeroConComas(anticipoNumerico()) : '';
     return {
-      nombre: v(inputs.nombre.value, 'nombre de los novios'),
+      nombre: v(inputs.nombre.value, 'tu nombre'),
       celular: v(celularCompleto(), 'tu celular'),
       email: v(inputs.email.value, 'tu correo'),
       fecha: v(fechaVal, 'la fecha de la boda'),
@@ -548,10 +548,54 @@ const contratoConfig = [
 
   var contratoBox = document.getElementById('contratoBox');
 
+  // Pone en negritas todo lo que esté escrito en MAYÚSCULAS dentro del texto
+  // del contrato (LOS CLIENTES, EL FOTÓGRAFO, LAS PARTES, MXN, etc.). Se aplica
+  // a la plantilla ANTES de meter los datos del cliente, así que si alguien
+  // escribe su nombre en mayúsculas, eso no se ve afectado. Lo que ya estaba
+  // entre <b>…</b> se respeta tal cual.
+  function negritasMayusculas(texto) {
+    return texto.split(/(<b>[\s\S]*?<\/b>)/).map(function (parte) {
+      if (parte.indexOf('<b>') === 0) return parte;
+      return parte.replace(/(^|[^\p{L}])(\p{Lu}{2,}(?:\s+\p{Lu}{2,})*)(?!\p{L})/gu, '$1<b>$2</b>');
+    }).join('');
+  }
+
+  // Parte un párrafo para el PDF respetando las <b>…</b> (normal y negrita
+  // en la misma línea) y hace el salto de línea a mano. Cada "palabra" puede
+  // tener pedazos con distinto peso (ej. "LOS CLIENTES" + ","), así la coma
+  // se queda pegada y nunca se va sola al renglón de abajo.
+  function lineasRicas(doc, html, ancho) {
+    var palabras = [], actualPalabra = null;
+    html.split(/(<b>[\s\S]*?<\/b>)/).forEach(function (parte) {
+      var bold = parte.indexOf('<b>') === 0;
+      (parte.replace(/<[^>]+>/g, '').match(/\S+|\s+/g) || []).forEach(function (tok) {
+        if (/^\s+$/.test(tok)) { actualPalabra = null; return; }
+        doc.setFont('helvetica', bold ? 'bold' : 'normal');
+        var pedazo = { t: tok, b: bold, w: doc.getTextWidth(tok) };
+        if (!actualPalabra) { actualPalabra = { piezas: [], w: 0 }; palabras.push(actualPalabra); }
+        actualPalabra.piezas.push(pedazo);
+        actualPalabra.w += pedazo.w;
+      });
+    });
+    doc.setFont('helvetica', 'normal');
+    var espacio = doc.getTextWidth(' ');
+    var lineas = [], actual = [], anchoActual = 0;
+    palabras.forEach(function (p) {
+      var extra = actual.length ? espacio + p.w : p.w;
+      if (actual.length && anchoActual + extra > ancho) {
+        lineas.push(actual); actual = [p]; anchoActual = p.w;
+      } else {
+        actual.push(p); anchoActual += extra;
+      }
+    });
+    if (actual.length) lineas.push(actual);
+    return { lineas: lineas, espacio: espacio };
+  }
+
   function renderContrato() {
     var vars = variables(false);
     contratoBox.innerHTML = contratoClausulas.map(function (c) {
-      return '<h3>' + escapeHtml(c.titulo) + '</h3><p>' + aplicarVariables(c.cuerpo, vars) + '</p>';
+      return '<h3>' + escapeHtml(c.titulo) + '</h3><p>' + aplicarVariables(negritasMayusculas(c.cuerpo), vars) + '</p>';
     }).join('');
   }
 
@@ -812,8 +856,10 @@ const contratoConfig = [
     // Cuerpo del contrato
     var vars = variables(true);
     contratoClausulas.forEach(function (c) {
-      var cuerpo = aplicarVariables(c.cuerpo, vars).replace(/<[^>]+>/g, '');
-      var lineas = doc.splitTextToSize(cuerpo, ANCHO);
+      var cuerpo = aplicarVariables(negritasMayusculas(c.cuerpo), vars);
+      doc.setFontSize(9.5);
+      var rico = lineasRicas(doc, cuerpo, ANCHO);
+      var lineas = rico.lineas;
       saltoSiHaceFalta(24 + lineas.length * LH);
       doc.setFont('helvetica', 'bold');
       doc.setFontSize(10);
@@ -823,8 +869,21 @@ const contratoConfig = [
       doc.setFont('helvetica', 'normal');
       doc.setFontSize(9.5);
       doc.setTextColor(43, 43, 43);
-      doc.text(lineas, MX, y);
-      y += lineas.length * LH + 12;
+      lineas.forEach(function (linea) {
+        saltoSiHaceFalta(LH);
+        var cx = MX;
+        linea.forEach(function (palabra) {
+          palabra.piezas.forEach(function (p) {
+            doc.setFont('helvetica', p.b ? 'bold' : 'normal');
+            doc.text(p.t, cx, y);
+            cx += p.w;
+          });
+          cx += rico.espacio;
+        });
+        y += LH;
+      });
+      doc.setFont('helvetica', 'normal');
+      y += 12;
     });
 
     // Firmas
