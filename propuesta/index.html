@@ -154,13 +154,13 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
   .test-block{text-align:center;}
   .test-block.wrap{max-width:none; padding-left:0; padding-right:0;}
   .test-block .eyebrow{display:block; padding:0 24px;}
-  .test-marquee{overflow:hidden; margin-top:44px; -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent); mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);}
-  .test-track{display:flex; gap:22px; width:max-content; animation:testRight 60s linear infinite;}
+  .test-marquee{overflow:hidden; margin-top:44px;}
+  .test-track{display:flex; gap:22px; width:max-content; animation:testRight 60s linear infinite; }
   .test-marquee:hover .test-track{animation-play-state:paused;}
-  @keyframes testRight{from{transform:translateX(-50%);} to{transform:translateX(0);}}
-  .test{flex:0 0 auto; width:290px; height:430px; background:var(--cream); border-radius:6px; padding:12px; display:flex; align-items:center; justify-content:center; box-shadow:0 18px 40px rgba(0,0,0,.28);}
-  .test img{max-width:100%; max-height:100%; width:auto; height:auto; object-fit:contain; border-radius:3px; display:block;}
-  @media(max-width:560px){.test{width:236px; height:350px;}}
+  @keyframes testRight{from{transform:translateX(0);} to{transform:translateX(-50%);}}
+  .test{flex:0 0 auto; height:430px; display:flex; align-items:center;}
+  .test img{height:100%; width:auto; max-width:340px; object-fit:contain; border-radius:4px; display:block;}
+  @media(max-width:560px){.test{height:350px;} .test img{max-width:260px;}}
   @media(prefers-reduced-motion:reduce){.test-marquee{overflow-x:auto;} .test-track{animation:none;}}
 
 
