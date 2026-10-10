@@ -92,59 +92,32 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
   .cta-btn.on-dark:hover{box-shadow:0 16px 28px -14px rgba(0,0,0,.4);}
   .section-cta{display:inline-block; margin-top:36px;}
 
-  /* Hero */
-  .hero{
-    position:relative;
-    min-height:100vh;
-    min-height:100svh;
-    display:flex;
-    align-items:flex-end;
-    background-size:cover;
-    background-position:center;
-  }
-  .hero::after{
-    content:"";
-    position:absolute; inset:0;
-    background:linear-gradient(180deg, rgba(34,31,26,0) 35%, rgba(34,31,26,.78) 100%);
-  }
-  .hero-inner{
-    position:relative; z-index:2;
-    max-width:720px;
-  }
-  .hero .hero-inner{padding-bottom:200px;}
-  .hero h1{
-    color:var(--cream);
-    font-size:clamp(2.4rem, 5vw, 3.8rem);
-    margin-bottom:22px;
-  }
-  .hero p{
-    color:var(--cream);
-    opacity:.92;
-    font-size:1.05rem;
-    max-width:480px;
-    margin-bottom:34px;
+  /* Hero — tríptico: B&N a los lados, color al centro */
+  .hero{position:relative; min-height:100vh; min-height:100svh; display:flex; align-items:flex-end; background:var(--deep); overflow:hidden;}
+  .hero-triptych{position:absolute; inset:0; display:flex; z-index:0;}
+  .hero-col{flex:1; position:relative; overflow:hidden;}
+  .hero-col img{width:100%; height:100%; object-fit:cover; object-position:center 22%;}
+  .hero-scrim{position:absolute; inset:0; z-index:1; background:linear-gradient(180deg, rgba(27,27,27,.12) 0%, rgba(27,27,27,.04) 32%, rgba(27,27,27,.76) 100%);}
+  .hero-inner{position:relative; z-index:2;}
+  .hero .hero-inner{max-width:860px; margin:0 auto; padding:0 24px 90px; text-align:center;}
+  .hero h1{color:var(--cream); font-size:clamp(2.2rem, 4.8vw, 3.6rem); margin-bottom:22px;}
+  .hero p{color:var(--cream); opacity:.92; font-size:1.05rem; max-width:520px; margin:0 auto 34px;}
+  @media(max-width:700px){
+    .hero-triptych{display:block;}
+    .hero-col{position:absolute; inset:0; opacity:0; transition:opacity 1.4s ease;}
+    .hero-col.is-active{opacity:1;}
+    .hero-col img{object-position:center 30%;}
+    .hero .hero-inner{padding-bottom:64px;}
   }
 
-  /* Bienvenida — composición asimétrica de imágenes */
+  /* Bienvenida — título centrado, dos fotos juntas y texto debajo */
   .welcome{padding:130px 0; background:var(--cream);}
-  .welcome-grid{
-    display:grid;
-    grid-template-columns:0.85fr 1fr;
-    gap:0 60px;
-    align-items:center;
-  }
-  .welcome-images{position:relative; padding-bottom:60px;}
-  .welcome-images .img-a{width:78%; aspect-ratio:4/5; object-fit:cover;}
-  .welcome-images .img-b{
-    position:absolute; right:0; bottom:0;
-    width:52%;
-    aspect-ratio:4/5;
-    object-fit:cover;
-    border:10px solid var(--cream);
-    box-shadow:0 18px 40px -18px rgba(43,43,43,.35);
-  }
-  .welcome-copy h2{font-size:clamp(1.9rem,3vw,2.6rem); margin-bottom:20px;}
-  .welcome-copy p{max-width:46ch;}
+  .detalle{text-align:center;}
+  .detalle h2{font-size:clamp(1.9rem,3.6vw,2.7rem); letter-spacing:.02em;}
+  .detalle-photos{display:grid; grid-template-columns:1fr 1fr; gap:16px; max-width:560px; margin:48px auto 44px;}
+  .detalle-photos img{width:100%; aspect-ratio:4/5; object-fit:cover; border-radius:2px;}
+  .detalle-text{max-width:480px; margin:0 auto; line-height:1.9; opacity:.9;}
+  @media(max-width:560px){.detalle-photos{gap:10px; margin:36px auto 34px;}}
 
   /* Cómo trabajamos — fondo oscuro, trío de fotos + lista numerada */
   .process{background:var(--deep); color:var(--cream); padding:130px 0;}
@@ -215,11 +188,12 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
   .testi-track-wrap{overflow:hidden;}
   .testi-track{
     display:flex;
-    gap:16px;
+    gap:22px;
     width:max-content;
     animation:scrollTesti 110s linear infinite;
   }
-  .testi-track img{height:200px; width:auto; flex:none;}
+  .testi-track img{height:400px; width:auto; max-width:340px; object-fit:contain; flex:none; border-radius:4px;}
+  @media(max-width:560px){.testi-track img{height:330px; max-width:260px;}}
   @keyframes scrollTesti{
     from{transform:translateX(0);}
     to{transform:translateX(-50%);}
@@ -255,7 +229,6 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
   .site-footer .copy{display:block; margin-top:20px; font-size:.78rem; opacity:.45; text-decoration:none;}
 
   @media (max-width:860px){
-    .hero .hero-inner{padding-bottom:130px;}
     .welcome{margin-top:36px;}
     .wrap{padding:0 22px;}
     .welcome-grid, .process-grid, .about-block{grid-template-columns:1fr; gap:40px;}
@@ -275,6 +248,29 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
     .testi-track{animation:none;}
     html{scroll-behavior:auto;}
   }
+
+  /* Resaltador animado en frases clave */
+  .hl{position:relative; display:inline-block; z-index:0; transition:color .6s ease .5s; padding:0 .12em; margin:0 -.12em;}
+  .hl::before{content:''; position:absolute; left:0; right:0; bottom:.06em; height:.46em; background:rgba(68,15,20,.17); z-index:-1; transform:scaleX(0); transform-origin:left center; transition:transform 1s cubic-bezier(.65,0,.35,1) .35s;}
+  .hl.in::before{transform:scaleX(1);}
+  .hl.in{color:var(--deep);}
+  /* Sobre fondo vino el resaltador es claro y la palabra queda en crema */
+  .process .hl::before{background:rgba(243,236,225,.22);}
+  .process .hl.in{color:var(--cream);}
+  /* Sobre fondo oscuro la frase se encierra con un trazo a mano */
+  .hl.circle{color:inherit; padding:.04em .3em; margin:0 -.1em;}
+  .hl.circle::before{display:none;}
+  .hl.circle svg{position:absolute; left:-6%; top:-18%; width:112%; height:136%; overflow:visible; pointer-events:none;}
+  .hl.circle svg path{fill:none; stroke:var(--cream); stroke-width:1.6; stroke-linecap:round; stroke-dasharray:1; stroke-dashoffset:1; opacity:.85; transition:stroke-dashoffset 1.6s cubic-bezier(.65,0,.35,1) .6s;}
+  .hl.circle.in svg path{stroke-dashoffset:0;}
+
+  /* Luz al hacer scroll: --lit (0 a 1) lo calcula el script según qué tan cerca está del centro de la pantalla */
+  .process-item{--lit:0;}
+  .process-item .num{opacity:calc(.3 + .7*var(--lit)); text-shadow:0 0 calc(22px*var(--lit)) rgba(243,236,225,calc(.85*var(--lit))), 0 0 calc(6px*var(--lit)) rgba(243,236,225,calc(.7*var(--lit)));}
+  .process-item h3{opacity:calc(.7 + .3*var(--lit));}
+  .process-item{border-bottom-color:rgba(243,236,225,calc(.18 + .5*var(--lit)));}
+  .pkg{--lit:0; border-color:rgba(68,15,20,calc(.14 + .66*var(--lit))); box-shadow:0 0 calc(34px*var(--lit)) rgba(68,15,20,calc(.32*var(--lit))), inset 0 0 calc(16px*var(--lit)) rgba(68,15,20,calc(.07*var(--lit)));}
+  .pkg::before{opacity:calc(.18 + .4*var(--lit));}
 
   /* Animaciones */
   .hero{overflow:hidden;}
@@ -320,33 +316,38 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
     .hero-bg, .closing-bg{animation:none;}
     .hero-inner > *{animation:none; opacity:1; transform:none;}
     .reveal{opacity:1; transform:none; transition:none;}
+    .hl::before{transform:scaleX(1); transition:none;}
+    .hl.circle svg path{stroke-dashoffset:0; transition:none;}
   }
 </style>
 </head>
 <body>
 
 <section class="hero">
-<div class="hero-bg" style="background-image:url('https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1800/finite-estudio-web/inicio/hero.jpg')"></div>
+<div class="hero-triptych">
+<div class="hero-col"><img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,e_grayscale,w_900/boda-diana_arianna-366_qat9vn.jpg" alt="Novios bailando en su boda, en blanco y negro" loading="eager"></div>
+<div class="hero-col is-active"><img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1000/kasandra_david-166_de_tama%C3%B1o_grande_mldxxt.jpg" alt="Novia con velo en el jardín de su boda" loading="eager"></div>
+<div class="hero-col"><img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,e_grayscale,w_900/boda-ivonne_norberto-569_de_tama%C3%B1o_grande_bbm5b3.jpg" alt="Pareja de novios bailando, en blanco y negro" loading="eager"></div>
+</div>
+<div class="hero-scrim"></div>
 <div class="wrap hero-inner">
 <span class="eyebrow on-dark">Fotógrafo de bodas · Tijuana, Rosarito y Valle de Guadalupe</span>
-<h1>Después de la boda, lo que queda es poder volver a vivirla.</h1>
+<h1>Después de la boda, lo que queda es poder <span class="hl circle">volver a vivirla.</span></h1>
 <p>Dentro de un año, o de veinte, van a poder abrir estas fotos y sentir otra vez el día completo.</p>
-<a href="https://wa.me/526643372791?text=Hola%2C%20vi%20el%20anuncio%20y%20quiero%20platicar%20sobre%20mi%20boda" class="cta-btn on-photo" data-track="contact" target="_blank" rel="noopener">Escríbeme por WhatsApp</a>
+<a href="https://wa.me/526643372791?text=Hola%2C%20vi%20el%20anuncio%20y%20quiero%20platicar%20sobre%20mi%20boda" class="cta-btn on-dark" data-track="contact" target="_blank" rel="noopener">Escríbeme por WhatsApp</a>
 </div>
 </section>
 
 <section class="welcome">
-<div class="wrap welcome-grid">
-<div class="welcome-images reveal">
-<img class="img-a" src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_800/finite-estudio-web/inicio/detalle-01.jpg" alt="Detalle del vestido de novia" width="800" height="1143" loading="lazy">
-<img class="img-b" src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_500/finite-estudio-web/inicio/sesion-novios-parque.jpg" alt="Novios en sesión en el parque" width="500" height="750" loading="lazy">
-</div>
-<div class="welcome-copy reveal">
+<div class="wrap detalle reveal">
 <span class="eyebrow">Un día que no se repite</span>
-<h2>Por eso importa cada detalle</h2>
-<p>La luz de esa tarde, cómo se acomodó el vestido, la cara de su papá cuando los vio entrar. Todo eso queda guardado, listo para que lo vuelvan a sentir cuando quieran.</p>
-<a href="https://wa.me/526643372791?text=Hola%2C%20vi%20el%20anuncio%20y%20quiero%20platicar%20sobre%20mi%20boda" class="cta-btn on-light section-cta" data-track="contact" target="_blank" rel="noopener">Escríbeme por WhatsApp</a>
+<h2>Por eso importa <span class="hl">cada detalle</span></h2>
+<div class="detalle-photos">
+<img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_800/finite-estudio-web/inicio/detalle-01.jpg" alt="Detalle del vestido de novia" width="800" height="1143" loading="lazy">
+<img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_500/finite-estudio-web/inicio/sesion-novios-parque.jpg" alt="Novios en sesión en el parque" width="500" height="750" loading="lazy">
 </div>
+<p class="detalle-text">La luz de esa tarde, cómo se acomodó el vestido, la cara de su papá cuando los vio entrar. Todo eso queda guardado, listo para que lo vuelvan a sentir cuando quieran.</p>
+<a href="https://wa.me/526643372791?text=Hola%2C%20vi%20el%20anuncio%20y%20quiero%20platicar%20sobre%20mi%20boda" class="cta-btn on-light section-cta" data-track="contact" target="_blank" rel="noopener">Escríbeme por WhatsApp</a>
 </div>
 </section>
 
@@ -357,7 +358,7 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
 </div>
 <div class="reveal">
 <span class="eyebrow on-dark">Cómo trabajamos</span>
-<h2>El camino, paso a paso</h2>
+<h2>El camino, <span class="hl">paso a paso</span></h2>
 <div class="process-list">
 <div class="process-item">
 <span class="num">01</span>
@@ -434,7 +435,7 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
 <section class="testi">
 <div class="wrap reveal">
 <span class="eyebrow on-dark">Fotógrafo de bodas en Tijuana</span>
-<h2>Testimonios</h2>
+<h2><span class="hl circle">Testimonios</span></h2>
 </div>
 <div class="testi-track-wrap">
 <div class="testi-track">
@@ -461,7 +462,7 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
 <div class="wrap about-block">
 <div>
 <span class="eyebrow">Fotógrafo de bodas</span>
-<h2>Hola, soy Saúl Díaz</h2>
+<h2>Hola, soy <span class="hl">Saúl Díaz</span></h2>
 <p>Me gusta el cine, la música y sí, las bodas. Y quiero ayudarte a que revivas la tuya. Me encanta conocer a cada una de las parejas con las que trabajo, porque una boda es un momento tan personal que lo mínimo que merece es que conozca cómo se conocieron y sus momentos favoritos como pareja — eso ayuda muchísimo a la hora de su sesión.</p>
 </div>
 <img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_900/finite-estudio-web/sobre-mi/perfil-saul.jpg" alt="Saúl Díaz, fotógrafo de bodas en Tijuana" loading="lazy">
@@ -471,7 +472,7 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
 <section class="closing">
 <div class="closing-bg" style="background-image:url('https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1800/finite-estudio-web/inicio/novia-damas-diversion.jpg')"></div>
 <div class="closing-inner">
-<h2>¿Ya tienen fecha?</h2>
+<h2>¿Ya tienen <span class="hl circle">fecha</span>?</h2>
 <p>Empecemos por ahí.</p>
 <a href="https://wa.me/526643372791?text=Hola%2C%20vi%20el%20anuncio%20y%20quiero%20platicar%20sobre%20mi%20boda" class="cta-btn on-photo" data-track="contact" target="_blank" rel="noopener">Escríbeme por WhatsApp</a>
 </div>
@@ -500,6 +501,52 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
   } else {
     document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('in-view'); });
   }
+
+  // Resaltadores: los trazos circulares llevan un SVG dibujado a mano
+  document.querySelectorAll('.hl.circle').forEach(function (h) {
+    h.insertAdjacentHTML('beforeend', '<svg viewBox="0 0 200 60" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M186 14C160 2 90 -2 40 8 8 15 -4 32 14 46c20 14 90 16 135 6 38-8 54-24 40-38-6-6-16-10-30-12"/></svg>');
+  });
+  var hls = document.querySelectorAll('.hl');
+  if ('IntersectionObserver' in window) {
+    var io2 = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io2.unobserve(en.target); } });
+    }, { threshold: 0.3 });
+    hls.forEach(function (e) { io2.observe(e); });
+    setTimeout(function () { document.querySelectorAll('.hero .hl').forEach(function (e) { e.classList.add('in'); }); }, 300);
+  } else { hls.forEach(function (e) { e.classList.add('in'); }); }
+
+  // Luz que sigue al scroll en pasos del proceso y paquetes
+  (function () {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var els = document.querySelectorAll('.process-item, .pkg');
+    var ticking = false;
+    function update() {
+      var mid = window.innerHeight * 0.55;
+      els.forEach(function (el) {
+        var r = el.getBoundingClientRect();
+        var d = Math.abs((r.top + r.height / 2) - mid);
+        var lit = Math.max(0, 1 - d / (window.innerHeight * 0.38));
+        el.style.setProperty('--lit', (lit * lit * (3 - 2 * lit)).toFixed(3));
+      });
+      ticking = false;
+    }
+    window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  })();
+
+  // Hero en celular: las 3 fotos rotan con fundido suave
+  (function () {
+    var cols = document.querySelectorAll('.hero-col');
+    var mq = window.matchMedia('(max-width:700px)');
+    var idx = 1;
+    setInterval(function () {
+      if (!mq.matches) return;
+      cols[idx].classList.remove('is-active');
+      idx = (idx + 1) % cols.length;
+      cols[idx].classList.add('is-active');
+    }, 4500);
+  })();
 </script>
 
 </body>
