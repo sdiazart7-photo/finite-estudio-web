@@ -152,14 +152,17 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
 
   /* TESTIMONIOS */
   .test-block{text-align:center;}
-  .test-track{position:relative; min-height:150px;}
-  .test{display:none;}
-  .test.active{display:block; animation:rise .5s cubic-bezier(.2,.7,.3,1);}
-  @keyframes rise{from{opacity:0; transform:translateY(14px);} to{opacity:1; transform:translateY(0);}}
-  .test img{max-width:440px; width:100%; margin:0 auto; border-radius:4px; box-shadow:0 24px 50px rgba(0,0,0,.28);}
-  .test-dots{display:flex; gap:8px; justify-content:center; margin-top:28px;}
-  .test-dots button{width:6px; height:6px; border-radius:50%; border:none; background:rgba(243,236,225,.25); cursor:pointer; padding:0;}
-  .test-dots button.active{background:var(--cream); width:18px; border-radius:3px;}
+  .test-block.wrap{max-width:none; padding-left:0; padding-right:0;}
+  .test-block .eyebrow{display:block; padding:0 24px;}
+  .test-marquee{overflow:hidden; margin-top:44px; -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent); mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);}
+  .test-track{display:flex; gap:22px; width:max-content; animation:testRight 60s linear infinite;}
+  .test-marquee:hover .test-track{animation-play-state:paused;}
+  @keyframes testRight{from{transform:translateX(-50%);} to{transform:translateX(0);}}
+  .test{flex:0 0 auto; width:290px; height:430px; background:var(--cream); border-radius:6px; padding:12px; display:flex; align-items:center; justify-content:center; box-shadow:0 18px 40px rgba(0,0,0,.28);}
+  .test img{max-width:100%; max-height:100%; width:auto; height:auto; object-fit:contain; border-radius:3px; display:block;}
+  @media(max-width:560px){.test{width:236px; height:350px;}}
+  @media(prefers-reduced-motion:reduce){.test-marquee{overflow-x:auto;} .test-track{animation:none;}}
+
 
   /* "UN DÍA QUE NO SE REPITE" — título, dos fotos juntas, texto */
   .detalle{text-align:center;}
@@ -180,7 +183,7 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
   .pkg-photo img{width:100%; height:100%; object-fit:cover; opacity:0; position:absolute; inset:0; transition:opacity .5s ease;}
   .pkg-photo img.active{opacity:1;}
   .pkg-info{text-align:center;}
-  .pkg-info .pkg-tagline{font-size:11px; letter-spacing:.24em; text-transform:uppercase; color:rgba(243,236,225,.8); display:block; margin-bottom:14px; min-height:1em;}
+  .pkg-info .pkg-tagline{font-size:11px; letter-spacing:.22em; text-transform:uppercase; color:var(--cream); display:table; margin:0 auto 18px; padding:8px 18px; border:1px solid rgba(243,236,225,.7); border-radius:999px;}
   .pkg-info h3{font-size:clamp(2rem,3.6vw,2.6rem); letter-spacing:.06em; text-transform:uppercase; font-weight:500; margin-bottom:10px;}
   .pkg-info .pkg-meta{font-size:11.5px; letter-spacing:.2em; text-transform:uppercase; opacity:.62; display:block; margin-bottom:18px;}
   .pkg-info .pkg-price{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.9rem; color:var(--cream); margin-bottom:22px;}
@@ -332,22 +335,14 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
 <section class="tone-dark">
   <div class="wrap test-block">
     <span class="eyebrow on-dark">Lo que dicen quienes ya vivieron el proceso</span>
-    <div class="test-track">
-      <div class="test active"><img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto/finite-estudio-web/testimonios/testimonio-01.png" alt="Testimonio de cliente"></div>
+    <div class="test-marquee"><div class="test-track" id="testTrack">
+      <div class="test"><img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto/finite-estudio-web/testimonios/testimonio-01.png" alt="Testimonio de cliente"></div>
       <div class="test"><img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto/finite-estudio-web/testimonios/testimonio-02.png" alt="Testimonio de cliente"></div>
       <div class="test"><img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto/finite-estudio-web/testimonios/testimonio-03.jpg" alt="Testimonio de cliente"></div>
       <div class="test"><img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto/finite-estudio-web/testimonios/testimonio-04.jpg" alt="Testimonio de cliente"></div>
       <div class="test"><img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto/finite-estudio-web/testimonios/testimonio-05.jpg" alt="Testimonio de cliente"></div>
       <div class="test"><img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto/finite-estudio-web/testimonios/testimonio-06.jpg" alt="Testimonio de cliente"></div>
-    </div>
-    <div class="test-dots">
-      <button class="active" data-t="0" aria-label="Testimonio 1"></button>
-      <button data-t="1" aria-label="Testimonio 2"></button>
-      <button data-t="2" aria-label="Testimonio 3"></button>
-      <button data-t="3" aria-label="Testimonio 4"></button>
-      <button data-t="4" aria-label="Testimonio 5"></button>
-      <button data-t="5" aria-label="Testimonio 6"></button>
-    </div>
+    </div></div>
   </div>
 </section>
 
@@ -420,17 +415,11 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
 </script>
 
 <script>
-  // Testimonios
-  const tests = document.querySelectorAll('.test');
-  const tdots = document.querySelectorAll('.test-dots button');
-  let ti = 0;
-  function showTest(i){
-    tests.forEach((t,idx)=>t.classList.toggle('active', idx===i));
-    tdots.forEach((d,idx)=>d.classList.toggle('active', idx===i));
-    ti = i;
-  }
-  tdots.forEach(d=> d.addEventListener('click', ()=> showTest(parseInt(d.dataset.t,10))));
-  setInterval(()=>{ showTest((ti+1)%tests.length); }, 6000);
+  // Testimonios: carrusel continuo hacia la derecha (se duplica la fila para el bucle)
+  (function(){
+    const tr = document.getElementById('testTrack');
+    Array.from(tr.children).forEach(function(n){ const c = n.cloneNode(true); c.setAttribute('aria-hidden','true'); tr.appendChild(c); });
+  })();
 
   // Paquetes — display grande + submenú
   const pkgData = {
