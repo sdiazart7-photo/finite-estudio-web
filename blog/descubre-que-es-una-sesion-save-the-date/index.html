@@ -14,8 +14,9 @@
 <meta property="og:image" content="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1200,h_630,c_fill/finite-estudio-web/blog/descubre-que-es-una-sesion-save-the-date/img01.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/global.css?v=2">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-glacial-indifference@1.1.14/index.css">
+<link rel="stylesheet" href="/assets/blog.css?v=1">
 <!-- Finite Estudio — tracking compartido -->
 <script src="/assets/tracking.js?v=4"></script>
 <noscript><img height="1" width="1" style="display:none"
@@ -61,20 +62,19 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
 </head>
 <body data-page-type="blog-post">
 
-<header class="site-header scrolled">
-  <div class="wrap">
-    <a href="/"><img class="logo" src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto/finite-estudio-web/marca/logo.png" alt="Finite Estudio"></a>
-    <nav class="site-nav">
-      <a href="/">Inicio</a>
-      <a href="/portafolio/">Portafolio</a>
-      <a href="/info/">Info</a>
-      <a href="/sobre-mi/">Sobre mí</a>
+<nav class="top-nav" id="nav">
+  <div class="nav-pill">
+    <a href="/" class="logo">Finite Estudio</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menú" aria-expanded="false">☰</button>
+    <div class="nav-links" id="navLinks">
+      <a href="/#portafolio">Portafolio</a>
+      <a href="/#precios">Precios</a>
+      <a href="/#sobre-mi">Sobre mí</a>
       <a href="/blog/" class="active">Blog</a>
-      <a href="/contacto/">Contacto</a>
-    </nav>
-    <button class="nav-toggle" aria-label="Abrir menú">☰</button>
+      <a href="/#contacto" class="nav-cta">Agendar tu cita →</a>
+    </div>
   </div>
-</header>
+</nav>
 
 <article>
   <div class="article-header section-crema">
@@ -137,7 +137,7 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
     <blockquote>Escríbannos para apartar su sesión — las fechas disponibles se van rápido, especialmente en temporada alta.</blockquote>
 
     <div class="article-cta">
-      <a href="/contacto/" class="btn btn-oro" data-track="cta-blog">Ver disponibilidad de fecha</a>
+      <a href="/contacto/" class="btn btn-oro" data-track="contact">Ver disponibilidad de fecha</a>
     </div>
   </div>
 </article>
@@ -149,6 +149,11 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
       <h2>Más artículos que te pueden interesar</h2>
     </div>
     <div class="blog-list">
+      <a href="/blog/lugares-para-sesion-save-the-date-tijuana-rosarito/" class="blog-card">
+        <img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_600/finite-estudio-web/blog/jardin-boda-pettite-casa-baga-rosarito/img03.jpg" alt="Sesión Save the Date en jardín de Rosarito">
+        <span class="tag">Lugares</span>
+        <h3>3 lugares para tu sesión Save the Date en Tijuana y Rosarito</h3>
+      </a>
       <a href="/blog/jardin-boda-pettite-casa-baga-rosarito/" class="blog-card">
         <img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_600/finite-estudio-web/blog/jardin-boda-pettite-casa-baga-rosarito/img03.jpg" alt="Casa Baga Rosarito">
         <span class="tag">Lugares</span>
@@ -170,22 +175,19 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
 
 <footer class="site-footer">
   <div class="wrap">
-    <div>
-      <img class="logo" src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto/finite-estudio-web/marca/logo.png" alt="Finite Estudio">
-      <p class="small-caps" style="opacity:0.7;">Fotógrafo de bodas · Tijuana</p>
-    </div>
-    <div class="footer-links">
-      <a href="/portafolio/">Portafolio</a>
-      <a href="/info/">Info</a>
-      <a href="/sobre-mi/">Sobre mí</a>
-      <a href="/blog/">Blog</a>
-      <a href="/contacto/">Contacto</a>
-      <a href="/privacidad.html">Privacidad</a>
-    </div>
+    <a href="/" class="logo" style="font-size:1.05rem;">Finite Estudio</a>
+    <div class="footer-links"><a href="/privacidad.html">Privacidad</a><a href="/blog/">Blog</a></div>
   </div>
   <div class="wrap footer-bottom"><span>© 2026 Finite Estudio</span></div>
 </footer>
 
-<script src="/assets/main.js"></script>
+<script>
+(function(){
+  var t=document.getElementById('navToggle'),l=document.getElementById('navLinks');
+  if(!t||!l)return;
+  t.addEventListener('click',function(){var o=l.classList.toggle('open');t.textContent=o?'✕':'☰';t.setAttribute('aria-expanded',o);});
+  l.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){l.classList.remove('open');t.textContent='☰';});});
+})();
+</script>
 </body>
 </html>
