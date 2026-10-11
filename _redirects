@@ -5,3 +5,8 @@
 /sobre-mi/* /#sobre-mi 301
 /contacto/* /#contacto 301
 /info/* /#precios 301
+# Posts antiguos (Pixieset) que Google aun tiene indexados
+/blog/5-errores-graves-al-elegir-a-tu-fotografo-de-bodas /blog/fotografo-de-bodas-en-tijuana-guia-para-elegir-bien/ 301
+/blog/5-errores-graves-al-elegir-a-tu-fotografo-de-bodas/ /blog/fotografo-de-bodas-en-tijuana-guia-para-elegir-bien/ 301
+/blog/como-posar-para-las-fotos-de-mi-boda /blog/ 301
+/blog/como-posar-para-las-fotos-de-mi-boda/ /blog/ 301
