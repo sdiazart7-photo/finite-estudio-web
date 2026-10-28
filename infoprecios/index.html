@@ -19,7 +19,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/global.css?v=2">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-glacial-indifference@1.1.14/index.css">
 
 <!-- Finite Estudio — tracking compartido -->
 <script src="/assets/tracking.js"></script>
@@ -30,14 +30,17 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
 
 <style>
   :root{
-    --cream:var(--crema);
-    --cream-deep:var(--crema-suave);
-    --ink:var(--tinta);
-    --taupe:var(--vino);
-    --deep:var(--vino);
+    --cream:#f3ece1;
+    --cream-deep:#ebe2d3;
+    --ink:#1b1b1b;
+    --taupe:#440f14;
+    --deep:#440f14;
+    --radius:2px;
     --line: rgba(27,27,27,0.16);
     --line-light: rgba(243,236,225,0.22);
   }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
   body{
     margin:0;
     background:var(--cream);
@@ -221,6 +224,11 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
   .closing p{color:var(--cream); opacity:.9; margin-bottom:32px;}
 
   /* Footer */
+  .site-footer{background:var(--cream); padding:56px 0 40px; text-align:center;}
+  .site-footer img{height:26px; margin:0 auto 14px;}
+  .site-footer p{font-size:.85rem; opacity:.6; margin-bottom:24px;}
+  .site-footer a{font-size:.85rem; text-decoration:underline; opacity:.7;}
+  .site-footer .copy{display:block; margin-top:20px; font-size:.78rem; opacity:.45; text-decoration:none;}
 
   @media (max-width:860px){
     .welcome{margin-top:36px;}
@@ -473,11 +481,12 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
 </section>
 
 <footer class="site-footer">
-  <div class="wrap">
-    <a href="/" class="logo" style="font-size:1.05rem;">Finite Estudio</a>
-    <div class="footer-links"><a href="/privacidad.html">Privacidad</a><a href="/blog/">Blog</a></div>
-  </div>
-  <div class="wrap footer-bottom"><span>© 2026 Finite Estudio</span></div>
+<div class="wrap">
+<img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto/finite-estudio-web/marca/logo.png" alt="Finite Estudio">
+<p>Fotógrafo de bodas · Tijuana</p>
+<a href="/privacidad.html">Privacidad</a>
+<span class="copy">© 2026 Finite Estudio</span>
+</div>
 </footer>
 
 <script>
