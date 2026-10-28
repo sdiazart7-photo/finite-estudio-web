@@ -15,7 +15,7 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/global.css?v=3">
+<link rel="stylesheet" href="/assets/global.css?v=4">
 
 <link rel="stylesheet" href="/assets/pago.css?v=3">
 </head>
@@ -144,6 +144,8 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
   var btnWaEl = document.getElementById('btnWa');
   btnWaEl.href = 'https://api.whatsapp.com/send?phone=' + WHATSAPP.replace('+', '') + '&text=' + encodeURIComponent(texto);
   if (anticipo > 0) { btnWaEl.dataset.value = anticipo; } // "Compra": el monto real del anticipo, para el evento Purchase
+  // Tras abrir WhatsApp, esta pestaña pasa a la página de gracias (la medición del Purchase sale en el clic, antes de navegar)
+  btnWaEl.addEventListener('click', function () { setTimeout(function () { location.href = '/gracias-anticipo.html'; }, 1500); });
 
   // Solicitud de link de pago con tarjeta — como el monto de cada boda es
   // distinto, no hay un link de pago fijo: el cliente pide por WhatsApp y

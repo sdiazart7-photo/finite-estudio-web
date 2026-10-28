@@ -116,3 +116,9 @@ img{max-width:100%;display:block;}
 .page-center h1{font-size:clamp(2.4rem,6vw,4rem);font-style:italic;margin-bottom:18px;}
 .page-center p{margin:0 auto 28px;color:var(--fg-soft);}
 .page-center .narrow{width:100%;}
+.page-body .meta{font-size:.82rem;color:var(--fg-soft);margin:-14px 0 10px;}
+.page-body ul{margin:0 0 16px;padding-left:22px;}
+.page-body li{margin-bottom:8px;line-height:1.7;}
+.page-body li::marker{color:var(--vino);}
+.btn-row{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;}
+.btn.btn-claro-borde{background:transparent;color:var(--vino);border:1px solid var(--vino);}
