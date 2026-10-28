@@ -14,40 +14,35 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&family=Playfair+Display:ital,wght@1,700&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/global.css?v=2">
 
 <style>
   :root {
-    --dark: #1C1A18; --gold: #C9A15A; --gold-soft: rgba(201,161,90,0.20); --off-white: #FAF8F5;
-    --cream: #F3EEE6; --gray-text: #726B60; --ok: #1F9D55; --err: #B23A2E;
+    --dark: var(--tinta); --gold: var(--vino); --gold-soft: rgba(68,15,20,0.10); --off-white: var(--crema);
+    --cream: var(--crema); --gray-text: var(--tinta-suave); --ok: #1F9D55; --err: #B23A2E;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { padding-top: 84px; line-height: 1.65; }
+  .nav-pill .panel-tag { font-size: 11px; color: var(--fg-soft); letter-spacing: 0.1em; text-transform: uppercase; margin-right: 14px; }
   html { scroll-behavior: smooth; }
   body {
-    font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--dark);
+    font-family: var(--font-ui); background: var(--cream); color: var(--dark);
     -webkit-font-smoothing: antialiased;
   }
-  .cursive { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 700; }
+  .cursive { font-family: var(--font-display); font-style: italic; font-weight: 700; }
 
-  nav {
-    position: sticky; top: 0; z-index: 50; background: rgba(250,248,245,0.88); backdrop-filter: blur(14px);
-    border-bottom: 1px solid rgba(28,26,24,0.08); padding: 18px 24px;
-  }
-  nav .inner { max-width: 700px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
-  nav .brand { font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: 22px; letter-spacing: 0.04em; color: var(--dark); text-decoration: none; }
-  nav a.back { font-size: 13px; color: var(--gray-text); text-decoration: none; }
-  nav a.back:hover { color: var(--dark); }
 
   .wrap { max-width: 700px; margin: 0 auto; padding: 0 24px 100px; }
 
   .header { text-align: center; max-width: 560px; margin: 0 auto; padding: 48px 0 8px; }
   .tag {
-    display: inline-block; background: var(--gold-soft); color: #8A6A2C;
-    font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
-    padding: 6px 14px; border-radius: 9999px; margin-bottom: 18px; border: 1px solid rgba(201,161,90,0.35);
+    display: inline-block; background: var(--gold-soft); color: var(--vino);
+    font-family: var(--font-ui); font-weight: 700; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+    padding: 6px 14px; border-radius: 9999px; margin-bottom: 18px; border: 1px solid rgba(68,15,20,0.35);
   }
   h1 {
-    font-family: 'Cormorant Garamond', serif; font-weight: 700; letter-spacing: -0.01em;
+    font-family: var(--font-display); font-weight: 700; letter-spacing: -0.01em;
     font-size: clamp(2rem, 4.4vw, 2.9rem); line-height: 1.08; margin-bottom: 14px;
   }
   .sub { font-size: 15.5px; color: var(--gray-text); max-width: 520px; margin: 0 auto; line-height: 1.65; }
@@ -57,14 +52,14 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
     border: 1px solid rgba(28,26,24,0.06); margin-bottom: 20px; margin-top: 32px;
   }
   .card-label {
-    font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: 0.14em;
+    font-family: var(--font-ui); font-weight: 700; font-size: 11px; letter-spacing: 0.14em;
     text-transform: uppercase; color: var(--gray-text); margin-bottom: 18px;
   }
 
   /* ── Monto a pagar ── */
   .monto-card { text-align: center; }
   .monto-label { font-size: 13px; color: var(--gray-text); margin-bottom: 6px; }
-  .monto { font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: 3.2rem; line-height: 1; color: var(--dark); }
+  .monto { font-family: var(--font-display); font-weight: 700; font-size: 3.2rem; line-height: 1; color: var(--dark); }
   .monto-sub { font-size: 13px; color: var(--gray-text); margin-top: 10px; }
   .boda-resumen { margin-top: 18px; padding-top: 18px; border-top: 1px solid rgba(28,26,24,0.08); font-size: 13.5px; color: var(--gray-text); }
   .boda-resumen b { color: var(--dark); }
@@ -78,7 +73,7 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
   .dato-label { font-size: 12px; color: var(--gray-text); }
   .dato-valor { font-size: 15px; font-weight: 600; color: var(--dark); text-align: right; }
   .btn-copiar {
-    font-family: 'DM Sans', sans-serif; font-size: 11.5px; font-weight: 600; color: #8A6A2C;
+    font-family: var(--font-ui); font-size: 11.5px; font-weight: 600; color: var(--vino);
     background: var(--gold-soft); border: none; border-radius: 8px; padding: 5px 10px; cursor: pointer;
     margin-left: 8px; white-space: nowrap;
   }
@@ -94,14 +89,14 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
 
   .btn-gold {
     display: flex; align-items: center; justify-content: center; gap: 10px;
-    font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 15px; padding: 17px 24px;
+    font-family: var(--font-ui); font-weight: 700; font-size: 15px; padding: 17px 24px;
     border-radius: 9999px; background: var(--gold); color: #2A1F0E; border: none; cursor: pointer;
     width: 100%; text-decoration: none; transition: all 0.28s; margin-top: 8px;
   }
   .btn-gold:hover { filter: brightness(0.96); transform: translateY(-2px); }
   .btn-outline {
     display: flex; align-items: center; justify-content: center; gap: 10px;
-    font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 15px; padding: 16px 24px;
+    font-family: var(--font-ui); font-weight: 700; font-size: 15px; padding: 16px 24px;
     border-radius: 9999px; background: transparent; color: var(--dark); border: 1.5px solid var(--dark); cursor: pointer;
     width: 100%; text-decoration: none; transition: all 0.28s; margin-top: 8px;
   }
@@ -118,9 +113,9 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
 </head>
 <body data-page-type="checkout">
 
-<nav>
-  <div class="inner">
-    <a class="brand" href="#">Finite Estudio</a>
+<nav class="top-nav" id="nav">
+  <div class="nav-pill">
+    <a href="/" class="logo">Finite Estudio</a>
   </div>
 </nav>
 

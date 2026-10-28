@@ -31,6 +31,30 @@ const EVENTOS_PERMITIDOS = new Set([
   'VerPaquetes',
 ]);
 
+// Dominios desde los que tracking.js puede mandar eventos.
+const HOSTS_PERMITIDOS = ['finiteestudio.com', 'www.finiteestudio.com'];
+
+function hostDe(url) {
+  try { return new URL(url).hostname; } catch (e) { return ''; }
+}
+
+// Tope de monto por evento (MXN). Un anticipo real queda muy por debajo;
+// un valor absurdo viene casi seguro de una llamada falsa.
+const VALOR_MAXIMO = 200000;
+
+function limpiarCustomData(cd) {
+  if (!cd || typeof cd !== 'object') return undefined;
+  const out = {};
+  if (cd.value !== undefined) {
+    const v = Number(cd.value);
+    if (Number.isFinite(v) && v >= 0 && v <= VALOR_MAXIMO) out.value = v;
+  }
+  if (typeof cd.currency === 'string' && /^[A-Za-z]{3}$/.test(cd.currency)) {
+    out.currency = cd.currency.toUpperCase();
+  }
+  return Object.keys(out).length ? out : undefined;
+}
+
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, body: 'Method Not Allowed' };
@@ -55,6 +79,26 @@ exports.handler = async (event) => {
     return { statusCode: 200, body: 'Ignorado' };
   }
 
+  // Seguro de origen: solo se aceptan eventos que declaran venir de este sitio.
+  // Sin esto, cualquiera podía mandar a mano un "Purchase" o "InitiateCheckout"
+  // con un valor inventado y ensuciar lo que Meta aprende para optimizar anuncios.
+  // (No es una barrera infalible, porque un script puede mentir sobre la URL,
+  // pero corta el ruido casual y obliga a hacerlo a propósito.)
+  if (!HOSTS_PERMITIDOS.includes(hostDe(eventSourceUrl))) {
+    return { statusCode: 403, body: 'Origen no permitido' };
+  }
+  const origenHeader = event.headers['origin'] || event.headers['Origin'];
+  if (origenHeader && !HOSTS_PERMITIDOS.includes(hostDe(origenHeader))) {
+    return { statusCode: 403, body: 'Origen no permitido' };
+  }
+  if (typeof eventId !== 'string' || !/^[A-Za-z0-9_-]{8,120}$/.test(eventId)) {
+    return { statusCode: 200, body: 'Ignorado' };
+  }
+
+  // Solo viajan a Meta los campos que el sitio usa de verdad (value y currency),
+  // con valores acotados. Cualquier otra llave se descarta.
+  const customDataLimpio = limpiarCustomData(customData);
+
   const clientIpAddress =
     event.headers['x-nf-client-connection-ip'] ||
     (event.headers['x-forwarded-for'] || '').split(',')[0].trim() ||
@@ -73,7 +117,7 @@ exports.handler = async (event) => {
       fbc: fbc || undefined,
       clientIpAddress,
       clientUserAgent,
-      customData,
+      customData: customDataLimpio,
     });
   } catch (err) {
     console.error('Error enviando a Meta CAPI:', err);
