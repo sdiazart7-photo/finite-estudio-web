@@ -1,6 +1,6 @@
 /* Finite Estudio — estilos exclusivos del inicio (el diseño compartido vive en global.css) */
 /* Las secciones del inicio llevan su propio relleno vertical */
-  h1,h2,h3,.disp{color:var(--fg);}
+  h1,h2,h3,.disp{color:var(--fg);text-wrap:balance;}
   p{max-width:65ch;}
   section{padding:min(20vw,180px) 0;}
   /* marcador de foto — pálido, crema domina, el dorado es solo un acento de esquina */
