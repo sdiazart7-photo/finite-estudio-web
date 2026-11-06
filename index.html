@@ -151,6 +151,53 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/glacial-indifference-400.woff2" crossorigin="">
 <link rel="stylesheet" href="/assets/global.css?v=4">
 <link rel="stylesheet" href="/assets/home.css?v=3">
+<style>
+/* ---- Etapas con scroll: proceso y paquetes (solo diseño) ---- */
+:root{--ease-out:cubic-bezier(.23,1,.32,1);}
+.pkg-pin{display:flow-root;}
+.pin-runway{display:none;}
+.is-pinned > [data-stage-stick]{position:sticky;}
+.is-pinned > .pin-runway{display:block;height:200vh;}
+
+/* Proceso: mismo diseño que "Cómo trabajamos" de infoprecios (foto + lista, la etapa en turno se vuelve tarjeta clara) */
+.proceso{padding:130px 0;--pi:22px;}
+.proceso .process-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:70px;align-items:start;}
+.proceso h2{font-size:clamp(1.9rem,3vw,2.6rem);margin:0 0 36px;}
+.proceso .eyebrow{color:#e3cdb8;}
+.process-photo img{width:100%;}
+.process-item{position:relative;display:flex;gap:24px;padding:26px var(--pi);margin:0 calc(-1*var(--pi));border-radius:16px;background-color:transparent;transition:background-color .45s var(--ease-out);}
+.process-item::after,.process-item:first-child::before{content:"";position:absolute;left:var(--pi);right:var(--pi);height:1px;background:rgba(243,236,225,.22);transition:opacity .45s var(--ease-out);}
+.process-item::after{bottom:0;}
+.process-item:first-child::before{top:0;}
+.process-item .num{font-family:var(--font-display);font-size:1.6rem;line-height:1.65;color:var(--crema);opacity:.7;flex:none;width:2.2ch;transition:opacity .45s var(--ease-out),color .45s var(--ease-out);}
+.process-item h3{font-size:1.15rem;margin:0 0 6px;color:var(--crema);transition:color .45s var(--ease-out);}
+.process-item p{font-size:.98rem;line-height:1.65;color:var(--crema);opacity:.88;margin:0;transition:color .45s var(--ease-out);}
+.stages-on .process-item.is-active{background-color:var(--crema);}
+.stages-on .process-item.is-active::after,.stages-on .process-item.is-active::before{opacity:0;}
+.stages-on .process-item.is-active .num{opacity:1;color:var(--vino);}
+.stages-on .process-item.is-active h3{color:var(--vino);}
+.stages-on .process-item.is-active p{color:#5b4a47;opacity:1;}
+.proceso .section-cta{display:inline-block;margin-top:36px;}
+@media (max-width:860px){.proceso{padding:90px 0;}.proceso .process-grid{grid-template-columns:1fr;gap:40px;}}
+@media (max-width:560px){.proceso{--pi:16px;}}
+
+/* Paquetes: el paquete en turno sube un poco y se enciende, los demás bajan de volumen */
+.pkg-pin{margin-top:70px;}
+.pkg-pin .pkg-grid{margin-top:0;}
+.pkg{transition:opacity 1s cubic-bezier(.2,.7,.2,1),transform 1s cubic-bezier(.2,.7,.2,1),translate .6s var(--ease-out),border-color .5s ease,box-shadow .6s ease;}
+.stages-on .pkg{--o:.5;}
+.stages-on .pkg.is-done{--o:.72;}
+.stages-on .pkg.is-active{--o:1;translate:0 -10px;border-color:var(--accent);box-shadow:0 30px 50px -28px rgba(68,15,20,.55);}
+.stages-on .pkg > *{opacity:var(--o);transition:opacity .5s var(--ease-out);}
+.stages-on .pkg::before{transition:opacity .5s var(--ease-out);}
+.stages-on .pkg.is-active::before{opacity:.5;}
+
+@media (prefers-reduced-motion:reduce){
+  .process-item{transition:none;}
+  .stages-on .pkg{transition:opacity 1s ease,border-color .5s ease;}
+  .stages-on .pkg.is-active{translate:none;box-shadow:none;}
+}
+</style>
 <noscript><style>.reveal,.reveal-word{opacity:1 !important;transform:none !important;color:inherit !important;}</style></noscript>
 </head>
 <body>
@@ -201,16 +248,22 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
   </div>
 </section>
 
-<section class="proceso sec-dark">
-  <div class="wrap">
-    <h2 class="proceso-title reveal">CÓMO ES EL PROCESO&nbsp;</h2>
-    <div class="proceso-grid">
-      <div class="proceso-item reveal"><span class="num">01</span><h3>Contáctanos</h3><p>Revisaremos disponibilidad de tu fecha en nuestra agenda.</p></div>
-      <div class="proceso-item reveal"><span class="num">02</span><h3>Cita/Contrato</h3><p>Agendamos una cita, nos conocemos, me platican acerca de su boda y si todo hace sentido y están seguros que soy su fotógrafo ideal procedemos a firmar contrato y bloquear su fecha en nuestra agenda.</p></div>
-      <div class="proceso-item reveal"><span class="num">03</span><h3>Sesión/Boda</h3><p>Tendremos una reunión de planeación una semana antes de la boda. Y llegado el tan esperado día, ustedes se encargan de vivirlo y nosotros de documentarlo.</p></div>
-      <div class="proceso-item reveal"><span class="num">04</span><h3>Entrega</h3><p>Una vez que hayamos vivido el gran día, nos tomará entre 30 a 35 días hábiles entregar su material. Les enviaremos enlaces de descarga para su material digital.</p></div>
+<section class="proceso sec-dark" id="proceso">
+  <div class="wrap process-grid">
+    <div class="process-photo reveal">
+      <img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_900/finite-estudio-web/inicio/beso-velo.jpg" alt="Novios besándose con velo" loading="lazy">
     </div>
-    <div class="proceso-cta reveal"><a href="#contacto" class="btn btn-claro">Quiero revivir mi boda</a></div>
+    <div class="reveal">
+      <span class="eyebrow">Cómo trabajamos</span>
+      <h2>El camino, paso a paso</h2>
+      <div class="process-list" data-stages>
+        <div class="process-item" data-stage><span class="num">01</span><div><h3>Contáctanos</h3><p>Revisaremos disponibilidad de tu fecha en nuestra agenda.</p></div></div>
+        <div class="process-item" data-stage><span class="num">02</span><div><h3>Cita/Contrato</h3><p>Agendamos una cita, nos conocemos, me platican acerca de su boda y si todo hace sentido y están seguros que soy su fotógrafo ideal procedemos a firmar contrato y bloquear su fecha en nuestra agenda.</p></div></div>
+        <div class="process-item" data-stage><span class="num">03</span><div><h3>Sesión/Boda</h3><p>Tendremos una reunión de planeación una semana antes de la boda. Y llegado el tan esperado día, ustedes se encargan de vivirlo y nosotros de documentarlo.</p></div></div>
+        <div class="process-item" data-stage><span class="num">04</span><div><h3>Entrega</h3><p>Una vez que hayamos vivido el gran día, nos tomará entre 30 a 35 días hábiles entregar su material. Les enviaremos enlaces de descarga para su material digital.</p></div></div>
+      </div>
+      <a href="#contacto" class="btn btn-claro section-cta">Quiero revivir mi boda</a>
+    </div>
   </div>
 </section>
 
@@ -267,11 +320,14 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
       <h2>Paquetes y precios</h2>
       <p>Cada propuesta se construye a partir de una conversación, entendiendo el tipo de boda, el ritmo del día y lo que es importante para ustedes.</p>
     </div>
-    <div class="pkg-grid">
-      <div class="pkg reveal"><div class="pname">Piloto</div><div class="phours">Hasta 5 horas</div><ul><li>Cobertura de ceremonia y parte de la fiesta</li><li>Solo fotografía</li><li>Galería digital por enlace de descarga</li></ul></div>
-      <div class="pkg reveal"><div class="pname">Secuela</div><div class="phours">Hasta 6 horas</div><ul><li>Cobertura desde la ceremonia</li><li>Solo fotografía</li><li>Galería digital por enlace de descarga</li></ul></div>
-      <div class="pkg reveal"><div class="pname">Trilogía</div><div class="phours">Hasta 10 horas</div><ul><li>Cobertura de todo el día</li><li>Solo fotografía</li><li>Galería digital por enlace de descarga</li></ul></div>
-      <div class="pkg reveal"><div class="pname">Premier</div><div class="phours">Hasta 12 horas</div><ul><li>Cobertura de todo el día</li><li>Fotografía y video</li><li>Galería digital por enlace de descarga</li></ul></div>
+    <div class="pkg-pin" data-stages data-pin-mq="(min-width:1001px) and (min-height:600px)">
+      <div class="pkg-grid" data-stage-stick>
+        <div class="pkg reveal" data-stage><div class="pname">Premier</div><div class="phours">Hasta 12 horas</div><ul><li>Cobertura de todo el día</li><li>Fotografía y video</li><li>Galería digital por enlace de descarga</li></ul></div>
+        <div class="pkg reveal" data-stage><div class="pname">Trilogía</div><div class="phours">Hasta 10 horas</div><ul><li>Cobertura de todo el día</li><li>Solo fotografía</li><li>Galería digital por enlace de descarga</li></ul></div>
+        <div class="pkg reveal" data-stage><div class="pname">Secuela</div><div class="phours">Hasta 6 horas</div><ul><li>Cobertura desde la ceremonia</li><li>Solo fotografía</li><li>Galería digital por enlace de descarga</li></ul></div>
+        <div class="pkg reveal" data-stage><div class="pname">Piloto</div><div class="phours">Hasta 5 horas</div><ul><li>Cobertura de ceremonia y parte de la fiesta</li><li>Solo fotografía</li><li>Galería digital por enlace de descarga</li></ul></div>
+      </div>
+      <div class="pin-runway" aria-hidden="true"></div>
     </div>
     <div class="precios-cta reveal">
       <div class="precio-big">Desde $20,000 MXN</div>
@@ -597,4 +653,76 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
 </script>
 
 
+<script>
+// Etapas con scroll: resalta la etapa en turno mientras se avanza por la página.
+// - Con data-pin-mq (escritorio): el bloque se queda fijo y el scroll recorre las etapas una por una.
+// - Sin pin (celular, ventana baja, movimiento reducido): se ilumina la etapa más cercana al centro de la pantalla.
+(function(){
+  var groups = document.querySelectorAll('[data-stages]');
+  if(!groups.length) return;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  function clamp(v, a, b){ return Math.max(a, Math.min(b, v)); }
+  function onChange(mq, fn){ if(!mq) return; if(mq.addEventListener){ mq.addEventListener('change', fn); } else if(mq.addListener){ mq.addListener(fn); } }
+
+  Array.prototype.forEach.call(groups, function(pin){
+    var stick = pin.querySelector('[data-stage-stick]');
+    var items = Array.prototype.slice.call(pin.querySelectorAll('[data-stage]'));
+    if(!items.length) return;
+    var mqText = pin.getAttribute('data-pin-mq');
+    var pinMQ = (stick && mqText) ? window.matchMedia(mqText) : null;
+    var pinned = false, near = true, queued = false, last = '';
+
+    function update(){
+      queued = false;
+      if(!near) return;
+      var n = items.length, states = [], i;
+      if(pinned){
+        var top = parseFloat(stick.style.top) || 0;
+        var range = pin.offsetHeight - stick.offsetHeight;
+        var p = range > 0 ? clamp((top - pin.getBoundingClientRect().top) / range, 0, 1) : 0;
+        var idx = Math.min(n - 1, Math.floor(p * n));
+        for(i = 0; i < n; i++){ states.push(i < idx ? 'done' : (i === idx ? 'active' : 'next')); }
+      } else {
+        var mid = window.innerHeight * 0.5, cs = [], best = 0;
+        for(i = 0; i < n; i++){
+          var r = items[i].getBoundingClientRect();
+          cs.push(r.top + r.height / 2);
+          if(Math.abs(cs[i] - mid) < Math.abs(cs[best] - mid)) best = i;
+        }
+        for(i = 0; i < n; i++){
+          var d = cs[i] - cs[best];
+          states.push(Math.abs(d) < 12 ? 'active' : (d < 0 ? 'done' : 'next'));
+        }
+      }
+      var key = states.join();
+      if(key === last) return;
+      last = key;
+      for(i = 0; i < n; i++){
+        items[i].classList.toggle('is-active', states[i] === 'active');
+        items[i].classList.toggle('is-done', states[i] === 'done');
+      }
+    }
+    function queue(){ if(!queued){ queued = true; window.requestAnimationFrame(update); } }
+
+    function layout(){
+      pinned = !!(pinMQ && pinMQ.matches && !reduce.matches);
+      pin.classList.toggle('is-pinned', pinned);
+      if(stick){ stick.style.top = pinned ? Math.max(88, (window.innerHeight - stick.offsetHeight) / 2) + 'px' : ''; }
+      last = '';
+      update();
+    }
+
+    pin.classList.add('stages-on');
+    window.addEventListener('scroll', queue, {passive: true});
+    window.addEventListener('resize', layout);
+    window.addEventListener('load', layout);
+    onChange(pinMQ, layout);
+    onChange(reduce, layout);
+    if('IntersectionObserver' in window){
+      new IntersectionObserver(function(es){ near = es[0].isIntersecting; if(near){ update(); } }, {rootMargin: '60% 0px 60% 0px'}).observe(pin);
+    }
+    layout();
+  });
+})();
+</script>
 </body></html>
