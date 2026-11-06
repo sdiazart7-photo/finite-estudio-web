@@ -26,6 +26,58 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
 /></noscript>
 <meta name="facebook-domain-verification" content="auvuffvpgju80mvvaxymv2gnwyjohu" />
 <link rel="stylesheet" href="/assets/propuesta.css?v=3">
+<style>
+  /* Comparativa de paquetes + condiciones a la vista */
+  .pk-list-wrap{max-width:1080px; margin:64px auto 0; display:flex; flex-direction:column; gap:96px;}
+  .pk{display:grid; grid-template-columns:1.1fr 1fr; align-items:start;}
+  .pk-img{position:relative; margin-top:56px; aspect-ratio:3/2; background:var(--cream);}
+  .pk-img img{width:100%; height:100%; object-fit:cover; display:block;}
+  .pk-num{position:absolute; top:-40px; left:-6px; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:5.2rem; line-height:1; color:#d9b9ab; z-index:2; font-variant-numeric:lining-nums;}
+  .pk-body{position:relative; z-index:1; margin-left:-44px; padding:44px 48px 42px; background:var(--cream); border:1px solid rgba(68,15,20,.16);}
+  .pk-eyebrow{display:block; font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--ink); opacity:.75;}
+  .pk h3{font-family:'Cormorant Garamond',serif; font-weight:400; font-size:clamp(2.6rem,5vw,3.8rem); line-height:1; letter-spacing:.04em; text-transform:uppercase; margin:16px 0 18px; color:var(--ink);}
+  .pk-cubre{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.35rem; line-height:1.3; margin:0 0 30px; color:var(--deep);}
+  .pk h4{font-family:'Glacial Indifference',sans-serif; font-weight:700; font-size:11px; letter-spacing:.3em; text-transform:uppercase; margin:0 0 14px;}
+  .pk ul{list-style:none; margin:0; padding:0;}
+  .pk li{position:relative; padding:0 0 12px 16px;}
+  .pk li::before{content:"-"; position:absolute; left:0; top:0;}
+  .pk li b{display:block; font-weight:400; font-size:.94rem; line-height:1.4;}
+  .pk li span{display:block; margin-top:1px; font-size:.78rem; line-height:1.45; opacity:.55;}
+  .pk-foot{display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap; margin-top:28px; padding-top:24px; border-top:1px solid rgba(68,15,20,.16);}
+  .pk-price{font-family:'Cormorant Garamond',serif; font-size:2.3rem; line-height:1; color:var(--deep); font-variant-numeric:lining-nums;}
+  .pk-price small{font-family:'Glacial Indifference',sans-serif; font-size:10.5px; letter-spacing:.16em; opacity:.55; margin-left:4px;}
+  #my-cal-inline{scroll-margin-top:90px;}
+  .pk-cta{display:inline-flex; align-items:center; gap:10px; padding:12px 22px; border:1px solid var(--deep); border-radius:999px; background:var(--deep); color:var(--cream); font-size:11px; letter-spacing:.16em; text-transform:uppercase; text-decoration:none; transition:background .25s ease,color .25s ease,transform .25s ease;}
+  .pk-cta span{transition:transform .25s ease;}
+  .pk-cta:hover{background:transparent; color:var(--deep);}
+  .pk-cta:hover span{transform:translateX(4px);}
+  .pk-cta:active{transform:scale(.97);}
+  .pk-eyebrow{display:inline-block;}
+  #paquetes .pkg-note{margin-top:44px; opacity:1;}
+  #paquetes .pkg-note span{display:inline-block; padding:12px 24px; border:1px solid var(--deep); border-radius:999px; background:var(--cream); color:var(--deep); font-weight:700; font-size:.88rem; letter-spacing:.02em;}
+  .pk-rec .pk-eyebrow{padding:7px 16px; border:1px solid var(--deep); border-radius:999px; color:var(--deep); opacity:1; font-weight:700;}
+  .pk-rec .pk-body{border:2px solid var(--deep); box-shadow:0 26px 50px -30px rgba(68,15,20,.55);}
+  .pk-rec .pk-img{box-shadow:0 26px 50px -30px rgba(68,15,20,.45);}
+  .pk li{padding-bottom:9px;}
+  .pk:nth-child(even){grid-template-columns:1fr 1.1fr;}
+  .pk:nth-child(even) .pk-img{order:2;}
+  .pk:nth-child(even) .pk-body{order:1; margin-left:0; margin-right:-44px;}
+  .pk:nth-child(even) .pk-num{left:auto; right:-6px;}
+  @media(max-width:860px){
+    .pk-list-wrap{gap:64px;}
+    .pk, .pk:nth-child(even){grid-template-columns:1fr;}
+    .pk-img{margin-top:34px;}
+    .pk-num{top:-34px; font-size:4rem;}
+    .pk-body, .pk:nth-child(even) .pk-body{margin:-28px 14px 0; padding:32px 24px 30px;}
+    .pk:nth-child(even) .pk-img{order:0;} .pk:nth-child(even) .pk-body{order:0;}
+    .pk:nth-child(even) .pk-num{right:auto; left:-6px;}
+    .pk-foot{flex-direction:column; align-items:flex-start;} .pk-cta{width:100%; justify-content:center;}
+  }
+  .pkg-terms{max-width:1000px; margin:34px auto 0; display:grid; grid-template-columns:repeat(2,1fr); gap:28px; text-align:left;}
+  .pkg-terms h4{font-family:'Glacial Indifference',sans-serif; font-size:10.5px; letter-spacing:.18em; text-transform:uppercase; font-weight:400; opacity:.6; margin-bottom:8px;}
+  .pkg-terms p{font-size:.88rem; line-height:1.6; opacity:.9;}
+  @media(max-width:760px){.pkg-terms{grid-template-columns:1fr; gap:20px;}}
+</style>
 </head>
 <body>
 
@@ -64,24 +116,71 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
     <span class="eyebrow">Paquetes</span>
     <h2 class="section-title">Paquetes para <span class="hl">revivir su boda</span> una y otra vez</h2>
 
-    <div class="pkg-panel">
-      <div class="pkg-photo" id="pkgPhoto">
-        <img class="active" data-pkg="premier" src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_900/boda-diana_arianna-590_qxerro.jpg" alt="Paquete Premier">
-        <img data-pkg="trilogia" src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_900/boda-ivonne_norberto-121_de_tama%C3%B1o_grande_nomzvx.jpg" alt="Paquete Trilogía">
-        <img data-pkg="secuela" src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_900/boda-g_e-138_de_tama%C3%B1o_grande_q5q3nz.jpg" alt="Paquete Secuela">
-        <img data-pkg="piloto" src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_900/boda-b_j-118_de_tama%C3%B1o_grande_higxpo.jpg" alt="Paquete Piloto">
-      </div>
-      <div>
-        <div class="pkg-info" id="pkgInfo"><!-- rellenado por JS --></div>
-        <div class="pkg-step">
-          <button type="button" id="pkgPrev" aria-label="Paquete anterior">‹ Anterior</button>
-          <span class="slash"></span>
-          <button type="button" id="pkgNext" aria-label="Paquete siguiente">Siguiente ›</button>
+    <div class="pk-list-wrap">
+      <article class="pk pk-rec">
+        <div class="pk-img reveal"><span class="pk-num" aria-hidden="true">01</span><img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1200/boda-diana_arianna-590_qxerro.jpg" alt="Paquete Premier" loading="lazy"></div>
+        <div class="pk-body reveal">
+          <span class="pk-eyebrow">El paquete más completo</span>
+          <h3>Premier</h3>
+          <p class="pk-cubre">12 horas acompañándolos</p>
+          <h4>Incluye:</h4>
+          <ul><li><b>Del arreglo hasta el cierre de la fiesta, con video</b></li><li><b>Un fotógrafo y un videógrafo especialistas en bodas</b></li><li><b>500 a 600 fotos listas para guardar</b></li><li><b>Video corto de 2 min, video completo de 50 a 60 min y The vlog experience</b></li><li><b>Galería online para revivirla y compartirla</b></li><li><b>20 fotos de adelanto a los 3 días</b></li><li><b>50 fotos impresas para tenerlas en mano</b></li><li><b>Sesión previa Save the Date para tomar confianza</b></li><li><b>Reuniones previas para resolver dudas</b></li><li><b>Invitación digital de regalo</b></li></ul>
+          <div class="pk-foot">
+            <div class="pk-price">$44,650 <small>MXN</small></div>
+            <a class="pk-cta" href="#my-cal-inline">Agendar cita <span aria-hidden="true">→</span></a>
+          </div>
         </div>
-      </div>
+      </article>
+      <article class="pk pk-rec">
+        <div class="pk-img reveal"><span class="pk-num" aria-hidden="true">02</span><img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1200/boda-ivonne_norberto-121_de_tama%C3%B1o_grande_nomzvx.jpg" alt="Paquete Trilogía" loading="lazy"></div>
+        <div class="pk-body reveal">
+          <span class="pk-eyebrow">La opción más elegida</span>
+          <h3>Trilogía</h3>
+          <p class="pk-cubre">10 horas acompañándolos</p>
+          <h4>Incluye:</h4>
+          <ul><li><b>Del arreglo de ambos hasta la fiesta ya encendida</b></li><li><b>Un fotógrafo especialista en bodas</b></li><li><b>500 a 600 fotos listas para guardar</b></li><li><b>Galería online para revivirla y compartirla</b></li><li><b>20 fotos de adelanto a los 3 días</b></li><li><b>50 fotos impresas para tenerlas en mano</b></li><li><b>Sesión previa Save the Date para tomar confianza</b></li><li><b>Reuniones previas para resolver dudas</b></li><li><b>Invitación digital de regalo</b></li></ul>
+          <div class="pk-foot">
+            <div class="pk-price">$26,500 <small>MXN</small></div>
+            <a class="pk-cta" href="#my-cal-inline">Agendar cita <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+      </article>
+      <article class="pk">
+        <div class="pk-img reveal"><span class="pk-num" aria-hidden="true">03</span><img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1200/boda-g_e-138_de_tama%C3%B1o_grande_q5q3nz.jpg" alt="Paquete Secuela" loading="lazy"></div>
+        <div class="pk-body reveal">
+          <span class="pk-eyebrow">Paquete</span>
+          <h3>Secuela</h3>
+          <p class="pk-cubre">6 horas acompañándolos</p>
+          <h4>Incluye:</h4>
+          <ul><li><b>Ceremonia, sesión de novios y recepción hasta el primer baile</b></li><li><b>Un fotógrafo especialista en bodas</b></li><li><b>350 a 400 fotos listas para guardar</b></li><li><b>Galería online para revivirla y compartirla</b></li><li><b>20 fotos de adelanto a los 3 días</b></li><li><b>50 fotos impresas para tenerlas en mano</b></li><li><b>Sesión previa Save the Date para tomar confianza</b></li><li><b>Reuniones previas para resolver dudas</b></li><li><b>Invitación digital de regalo</b></li></ul>
+          <div class="pk-foot">
+            <div class="pk-price">$20,000 <small>MXN</small></div>
+            <a class="pk-cta" href="#my-cal-inline">Agendar cita <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+      </article>
+      <article class="pk">
+        <div class="pk-img reveal"><span class="pk-num" aria-hidden="true">04</span><img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_1200/boda-b_j-118_de_tama%C3%B1o_grande_higxpo.jpg" alt="Paquete Piloto" loading="lazy"></div>
+        <div class="pk-body reveal">
+          <span class="pk-eyebrow">Paquete</span>
+          <h3>Piloto</h3>
+          <p class="pk-cubre">5 horas acompañándolos</p>
+          <h4>Incluye:</h4>
+          <ul><li><b>Ceremonia, sesión de novios y arranque de la recepción</b></li><li><b>Un fotógrafo especialista en bodas</b></li><li><b>300 a 350 fotos listas para guardar</b></li><li><b>Galería online para revivirla y compartirla</b></li><li><b>Reuniones previas para resolver dudas</b></li></ul>
+          <div class="pk-foot">
+            <div class="pk-price">$17,500 <small>MXN</small></div>
+            <a class="pk-cta" href="#my-cal-inline">Agendar cita <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+      </article>
     </div>
 
-    <p class="pkg-note">Precios válidos en Tijuana y Rosarito. Se acompañan solo a 25 parejas al año.</p>
+    <div class="pkg-terms reveal">
+      <div><h4>Para reservar</h4><p>Un anticipo de $6,500 pesos bloquea su fecha en la agenda.</p></div>
+      <div><h4>Forma de pago</h4><p>Con el anticipo se separa la fecha y el resto debe quedar cubierto 3 días antes del evento. Efectivo, transferencia o tarjeta de crédito o débito.</p></div>
+    </div>
+
+    <p class="pkg-note"><span>Precios válidos en Tijuana y Rosarito. Se acompañan solo a 25 parejas al año.</span></p>
     <div class="custom-note">
       <p>¿Su boda necesita menos de 5 horas de cobertura? <a href="https://wa.me/526643372791?text=Hola!%20Nuestra%20boda%20necesita%20menos%20de%205%20horas%20de%20cobertura%2C%20%C2%BFme%20ayudas%20a%20armar%20una%20propuesta%3F" target="_blank" rel="noopener" data-track="contact">Escríbanme por WhatsApp</a> y armamos una propuesta hecha a su medida.</p>
     </div>
@@ -147,7 +246,7 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
         <details><summary>¿Haces bodas destino?<span class="plus">+</span></summary><p class="a-body">¡Claro que sí! Si el amor viaja, yo también.</p></details>
         <details><summary>¿Se firma contrato?<span class="plus">+</span></summary><p class="a-body">Claro que sí. Para seguridad y tranquilidad de ambos, firmamos un contrato donde se detallan todos los términos y condiciones.</p></details>
         <details><summary>¿Dónde sería la cita?<span class="plus">+</span></summary><p class="a-body">Lo ideal es vernos en persona en algún cafecito. O si prefieren nos vemos por videollamada.</p></details>
-        <details><summary>¿Cómo reservamos nuestra fecha?<span class="plus">+</span></summary><p class="a-body">Para reservar y bloquear la fecha de tu boda en la agenda, se hace un anticipo de $6,500 pesos. El pago restante lo pueden ir abonando y debe quedar listo el pago completo 3 días antes del evento.</p></details>
+        <details><summary>¿Cómo reservamos nuestra fecha?<span class="plus">+</span></summary><p class="a-body">Para reservar y bloquear la fecha de tu boda en la agenda, se hace un anticipo de $6,500 pesos. El resto debe quedar cubierto 3 días antes del evento.</p></details>
         <details><summary>¿Qué métodos de pago aceptas?<span class="plus">+</span></summary><p class="a-body">Puedes realizar cualquier pago en efectivo, transferencia o tarjeta de crédito/débito.</p></details>
       </div>
       <div>
@@ -200,83 +299,12 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
     Array.from(tr.children).forEach(function(n){ const c = n.cloneNode(true); c.setAttribute('aria-hidden','true'); tr.appendChild(c); });
   })();
 
-  // Paquetes — display grande + submenú
-  const pkgData = {
-    premier: {
-      tagline: 'El paquete más completo',
-      name: 'Premier',
-      price: '$44,650',
-      cubre: 'Del arreglo hasta el cierre de la fiesta, con video',
-      team: ['Un fotógrafo especialista en bodas', 'Un videógrafo especialista en bodas'],
-      get: ['12 horas de cobertura', '500 a 600 fotografías digitales editadas', 'Short video de 2 minutos', 'Full video de 50 a 60 minutos', 'The vlog experience', 'The saga collection', 'Galería online', 'Sneak Peek (20 fotos, 3 días después de la boda)'],
-      before: ['Sesión Save the Date (foto)', 'Asesoría y reuniones previas a la boda', 'De regalo: invitación digital']
-    },
-    trilogia: {
-      tagline: 'La opción más elegida',
-      name: 'Trilogía',
-      price: '$26,500',
-      cubre: 'Del arreglo de ambos hasta la fiesta ya encendida',
-      team: ['Un fotógrafo especialista en bodas'],
-      get: ['10 horas de cobertura', '500 a 600 fotografías digitales editadas', 'The saga collection', 'Galería online', 'Sneak Peek (20 fotos, 3 días después de la boda)'],
-      before: ['Sesión Save the Date', 'Asesoría y reuniones previas a la boda', 'De regalo: invitación digital']
-    },
-    secuela: {
-      tagline: '',
-      name: 'Secuela',
-      price: '$20,000',
-      cubre: 'Arreglo, ceremonia, sesión de novios y recepción hasta el primer baile',
-      team: ['Un fotógrafo especialista en bodas'],
-      get: ['6 horas de cobertura', '350 a 400 fotografías digitales editadas', 'The saga collection', 'Galería online', 'Sneak Peek (20 fotos, 3 días después de la boda)'],
-      before: ['Sesión Save the Date', 'Asesoría y reuniones previas a la boda', 'De regalo: invitación digital']
-    },
-    piloto: {
-      tagline: '',
-      name: 'Piloto',
-      price: '$17,500',
-      cubre: 'Ceremonia, sesión de novios y arranque de la recepción',
-      team: ['Un fotógrafo especialista en bodas'],
-      get: ['5 horas de cobertura', '350 a 400 fotografías digitales editadas', 'Galería online'],
-      before: ['Asesoría y reuniones previas a la boda']
-    }
-  };
-
-  const pkgInfo = document.getElementById('pkgInfo');
-  const pkgPhotos = document.querySelectorAll('#pkgPhoto img');
-
-  function renderPkg(key){
-    const d = pkgData[key];
-    function li(it, first){
-      const m = first ? it.match(/^(\d+)(.*)$/) : null;
-      return m ? '<li class="hrs"><b>'+m[1]+'</b>'+m[2]+'</li>' : '<li>'+it+'</li>';
-    }
-    function block(label, arr, first){
-      return '<div class="pkg-block"><span class="pkg-block-label">'+label+'</span><ul>'+arr.map(function(it, i){ return li(it, first && i === 0); }).join('')+'</ul></div>';
-    }
-    pkgInfo.innerHTML =
-      (d.tagline ? '<span class="pkg-tagline">'+d.tagline+'</span>' : '<span class="pkg-tagline ghost" aria-hidden="true">&nbsp;</span>') +
-      '<h3>'+d.name+'</h3>' +
-      '<div class="pkg-price">'+d.price+' <span>MXN</span></div>' +
-      '<p class="pkg-cubre">'+d.cubre+'</p>' +
-      '<div class="pkg-list">'+block('Equipo', d.team)+block('Reciben', d.get, true)+block('Antes de la boda', d.before)+'</div>';
-    pkgPhotos.forEach(function(img){ img.classList.toggle('active', img.dataset.pkg === key); });
-    
-  }
-  const pkgKeys = ['premier','trilogia','secuela','piloto'];
-  let pkgCurrent = 0;
-  function goPkg(i){
-    pkgCurrent = (i + pkgKeys.length) % pkgKeys.length;
-    renderPkg(pkgKeys[pkgCurrent]);
-  }
-  document.getElementById('pkgPrev').addEventListener('click', function(){ goPkg(pkgCurrent - 1); });
-  document.getElementById('pkgNext').addEventListener('click', function(){ goPkg(pkgCurrent + 1); });
-  goPkg(0);
-
   // Animaciones al entrar en pantalla
   (function(){
     document.querySelectorAll('.hero .hl').forEach(function(h){
       h.insertAdjacentHTML('beforeend','<svg viewBox="0 0 200 60" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M186 14C160 2 90 -2 40 8 8 15 -4 32 14 46c20 14 90 16 135 6 38-8 54-24 40-38-6-6-16-10-30-12"/></svg>');
     });
-    const sel = '.detalle-photos, .detalle-text, .detalle-sub, .pkg-panel, .pkg-note, .stepbox, .faq-item, .extras-grid > *, section .wrap > h2';
+    const sel = '.detalle-photos, .detalle-text, .detalle-sub, .pkg-note, .stepbox, .faq-item, .extras-grid > *, section .wrap > h2';
     document.querySelectorAll(sel).forEach(function(el){ el.classList.add('reveal'); });
     const els = document.querySelectorAll('.reveal, .hl');
     if(!('IntersectionObserver' in window)){ els.forEach(function(e){ e.classList.add('in'); }); return; }
