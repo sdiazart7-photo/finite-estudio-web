@@ -50,6 +50,27 @@ Si olvidas correrlo, el navegador repinta esos bloques desde los arreglos y nada
 - Si agregas un evento nuevo en `tracking.js`, agrégalo también a `EVENTOS_PERMITIDOS` en `capi-relay.js`.
 - `Schedule` y `Programar` se confirman desde `cal-webhook.js` cuando Cal.com avisa que la cita quedó agendada.
 
+### Parámetros de URL que leen las herramientas
+
+Las páginas de `herramientas/` se alimentan por la URL. `contrato.html` arma el link a `pago.html` con estos datos:
+
+| Parámetro | Lo lee | Qué es |
+|---|---|---|
+| `nombre` | `pago.html` | Nombres de la pareja, para el resumen de la página y el mensaje de WhatsApp |
+| `fecha` | `pago.html` | Fecha de la boda (AAAA-MM-DD) |
+| `paquete` | `pago.html` | Paquete contratado |
+| `precio` | `pago.html` | Precio total, en pesos |
+| `anticipo` | `pago.html`, `tracking.js` | Monto del anticipo, en pesos. `tracking.js` lo usa como valor del evento `InitiateCheckout` en la página de pago |
+
+`contrato.html` también se pre-llena por URL con cualquiera de estos campos: `nombre`, `email`, `celular`, `fecha`, `salon`, `iglesia`, `paquete`, `precio`, `anticipo` (ejemplo: `/contrato?nombre=Ana%20y%20Luis&precio=25000&anticipo=5000`). Al firmar, arma el link a `pago.html` con `nombre`, `fecha`, `paquete`, `anticipo` y `precio`.
+
+### Dónde vive cada ID de medición
+
+- **Pixel de Meta:** `PIXEL_ID` en `assets/tracking.js`, la imagen `<noscript>` de cada HTML y la variable `META_PIXEL_ID` de Netlify. Si cambias de Pixel, cámbialo en los tres lugares.
+- **Google Analytics 4:** `GA_MEASUREMENT_ID` en `assets/tracking.js`.
+
+Ninguno de los dos IDs es secreto. Los tokens y contraseñas viven solo en las variables de entorno de Netlify.
+
 ### Páginas de gracias por conversión
 
 | Conversión | Página | Cómo llega la persona |
