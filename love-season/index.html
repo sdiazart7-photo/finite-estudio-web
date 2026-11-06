@@ -26,6 +26,52 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
 /></noscript>
 <meta name="facebook-domain-verification" content="auvuffvpgju80mvvaxymv2gnwyjohu" />
 <link rel="stylesheet" href="/assets/love-season.css?v=3">
+<style>
+/* ---- Paquetes con el mismo formato editorial de /propuesta/ (solo diseño) ---- */
+.pk-list-wrap{max-width:1080px; margin:64px auto 0; display:flex; flex-direction:column; gap:96px;}
+.pk{display:grid; grid-template-columns:1.1fr 1fr; align-items:start;}
+.pk-img{position:relative; margin-top:56px; aspect-ratio:3/2; background:var(--cream);}
+.pk-img img{width:100%; height:100%; object-fit:cover; display:block;}
+.pk-num{position:absolute; top:-40px; left:-6px; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:5.2rem; line-height:1; color:#d9b9ab; z-index:2; font-variant-numeric:lining-nums;}
+.pk-body{position:relative; z-index:1; margin-left:-44px; padding:44px 48px 42px; background:var(--cream); border:1px solid rgba(68,15,20,.16);}
+.pk-eyebrow{display:inline-block; font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--ink); opacity:.75;}
+.pk h3{font-family:'Cormorant Garamond',serif; font-weight:400; font-size:clamp(2.6rem,5vw,3.8rem); line-height:1; letter-spacing:.04em; text-transform:uppercase; margin:16px 0 18px; color:var(--ink);}
+.pk-cubre{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.35rem; line-height:1.3; margin:0 0 30px; color:var(--deep);}
+.pk h4{font-family:'Glacial Indifference',sans-serif; font-weight:700; font-size:11px; letter-spacing:.3em; text-transform:uppercase; margin:0 0 14px;}
+.pk ul{list-style:none; margin:0; padding:0;}
+.pk li{position:relative; padding:0 0 9px 16px;}
+.pk li::before{content:"-"; position:absolute; left:0; top:0;}
+.pk li b{display:block; font-weight:400; font-size:.94rem; line-height:1.4;}
+.pk-foot{display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap; margin-top:28px; padding-top:24px; border-top:1px solid rgba(68,15,20,.16);}
+.pk-price{font-family:'Cormorant Garamond',serif; font-size:2.3rem; line-height:1; color:var(--deep); font-variant-numeric:lining-nums;}
+.pk-price small{font-family:'Glacial Indifference',sans-serif; font-size:10.5px; letter-spacing:.16em; opacity:.55; margin-left:4px;}
+.pk-cta{display:inline-flex; align-items:center; gap:10px; padding:12px 22px; border:1px solid var(--deep); border-radius:999px; background:var(--deep); color:var(--cream); font-size:11px; letter-spacing:.16em; text-transform:uppercase; text-decoration:none; transition:background .25s ease,color .25s ease,transform .16s ease;}
+.pk-cta span{transition:transform .25s ease;}
+.pk-cta:active{transform:scale(.97);}
+@media (hover:hover) and (pointer:fine){
+  .pk-cta:hover{background:transparent; color:var(--deep);}
+  .pk-cta:hover span{transform:translateX(4px);}
+}
+.pk-rec .pk-eyebrow{padding:7px 16px; border:1px solid var(--deep); border-radius:999px; color:var(--deep); opacity:1; font-weight:700;}
+.pk-rec .pk-body{border:2px solid var(--deep); box-shadow:0 26px 50px -30px rgba(68,15,20,.55);}
+.pk-rec .pk-img{box-shadow:0 26px 50px -30px rgba(68,15,20,.45);}
+.pk:nth-child(even){grid-template-columns:1fr 1.1fr;}
+.pk:nth-child(even) .pk-img{order:2;}
+.pk:nth-child(even) .pk-body{order:1; margin-left:0; margin-right:-44px;}
+.pk:nth-child(even) .pk-num{left:auto; right:-6px;}
+@media(max-width:860px){
+  .pk-list-wrap{gap:64px;}
+  .pk, .pk:nth-child(even){grid-template-columns:1fr;}
+  .pk-img{margin-top:34px;}
+  .pk-num{top:-34px; font-size:4rem;}
+  .pk-body, .pk:nth-child(even) .pk-body{margin:-28px 14px 0; padding:32px 24px 30px;}
+  .pk:nth-child(even) .pk-img{order:0;} .pk:nth-child(even) .pk-body{order:0;}
+  .pk:nth-child(even) .pk-num{right:auto; left:-6px;}
+  .pk-foot{flex-direction:column; align-items:flex-start;} .pk-cta{width:100%; justify-content:center;}
+}
+#paquetes .pkg-note{margin-top:44px; opacity:1;}
+#paquetes .pkg-note span{display:inline-block; padding:12px 24px; border:1px solid var(--deep); border-radius:999px; background:var(--cream); color:var(--deep); font-weight:700; font-size:.88rem; letter-spacing:.02em;}
+</style>
 </head>
 <body>
 
@@ -52,22 +98,38 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
     <h2 class="section-title">Elijan <span class="hl">su sesión de pareja</span></h2>
     <p class="sub">Sirve para una sesión casual, un save the date, un post-boda, una pedida de mano, un aniversario y cualquier otra excusa para verse bien juntos.</p>
 
-    <div class="pkg-panel">
-      <div class="pkg-photo" id="pkgPhoto">
-        <img class="active" src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_900/finite-estudio-web/blog/descubre-que-es-una-sesion-save-the-date/img04.jpg" alt="Paquete II, sesión de pareja">
-        <img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_900/finite-estudio-web/blog/descubre-que-es-una-sesion-save-the-date/img02.jpg" alt="Paquete I, sesión de pareja">
-      </div>
-      <div>
-        <div class="pkg-info" id="pkgInfo"><!-- rellenado por JS --></div>
-        <div class="pkg-step">
-          <button type="button" id="pkgPrev" aria-label="Paquete anterior">‹ Anterior</button>
-          <span class="slash"></span>
-          <button type="button" id="pkgNext" aria-label="Paquete siguiente">Siguiente ›</button>
+    <div class="pk-list-wrap">
+      <article class="pk pk-rec">
+        <div class="pk-img reveal"><span class="pk-num" aria-hidden="true">01</span><img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_900/finite-estudio-web/blog/descubre-que-es-una-sesion-save-the-date/img04.jpg" alt="Paquete II, sesión de pareja" loading="lazy"></div>
+        <div class="pk-body reveal">
+          <span class="pk-eyebrow">El paquete más completo</span>
+          <h3>Paquete II</h3>
+          <p class="pk-cubre">1 hora acompañándolos</p>
+          <h4>Incluye:</h4>
+          <ul><li><b>Sesión en exterior o estudio, a su elección</b></li><li><b>35 a 50 fotos editadas listas para guardar</b></li><li><b>Cuadro canvas tamaño 11x14</b></li><li><b>Galería online para revivirla y compartirla</b></li><li><b>Invitación digital de regalo (aplica para sesión Save the Date)</b></li></ul>
+          <div class="pk-foot">
+            <div class="pk-price">$4,300 <small>MXN</small></div>
+            <a class="pk-cta" href="https://wa.me/526643372791?text=Hola!%20Nos%20interesa%20el%20Paquete%20II%20de%20Love%20Season." target="_blank" rel="noopener" data-track="contact">Escribir por WhatsApp <span aria-hidden="true">→</span></a>
+          </div>
         </div>
-      </div>
+      </article>
+      <article class="pk">
+        <div class="pk-img reveal"><span class="pk-num" aria-hidden="true">02</span><img src="https://res.cloudinary.com/drrhn6t1c/image/upload/f_auto,q_auto,w_900/finite-estudio-web/blog/descubre-que-es-una-sesion-save-the-date/img02.jpg" alt="Paquete I, sesión de pareja" loading="lazy"></div>
+        <div class="pk-body reveal">
+          <span class="pk-eyebrow">Paquete</span>
+          <h3>Paquete I</h3>
+          <p class="pk-cubre">1 hora acompañándolos</p>
+          <h4>Incluye:</h4>
+          <ul><li><b>Sesión en exterior o estudio, a su elección</b></li><li><b>35 a 50 fotos editadas listas para guardar</b></li><li><b>Galería online para revivirla y compartirla</b></li><li><b>Invitación digital de regalo (aplica para sesión Save the Date)</b></li></ul>
+          <div class="pk-foot">
+            <div class="pk-price">$3,300 <small>MXN</small></div>
+            <a class="pk-cta" href="https://wa.me/526643372791?text=Hola!%20Nos%20interesa%20el%20Paquete%20I%20de%20Love%20Season." target="_blank" rel="noopener" data-track="contact">Escribir por WhatsApp <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+      </article>
     </div>
 
-    <p class="pkg-note">Precios válidos en Tijuana y Rosarito.</p>
+    <p class="pkg-note"><span>Precios válidos en Tijuana y Rosarito.</span></p>
     <div class="custom-note">
       <p>¿Tienen algo distinto en mente para su sesión? <a href="https://wa.me/526643372791?text=Hola!%20Tenemos%20algo%20distinto%20en%20mente%20para%20nuestra%20sesi%C3%B3n%20de%20pareja%2C%20%C2%BFme%20ayudas%20a%20armar%20una%20propuesta%3F" target="_blank" rel="noopener" data-track="contact">Escríbanme por WhatsApp</a> y armamos una propuesta hecha a su medida.</p>
     </div>
@@ -123,46 +185,6 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
     const tr = document.getElementById('testTrack');
     Array.from(tr.children).forEach(function(n){ const c = n.cloneNode(true); c.setAttribute('aria-hidden','true'); tr.appendChild(c); });
   })();
-
-  // Paquetes: Paquete II primero, luego Paquete I
-  const pkgData = {
-    p2: {
-      tagline: 'El paquete más completo',
-      name: 'Paquete II',
-      meta: '1 hora de cobertura',
-      price: '$4,300',
-      items: ['Sesión en exterior o estudio', '35 a 50 fotografías digitales editadas', 'Cuadro canvas tamaño 11x14', 'Galería online', 'De regalo: invitación digital (aplica para sesión Save the Date)']
-    },
-    p1: {
-      tagline: '',
-      name: 'Paquete I',
-      meta: '1 hora de cobertura',
-      price: '$3,300',
-      items: ['Sesión en exterior o estudio', '35 a 50 fotografías digitales editadas', 'Galería online', 'De regalo: invitación digital (aplica para sesión Save the Date)']
-    }
-  };
-  const pkgKeys = ['p2','p1'];
-  const pkgInfo = document.getElementById('pkgInfo');
-  const pkgPhotos = document.querySelectorAll('#pkgPhoto img');
-  let pkgCurrent = 0;
-
-  function renderPkg(i){
-    const d = pkgData[pkgKeys[i]];
-    pkgInfo.innerHTML =
-      (d.tagline ? '<span class="pkg-tagline">'+d.tagline+'</span>' : '<span class="pkg-tagline ghost" aria-hidden="true">&nbsp;</span>') +
-      '<h3>'+d.name+'</h3>' +
-      '<div class="pkg-price">'+d.price+' <span>MXN</span></div>' +
-      '<span class="pkg-meta">'+d.meta+'</span>' +
-      '<ul class="pkg-items">'+d.items.map(function(it){ return '<li>'+it+'</li>'; }).join('')+'</ul>';
-    pkgPhotos.forEach(function(img, k){ img.classList.toggle('active', k === i); });
-  }
-  function goPkg(i){
-    pkgCurrent = (i + pkgKeys.length) % pkgKeys.length;
-    renderPkg(pkgCurrent);
-  }
-  document.getElementById('pkgPrev').addEventListener('click', function(){ goPkg(pkgCurrent - 1); });
-  document.getElementById('pkgNext').addEventListener('click', function(){ goPkg(pkgCurrent + 1); });
-  goPkg(0);
 
   // Animaciones al entrar en pantalla
   (function(){
