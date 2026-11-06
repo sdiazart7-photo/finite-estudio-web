@@ -28,6 +28,22 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
 <meta name="facebook-domain-verification" content="auvuffvpgju80mvvaxymv2gnwyjohu">
 
 <link rel="stylesheet" href="/assets/infoprecios.css?v=3">
+<style>
+/* ---- Cómo trabajamos: la etapa en turno se vuelve una tarjeta clara (solo diseño) ---- */
+:root{--ease-out:cubic-bezier(.23,1,.32,1);}
+.process-item{position:relative;padding:26px 22px;margin:0 -22px;border-radius:16px;border-bottom-color:transparent;background-color:transparent;transition:background-color .45s var(--ease-out);}
+.process-item::after{content:"";position:absolute;left:22px;right:22px;bottom:0;height:1px;background:var(--line-light);transition:opacity .45s var(--ease-out);}
+.process-list{border-top:none;}
+.process-item:first-child::before{content:"";position:absolute;left:22px;right:22px;top:0;height:1px;background:var(--line-light);}
+.process-item .num{opacity:.7;text-shadow:none;transition:opacity .45s var(--ease-out),color .45s var(--ease-out);}
+.process-item h3,.process-item p{transition:color .45s var(--ease-out);}
+.stages-on .process-item.is-active{background-color:var(--cream);}
+.stages-on .process-item.is-active::after,.stages-on .process-item.is-active::before{opacity:0;}
+.stages-on .process-item.is-active .num{opacity:1;color:var(--deep);}
+.stages-on .process-item.is-active h3{color:var(--deep);opacity:1;}
+.stages-on .process-item.is-active p{color:#5b4a47;opacity:1;}
+@media (prefers-reduced-motion:reduce){.process-item{transition:none;}}
+</style>
 </head>
 <body>
 
@@ -67,20 +83,20 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
 <div class="reveal">
 <span class="eyebrow on-dark">Cómo trabajamos</span>
 <h2>El camino, <span class="hl">paso a paso</span></h2>
-<div class="process-list">
-<div class="process-item">
+<div class="process-list" data-stages>
+<div class="process-item" data-stage>
 <span class="num">01</span>
 <div><h3>Contacto</h3><p>Nos escriben por WhatsApp, platicamos su fecha y revisamos disponibilidad.</p></div>
 </div>
-<div class="process-item">
+<div class="process-item" data-stage>
 <span class="num">02</span>
 <div><h3>Cita</h3><p>Una plática para conocerse y armar la propuesta que haga sentido para su boda.</p></div>
 </div>
-<div class="process-item">
+<div class="process-item" data-stage>
 <span class="num">03</span>
 <div><h3>El día</h3><p>Ustedes lo viven. La cámara documenta cada momento sin interrumpir nada.</p></div>
 </div>
-<div class="process-item">
+<div class="process-item" data-stage>
 <span class="num">04</span>
 <div><h3>Entrega</h3><p>Entre 30 y 35 días hábiles después, llegan los enlaces con todas sus fotos.</p></div>
 </div>
@@ -225,7 +241,7 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
   // Luz que sigue al scroll en pasos del proceso y paquetes
   (function () {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    var els = document.querySelectorAll('.process-item, .pkg');
+    var els = document.querySelectorAll('.pkg');
     var ticking = false;
     function update() {
       var mid = window.innerHeight * 0.55;
@@ -258,4 +274,76 @@ src="https://www.facebook.com/tr?id=2447959342366827&ev=PageView&noscript=1"
 
 
 
+<script>
+// Etapas con scroll: resalta la etapa en turno mientras se avanza por la página.
+// - Con data-pin-mq (escritorio): el bloque se queda fijo y el scroll recorre las etapas una por una.
+// - Sin pin (celular, ventana baja, movimiento reducido): se ilumina la etapa más cercana al centro de la pantalla.
+(function(){
+  var groups = document.querySelectorAll('[data-stages]');
+  if(!groups.length) return;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  function clamp(v, a, b){ return Math.max(a, Math.min(b, v)); }
+  function onChange(mq, fn){ if(!mq) return; if(mq.addEventListener){ mq.addEventListener('change', fn); } else if(mq.addListener){ mq.addListener(fn); } }
+
+  Array.prototype.forEach.call(groups, function(pin){
+    var stick = pin.querySelector('[data-stage-stick]');
+    var items = Array.prototype.slice.call(pin.querySelectorAll('[data-stage]'));
+    if(!items.length) return;
+    var mqText = pin.getAttribute('data-pin-mq');
+    var pinMQ = (stick && mqText) ? window.matchMedia(mqText) : null;
+    var pinned = false, near = true, queued = false, last = '';
+
+    function update(){
+      queued = false;
+      if(!near) return;
+      var n = items.length, states = [], i;
+      if(pinned){
+        var top = parseFloat(stick.style.top) || 0;
+        var range = pin.offsetHeight - stick.offsetHeight;
+        var p = range > 0 ? clamp((top - pin.getBoundingClientRect().top) / range, 0, 1) : 0;
+        var idx = Math.min(n - 1, Math.floor(p * n));
+        for(i = 0; i < n; i++){ states.push(i < idx ? 'done' : (i === idx ? 'active' : 'next')); }
+      } else {
+        var mid = window.innerHeight * 0.5, cs = [], best = 0;
+        for(i = 0; i < n; i++){
+          var r = items[i].getBoundingClientRect();
+          cs.push(r.top + r.height / 2);
+          if(Math.abs(cs[i] - mid) < Math.abs(cs[best] - mid)) best = i;
+        }
+        for(i = 0; i < n; i++){
+          var d = cs[i] - cs[best];
+          states.push(Math.abs(d) < 12 ? 'active' : (d < 0 ? 'done' : 'next'));
+        }
+      }
+      var key = states.join();
+      if(key === last) return;
+      last = key;
+      for(i = 0; i < n; i++){
+        items[i].classList.toggle('is-active', states[i] === 'active');
+        items[i].classList.toggle('is-done', states[i] === 'done');
+      }
+    }
+    function queue(){ if(!queued){ queued = true; window.requestAnimationFrame(update); } }
+
+    function layout(){
+      pinned = !!(pinMQ && pinMQ.matches && !reduce.matches);
+      pin.classList.toggle('is-pinned', pinned);
+      if(stick){ stick.style.top = pinned ? Math.max(88, (window.innerHeight - stick.offsetHeight) / 2) + 'px' : ''; }
+      last = '';
+      update();
+    }
+
+    pin.classList.add('stages-on');
+    window.addEventListener('scroll', queue, {passive: true});
+    window.addEventListener('resize', layout);
+    window.addEventListener('load', layout);
+    onChange(pinMQ, layout);
+    onChange(reduce, layout);
+    if('IntersectionObserver' in window){
+      new IntersectionObserver(function(es){ near = es[0].isIntersecting; if(near){ update(); } }, {rootMargin: '60% 0px 60% 0px'}).observe(pin);
+    }
+    layout();
+  });
+})();
+</script>
 </body></html>
