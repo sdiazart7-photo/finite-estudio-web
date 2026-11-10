@@ -14,6 +14,14 @@
 <link rel="stylesheet" href="/assets/global.css?v=4">
 
 <link rel="stylesheet" href="/assets/recibos.css?v=3">
+<style>
+/* Botón principal: texto crema sobre vino (antes oscuro y se perdía) */
+.btn-gold{color:var(--crema);}
+.btn-gold:hover{color:var(--crema);}
+.card .hint{font-size:13px;color:var(--gray-text);margin:-6px 0 14px;line-height:1.5;}
+.incluido-row input{width:100%;font-family:var(--font-ui);font-size:14px;padding:10px 12px;border-radius:11px;border:1.5px solid rgba(28,26,24,.14);background:#fff;color:var(--dark);outline:none;transition:border-color .2s;}
+.incluido-row input:focus{border-color:var(--dark);}
+</style>
 </head>
 <body>
 
@@ -62,21 +70,24 @@
     <!-- Paquete -->
     <div class="card">
       <div class="card-label">Paquete</div>
-      <div class="row-2">
-        <div class="field">
-          <label>Nombre del paquete</label>
-          <input type="text" id="paquete-nombre" placeholder="Ej. Premier">
-        </div>
-        <div class="field">
-          <label>Precio total (MXN)</label>
-          <input type="number" id="paquete-precio" placeholder="0.00" min="0" step="0.01">
-        </div>
+      <div class="field">
+        <label>Elige el paquete</label>
+        <select id="paquete-select"></select>
+      </div>
+      <div class="field" id="paquete-nombre-wrap" style="display:none;">
+        <label>Nombre del paquete personalizado</label>
+        <input type="text" id="paquete-nombre" placeholder="Ej. Premier a la medida">
+      </div>
+      <div class="field">
+        <label>Precio total (MXN)</label>
+        <input type="number" id="paquete-precio" placeholder="0.00" min="0" step="0.01">
       </div>
     </div>
 
     <!-- Incluidos del paquete -->
     <div class="card">
       <div class="card-label">Incluidos del paquete</div>
+      <p class="hint" id="incluidos-hint">Al elegir un paquete se llena solo. Puedes quitar o agregar lo que necesites.</p>
       <div id="incluidos-container"></div>
       <button class="btn-add" onclick="agregarIncluido()">+ Agregar ítem</button>
     </div>
@@ -381,6 +392,155 @@
 
     window.print();
   }
+
+
+  // ── Catálogo de paquetes (mismos datos que /propuesta/ y /love-season/) ──
+  const PAQUETES = {
+  "boda": [
+    {
+      "id": "premier",
+      "nombre": "Premier",
+      "precio": 44650,
+      "items": [
+        "12 horas de cobertura, del arreglo hasta el cierre de la fiesta, con video",
+        "Un fotógrafo y un videógrafo especialistas en bodas",
+        "500 a 600 fotos listas para guardar",
+        "Video corto de 2 min, video completo de 50 a 60 min y The vlog experience",
+        "Galería online para revivirla y compartirla",
+        "20 fotos de adelanto a los 3 días",
+        "50 fotos impresas para tenerlas en mano",
+        "Sesión previa Save the Date para tomar confianza",
+        "Reuniones previas para resolver dudas",
+        "Invitación digital de regalo"
+      ]
+    },
+    {
+      "id": "trilogia",
+      "nombre": "Trilogía",
+      "precio": 26500,
+      "items": [
+        "10 horas de cobertura, del arreglo de ambos hasta la fiesta ya encendida",
+        "Un fotógrafo especialista en bodas",
+        "500 a 600 fotos listas para guardar",
+        "Galería online para revivirla y compartirla",
+        "20 fotos de adelanto a los 3 días",
+        "50 fotos impresas para tenerlas en mano",
+        "Sesión previa Save the Date para tomar confianza",
+        "Reuniones previas para resolver dudas",
+        "Invitación digital de regalo"
+      ]
+    },
+    {
+      "id": "secuela",
+      "nombre": "Secuela",
+      "precio": 20000,
+      "items": [
+        "6 horas de cobertura: ceremonia, sesión de novios y recepción hasta el primer baile",
+        "Un fotógrafo especialista en bodas",
+        "350 a 400 fotos listas para guardar",
+        "Galería online para revivirla y compartirla",
+        "20 fotos de adelanto a los 3 días",
+        "50 fotos impresas para tenerlas en mano",
+        "Sesión previa Save the Date para tomar confianza",
+        "Reuniones previas para resolver dudas",
+        "Invitación digital de regalo"
+      ]
+    },
+    {
+      "id": "piloto",
+      "nombre": "Piloto",
+      "precio": 17500,
+      "items": [
+        "5 horas de cobertura: ceremonia, sesión de novios y arranque de la recepción",
+        "Un fotógrafo especialista en bodas",
+        "300 a 350 fotos listas para guardar",
+        "Galería online para revivirla y compartirla",
+        "Reuniones previas para resolver dudas"
+      ]
+    }
+  ],
+  "pareja": [
+    {
+      "id": "ls2",
+      "nombre": "Love Season · Paquete II",
+      "precio": 4300,
+      "items": [
+        "1 hora de sesión en exterior o estudio, a su elección",
+        "35 a 50 fotos editadas listas para guardar",
+        "Cuadro canvas tamaño 11x14",
+        "Galería online para revivirla y compartirla",
+        "Invitación digital de regalo (aplica para sesión Save the Date)"
+      ]
+    },
+    {
+      "id": "ls1",
+      "nombre": "Love Season · Paquete I",
+      "precio": 3300,
+      "items": [
+        "1 hora de sesión en exterior o estudio, a su elección",
+        "35 a 50 fotos editadas listas para guardar",
+        "Galería online para revivirla y compartirla",
+        "Invitación digital de regalo (aplica para sesión Save the Date)"
+      ]
+    }
+  ]
+};
+  const GRUPO_POR_SERVICIO = {
+    'Fotografía de boda': 'boda',
+    'Sesión Save the Date': 'pareja',
+    'Sesión de fotos': 'pareja',
+    'Otro': null
+  };
+
+  function paquetesDelServicio() {
+    const g = GRUPO_POR_SERVICIO[document.getElementById('tipo-servicio').value];
+    return g ? PAQUETES[g] : [];
+  }
+
+  function construirOpcionesPaquete() {
+    const sel = document.getElementById('paquete-select');
+    const previo = sel.value;
+    const lista = paquetesDelServicio();
+    sel.innerHTML = '';
+    const base = document.createElement('option');
+    base.value = ''; base.textContent = 'Elige un paquete…';
+    sel.appendChild(base);
+    lista.forEach(p => {
+      const o = document.createElement('option');
+      o.value = p.id;
+      o.textContent = p.nombre + ' · $' + p.precio.toLocaleString('es-MX');
+      sel.appendChild(o);
+    });
+    const custom = document.createElement('option');
+    custom.value = 'custom'; custom.textContent = 'Personalizado';
+    sel.appendChild(custom);
+    const sigue = previo === 'custom' || lista.some(p => p.id === previo);
+    sel.value = sigue ? previo : '';
+  }
+
+  function elegirPaquete() {
+    const id = document.getElementById('paquete-select').value;
+    const wrap = document.getElementById('paquete-nombre-wrap');
+    const nombre = document.getElementById('paquete-nombre');
+    if (id === 'custom') {
+      wrap.style.display = '';
+      nombre.focus();
+      return;
+    }
+    wrap.style.display = 'none';
+    if (!id) return;
+    const p = paquetesDelServicio().find(x => x.id === id);
+    if (!p) return;
+    nombre.value = p.nombre;
+    document.getElementById('paquete-precio').value = p.precio;
+    incluidos = p.items.map(texto => ({ id: contadorIncluido++, texto }));
+    renderIncluidos();
+    actualizarTotales();
+  }
+
+  document.getElementById('paquete-select').addEventListener('change', elegirPaquete);
+  document.getElementById('tipo-servicio').addEventListener('change', construirOpcionesPaquete);
+  construirOpcionesPaquete();
 
   // Inicializar
   agregarPago('Anticipo', '', true, '');
