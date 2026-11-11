@@ -122,3 +122,32 @@ img{max-width:100%;display:block;}
 .page-body li::marker{color:var(--vino);}
 .btn-row{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;}
 .btn.btn-claro-borde{background:transparent;color:var(--vino);border:1px solid var(--vino);}
+
+/* ================= AVISO PRECIOS 2026 (temporal) =================
+   Barra superior en todas las páginas públicas, solo CSS.
+   QUITAR en marzo 2027: borrar este bloque completo (hasta el cierre "FIN AVISO").
+   No aparece en herramientas (contrato/pago/recibos) ni en las gracias. */
+html:not(:has(link[href*="contrato.css"],link[href*="pago.css"],link[href*="recibos.css"])):not(:has(body[data-page-type^="gracias"]))::before{
+  content:"●  Precios 2026 disponibles hasta febrero de 2027";
+  position:absolute;top:0;left:0;right:0;z-index:60;height:40px;
+  display:flex;align-items:center;justify-content:center;padding:0 16px;box-sizing:border-box;
+  background:#440f14;color:#f3ece1;border-bottom:1px solid rgba(243,236,225,.14);
+  font-family:var(--font-ui,'Jost',sans-serif);font-size:.74rem;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;overflow:hidden;
+  pointer-events:none;
+}
+@media (max-width:520px){
+  html:not(:has(link[href*="contrato.css"],link[href*="pago.css"],link[href*="recibos.css"])):not(:has(body[data-page-type^="gracias"]))::before{font-size:.62rem;letter-spacing:.07em;height:36px;}
+}
+/* El menú flotante baja debajo de la barra y sube a su sitio al hacer scroll */
+html:not(:has(link[href*="contrato.css"],link[href*="pago.css"],link[href*="recibos.css"])):not(:has(body[data-page-type^="gracias"])) .top-nav{top:58px;}
+@supports (animation-timeline:scroll()){
+  html:not(:has(link[href*="contrato.css"],link[href*="pago.css"],link[href*="recibos.css"])):not(:has(body[data-page-type^="gracias"])) .top-nav{
+    animation:aviso-nav linear both;animation-timeline:scroll(root);animation-range:0 40px;
+  }
+  @keyframes aviso-nav{from{top:58px;}to{top:18px;}}
+}
+/* En propuesta y love-season la marca va arriba: baja para no quedar bajo la barra */
+html:not(:has(link[href*="contrato.css"],link[href*="pago.css"],link[href*="recibos.css"])):not(:has(body[data-page-type^="gracias"])) .topbar{top:40px;}
+@media (max-width:520px){html:not(:has(link[href*="contrato.css"],link[href*="pago.css"],link[href*="recibos.css"])):not(:has(body[data-page-type^="gracias"])) .topbar{top:36px;}}
+/* ================= FIN AVISO ================= */
