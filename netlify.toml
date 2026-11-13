@@ -18,11 +18,30 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
 
-# El CSS y las fuentes casi no cambian de nombre; cachear agresivo.
+# Fuentes: no cambian nunca, caché larga.
 [[headers]]
-  for = "/assets/*"
+  for = "/assets/fonts/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
+
+# CSS y JS propios: el navegador pregunta siempre "¿cambió?" y Netlify responde
+# en milisegundos sin reenviar el archivo si no cambió. Así cualquier edición
+# llega a todos de inmediato y ya no hace falta cambiar ?v=N en los HTML.
+# (tracking.js tiene su propia regla más abajo; estas reglas no lo tocan.)
+[[headers]]
+  for = "/assets/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/assets/main.js"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/assets/site.js"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
 
 # tracking.js SÍ cambia seguido (eventos de Meta Pixel) y es crítico para
 # campañas de ads: nunca debe quedarse "atascado" en caché del navegador.
