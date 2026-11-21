@@ -7,7 +7,7 @@
 //
 // Mapeo de slugs -> evento de Meta:
 //   admi / cita-para-boda      -> "Schedule" (estándar)   = "Cliente potencial": agendó la LLAMADA/reunión
-//   minis-sesiones-oct / dic   -> "Programar" (personalizado) = agendó una SESIÓN de fotos
+//   minis-sesiones-oct / mini-sesiones-dic -> "Programar" (personalizado) = agendó una SESIÓN de fotos
 // Se separan a propósito: una llamada es un lead calificado, una sesión ya es
 // un compromiso mucho más cercano a la venta, y conviene poder optimizar campañas
 // hacia cada una por separado en el Administrador de Eventos.
@@ -15,14 +15,36 @@
 const crypto = require('crypto');
 const { sendCapiEvent, findOrCreateAudience, addUsersToAudience } = require('./capi');
 
+const AUDIENCE_LLAMADAS = 'Agendaron llamada - Finite Estudio';
+const AUDIENCE_MINIS = 'Clientes - Minis Navideñas 2026';
+
+// Cada slug va a su propia audiencia: una llamada de boda y una mini sesión son clientes distintos.
 const TRACKED_SLUGS = {
-  'admi': { metaEvent: 'Schedule', audience: true },
-  'cita-para-boda': { metaEvent: 'Schedule', audience: true },
-  'minis-sesiones-oct': { metaEvent: 'Programar', audience: true },
-  'mini-sesiones-dic': { metaEvent: 'Programar', audience: true },
+  'admi': { metaEvent: 'Schedule', audienceName: AUDIENCE_LLAMADAS },
+  'cita-para-boda': { metaEvent: 'Schedule', audienceName: AUDIENCE_LLAMADAS },
+  'minis-sesiones-oct': { metaEvent: 'Programar', audienceName: AUDIENCE_MINIS },
+  'mini-sesiones-dic': { metaEvent: 'Programar', audienceName: AUDIENCE_MINIS },
 };
 
-const AUDIENCE_NAME = 'Agendaron llamada - Finite Estudio';
+// Triggers de Cal.com que aceptamos:
+//  - BOOKING_REQUESTED: las minis "requieren confirmación"; Cal.com avisa aquí en cuanto la persona reserva.
+//  - BOOKING_CREATED: reserva confirmada (el booking.uid es el mismo, así que Meta deduplica por event_id).
+//  - BOOKING_RESCHEDULED: no cuenta como evento nuevo (ya se contó), solo se asegura que esté en la audiencia.
+const SEND_EVENT_TRIGGERS = ['BOOKING_REQUESTED', 'BOOKING_CREATED'];
+const AUDIENCE_ONLY_TRIGGERS = ['BOOKING_RESCHEDULED'];
+
+// Busca en las respuestas del formulario el paquete elegido ("Paquete I", "Paquete II"...).
+function findPackage(booking) {
+  const sources = [booking.responses, booking.userFieldsResponses];
+  for (const src of sources) {
+    if (!src || typeof src !== 'object') continue;
+    for (const item of Object.values(src)) {
+      const value = item && typeof item === 'object' ? item.value : item;
+      if (typeof value === 'string' && /^paquete\s+[ivx]+$/i.test(value.trim())) return value.trim();
+    }
+  }
+  return null;
+}
 
 function verifySignature(rawBody, signatureHeader, secret) {
   if (!signatureHeader || !secret) return false;
@@ -62,8 +84,10 @@ exports.handler = async (event) => {
     return { statusCode: 400, body: 'JSON inválido' };
   }
 
-  if (payload.triggerEvent !== 'BOOKING_CREATED') {
-    return { statusCode: 200, body: 'Ignorado: no es booking created' };
+  const trigger = payload.triggerEvent;
+  const sendsEvent = SEND_EVENT_TRIGGERS.includes(trigger);
+  if (!sendsEvent && !AUDIENCE_ONLY_TRIGGERS.includes(trigger)) {
+    return { statusCode: 200, body: `Ignorado: trigger ${trigger} no se procesa` };
   }
 
   const booking = payload.payload || {};
@@ -87,18 +111,23 @@ exports.handler = async (event) => {
   const hashedPhone = phone ? sha256(phone) : undefined;
   const eventId = booking.uid; // clave para deduplicar contra el Pixel del navegador
 
-  try {
-    await sendCapiEvent({
-      eventName: config.metaEvent,
-      eventId,
-      hashedEmail,
-      hashedPhone,
-      actionSource: 'system_generated',
-      eventSourceUrl: `https://cal.com/sauldiazph/${slug}`,
-    });
+  const packageName = findPackage(booking);
 
-    if (config.audience) {
-      const audienceId = await findOrCreateAudience(AUDIENCE_NAME);
+  try {
+    if (sendsEvent) {
+      await sendCapiEvent({
+        eventName: config.metaEvent,
+        eventId,
+        hashedEmail,
+        hashedPhone,
+        actionSource: 'system_generated',
+        eventSourceUrl: `https://cal.com/sauldiazph/${slug}`,
+        customData: packageName ? { content_name: packageName } : undefined,
+      });
+    }
+
+    if (config.audienceName) {
+      const audienceId = await findOrCreateAudience(config.audienceName);
       await addUsersToAudience(audienceId, { hashedEmail, hashedPhone });
     }
   } catch (err) {
