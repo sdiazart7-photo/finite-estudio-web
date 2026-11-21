@@ -72,7 +72,7 @@ async function sendCapiEvent({
  */
 async function findOrCreateAudience(name) {
   const searchRes = await fetch(
-    `https://graph.facebook.com/${GRAPH_VERSION}/act_${AD_ACCOUNT_ID}/customaudiences?fields=id,name&access_token=${ACCESS_TOKEN}`
+    `https://graph.facebook.com/${GRAPH_VERSION}/act_${AD_ACCOUNT_ID}/customaudiences?fields=id,name&limit=500&access_token=${ACCESS_TOKEN}`
   );
   const searchData = await searchRes.json();
   if (!searchRes.ok) throw new Error(`Error buscando audiencias: ${JSON.stringify(searchData)}`);
