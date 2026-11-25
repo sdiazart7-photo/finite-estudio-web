@@ -13,3 +13,10 @@
 # Corrección ortográfica: pettite -> petite
 /blog/jardin-boda-pettite-casa-baga-rosarito /blog/jardin-boda-petite-casa-baga-rosarito/ 301
 /blog/jardin-boda-pettite-casa-baga-rosarito/ /blog/jardin-boda-petite-casa-baga-rosarito/ 301
+# Paginas viejas de Pixieset que seguian recibiendo visitas y daban 404
+/experiencia-finite / 301
+/experiencia-finite/ / 301
+/experiencia-shortfilm / 301
+/experiencia-shortfilm/ / 301
+/experiencia-premier / 301
+/experiencia-premier/ / 301

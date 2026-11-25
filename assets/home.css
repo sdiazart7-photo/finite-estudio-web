@@ -190,3 +190,7 @@
   }
   /* visible sin JS por si falla la animación de reveal */
   .no-js .reveal, .no-js .reveal-word{opacity:1 !important;transform:none !important;}
+
+.footer-guides{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 22px;padding-top:18px;font-size:0.78rem;}
+.footer-guides a{color:var(--fg-soft);}
+.footer-guides a:hover{color:var(--accent);}
